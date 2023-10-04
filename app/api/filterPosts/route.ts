@@ -108,7 +108,9 @@ export async function GET(request: NextRequest) {
     const displaypages = pages
     console.log(displaypages)
     console.log("parse", parseInt(page))
-    filteredposts.splice(0, parseInt(page-1)*15)
+    if (page != null) {
+    filteredposts.splice(0, parseInt(page!-1)*15)
+
     const selectedposts = filteredposts.filter((post: any) => {
         if (count < 15) {
             count++;
@@ -116,6 +118,7 @@ export async function GET(request: NextRequest) {
           }
           return false;
     })
+}
     // console.log(selectedposts[0])
 
 
