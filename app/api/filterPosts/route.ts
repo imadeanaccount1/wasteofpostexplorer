@@ -10,6 +10,10 @@ function compareNumbers(a: any, b: any) {
   function isGreaterThan(x: any, y: any) {
     return x > y
   }
+  function isLessThan(x: any, y: any) {
+    return x < y
+  }
+
 
   function greaterThanOrEqualTo(x: any, y: any) {
     return x >= y
