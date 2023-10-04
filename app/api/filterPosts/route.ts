@@ -108,7 +108,8 @@ export async function GET(request: NextRequest) {
     const displaypages = pages
     console.log(displaypages)
     console.log("parse", parseInt(page))
-    if (page != null) {
+    if (typeof(page) == number) {
+        // @ts-ignore
     filteredposts.splice(0, parseInt(page!-1)*15)
 
     const selectedposts = filteredposts.filter((post: any) => {
