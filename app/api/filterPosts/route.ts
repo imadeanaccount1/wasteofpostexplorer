@@ -19,12 +19,12 @@ function evaluateFilters(posts: any, filters: any) {
     console.log(typeof(filters), filters.length, filters)
     let postlist = [...posts]
     for (let step = 0; step < filters.length; step++) {
-        let fieldValue = null
+        let fieldValue : string = null
         if (filters[step].field === "likes") {
             fieldValue = "loves"
         }
-        let operationValue = null
-        let valueValue = null
+        let operationValue : Function = null
+        let valueValue : any = null
         if (filters[step].operation === ">") {
             operationValue = isGreaterThan
             valueValue = parseInt(filters[step].value)
