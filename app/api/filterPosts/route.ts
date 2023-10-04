@@ -32,10 +32,12 @@ function evaluateFilters(posts: any, filters: any) {
             operationValue = isLessThan
             valueValue = parseInt(filters[step].value)
         }
+        if (fieldValue != null && operationValue != null && valueValue != null) {
         postlist = postlist.filter((post: any) => {
             console.log(post[fieldValue]> valueValue)
             return operationValue(post[fieldValue], valueValue)
         })
+    }
         console.log("step", step)
     }
     return postlist
