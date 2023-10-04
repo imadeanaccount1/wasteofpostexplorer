@@ -125,6 +125,11 @@ function FilterBy(props: any) {
               >
                 <Option value=">">{">"}</Option>
                 <Option value="<">{"<"}</Option>
+                <Option value=">=">{">="}</Option>
+                <Option value="<=">{"<="}</Option>
+                <Option value="==">{"=="}</Option>
+                <Option value="!=">{"!="}</Option>
+
               </Select>
               <Typography  sx={{alignSelf: 'center'}} level="body-sm" fontWeight={700}>
                 Value:

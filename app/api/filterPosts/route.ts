@@ -10,8 +10,18 @@ function compareNumbers(a: any, b: any) {
   function isGreaterThan(x: any, y: any) {
     return x > y
   }
-  function isLessThan(x: any, y: any) {
-    return x < y
+
+  function greaterThanOrEqualTo(x: any, y: any) {
+    return x >= y
+  }
+  function lessThanOrEqualTo(x: any, y: any) {
+    return x <= y
+  }
+  function equalTo(x: any, y: any) {
+    return x == y
+  }
+  function notEqualTo(x: any, y: any) {
+    return x != y
   }
 
 
@@ -31,15 +41,28 @@ function evaluateFilters(posts: any, filters: any) {
         } else if (filters[step].operation === "<") {
             operationValue = isLessThan
             valueValue = parseInt(filters[step].value)
+        } else if (filters[step].operation === ">=") {
+            operationValue = greaterThanOrEqualTo
+            valueValue = parseInt(filters[step].value)
+        } else if (filters[step].operation === "<=") {
+            operationValue = lessThanOrEqualTo
+            valueValue = parseInt(filters[step].value)
+        }  else if (filters[step].operation === "!=") {
+            operationValue = notEqualTo
+            valueValue = parseInt(filters[step].value)
+        } else if (filters[step].operation === "==") {
+            operationValue = equalTo
+            valueValue = parseInt(filters[step].value)
         }
         if (fieldValue != null && operationValue != null && valueValue != null) {
         postlist = postlist.filter((post: any) => {
-            console.log(post[fieldValue!]> valueValue)
+            console.log(post[fieldValue!], post[fieldValue!]> valueValue)
             return operationValue!(post[fieldValue!], valueValue)
         })
     }
         console.log("step", step)
     }
+    console.log(postlist.length)
     return postlist
 }
 
@@ -67,7 +90,6 @@ export async function GET(request: NextRequest) {
     postsbyuser.sort(sorting[sort+"."+sortDirection])
 
     const filteredposts = await evaluateFilters(postsbyuser, filters)
-    console.log(filteredposts)
 
     const pageCount = Math.ceil(filteredposts.length/15)
     console.log(pageCount)
@@ -81,7 +103,8 @@ export async function GET(request: NextRequest) {
     }
     const displaypages = pages
     console.log(displaypages)
-    filteredposts.splice(0, parseInt(page)*15 + 1)
+    console.log("parse", parseInt(page))
+    filteredposts.splice(0, parseInt(page-1)*15)
     const selectedposts = filteredposts.filter((post: any) => {
         if (count < 15) {
             count++;
