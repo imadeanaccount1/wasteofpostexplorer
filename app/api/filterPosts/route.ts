@@ -7,10 +7,10 @@ function compareNumbers(a: any, b: any) {
     return b.time - a.time;
   }
 
-  function isGreaterThan(x, y) {
+  function isGreaterThan(x: any, y: any) {
     return x > y
   }
-  function isLessThan(x, y) {
+  function isLessThan(x: any, y: any) {
     return x < y
   }
 
