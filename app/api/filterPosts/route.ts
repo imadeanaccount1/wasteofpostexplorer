@@ -35,7 +35,7 @@ function evaluateFilters(posts: any, filters: any) {
         if (fieldValue != null && operationValue != null && valueValue != null) {
         postlist = postlist.filter((post: any) => {
             console.log(post[fieldValue!]> valueValue)
-            return operationValue(post[fieldValue!], valueValue)
+            return operationValue!(post[fieldValue!], valueValue)
         })
     }
         console.log("step", step)
