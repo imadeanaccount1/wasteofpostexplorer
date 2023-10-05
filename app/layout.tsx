@@ -1,9 +1,9 @@
 export const metadata = {
   title: 'Wasteof Post Explorer',
   description: 'Find, filter, search, sort, and paginate scraped wasteof posts and users.',
+  "opengraph-image": "https://wasteof-postexplorer.vercel.app/image.jpg",
 }
 
-import Head from 'next/head'
 
 export default function RootLayout({
   children,
@@ -12,12 +12,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Head>
-      <meta
-          property="og:image"
-          content="./image.jpg"
-        />
-      </Head>
       <body>{children}</body>
     </html>
   )
