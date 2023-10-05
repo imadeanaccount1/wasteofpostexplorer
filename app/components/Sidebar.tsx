@@ -85,7 +85,7 @@ export default function Sidebar() {
         zIndex: 10000,
         height: '100dvh',
         width: 'var(--Sidebar-width)',
-        maxWidth: '400px',
+        maxWidth: '370px',
         top: 0,
         p: 1.5,
         py: 3,
@@ -282,7 +282,7 @@ export default function Sidebar() {
             </IconButton>
           </Stack>
           <Typography level="body-xs">
-            Post Explorer Data is as of October 2, 2023. Posts created after this date will not be shown.
+            Post Explorer Data is old and may not be accurate. Deleted or admin-removed posts may be shown.
           </Typography>
 
         </Card>

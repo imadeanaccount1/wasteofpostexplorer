@@ -4,6 +4,7 @@ import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Divider from "@mui/joy/Divider";
 import { iconButtonClasses } from "@mui/joy/IconButton";
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -45,7 +46,7 @@ import Dropdown from "@mui/joy/Dropdown";
 import Menu from "@mui/joy/Menu";
 import MenuButton from "@mui/joy/MenuButton";
 import MenuItem from "@mui/joy/MenuItem";
-import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
+import PlayArrowOutlinedIcon from "@mui/icons-material/PlayArrowOutlined";
 
 import "./post.module.css";
 function formatTime(timeCreated: any) {
@@ -81,123 +82,172 @@ function formatTime(timeCreated: any) {
 function FilterBy(props: any) {
   return (
     <Stack
-            sx={{ width: "100%", justifyContent: "space-between" }}
-            direction="row"
-          >
-            <Stack spacing={2} direction="row">
-            <FilterAltOutlinedIcon sx={{alignSelf: 'center'}} />
-              <Typography sx={{alignSelf: 'center'}} level="body-sm" fontWeight={700}>
-                Field:
-              </Typography>
-              <Select
-                value={props.field}
-                onChange={(
-                  event: React.SyntheticEvent | null,
-                  newValue: string | null
-                ) => {
-                  const filters : any = [...props.filters]
-                  filters[props.filterIndex].field = newValue
-                  props.setFilters(filters)}}
-                size="sm"
-                defaultValue="1"
-                sx={{ minWidth: 160 }}
-              >
-                <Option value="likes">Like Count</Option>
-              </Select>
-              <Typography  sx={{alignSelf: 'center'}} level="body-sm" fontWeight={700}>
-                Operation:
-              </Typography>
-              <Select
-                value={props.operation}
-                onChange={(
-                  event: React.SyntheticEvent | null,
-                  newValue: string | null
-                ) => {
-                  const filters : any = [...props.filters]
-                  filters[props.filterIndex].operation = newValue
-                  console.log(filters, props.filterIndex, props.setFilters)
-                  props.setFilters(filters)
-                  console.log(props.filters)
-                }}
-                size="sm"
-                defaultValue=">"
-                sx={{ minWidth: 60 }}
-              >
-                <Option value=">">{">"}</Option>
-                <Option value="<">{"<"}</Option>
-                <Option value=">=">{">="}</Option>
-                <Option value="<=">{"<="}</Option>
-                <Option value="==">{"=="}</Option>
-                <Option value="!=">{"!="}</Option>
-
-              </Select>
-              <Typography  sx={{alignSelf: 'center'}} level="body-sm" fontWeight={700}>
-                Value:
-              </Typography>
-              <Input value={props.value} size="md" sx={{width: '100px'}} onChange={(event) => {
-                const filters : any = [...props.filters]
-                filters[props.filterIndex].value = event.target.value
-                props.setFilters(filters)
-              }} placeholder="Small" />
-
-            </Stack>
-            <IconButton
-            onClick={(event) => {
-                const filters : any = [...props.filters]
-                filters.splice(props.filterIndex, 1)
-                props.setFilters(filters)
-            }} variant="plain">
-
-            <DeleteForeverOutlinedIcon />
-            </IconButton>
-          </Stack>
-  )
-                }
+      sx={{ width: "100%", justifyContent: "space-between" }}
+      direction="row"
+    >
+      <Stack spacing={2} direction="row">
+        <FilterAltOutlinedIcon sx={{ alignSelf: "center" }} />
+        <Typography
+          sx={{ alignSelf: "center" }}
+          level="body-sm"
+          fontWeight={700}
+        >
+          Field:
+        </Typography>
+        <Select
+          value={props.field}
+          onChange={(
+            event: React.SyntheticEvent | null,
+            newValue: string | null
+          ) => {
+            const filters: any = [...props.filters];
+            filters[props.filterIndex].field = newValue;
+            props.setFilters(filters);
+          }}
+          size="sm"
+          defaultValue="1"
+          sx={{ minWidth: 160 }}
+        >
+          <Option value="loves">Love Count</Option>
+        </Select>
+        <Typography
+          sx={{ alignSelf: "center" }}
+          level="body-sm"
+          fontWeight={700}
+        >
+          Operation:
+        </Typography>
+        <Select
+          value={props.operation}
+          onChange={(
+            event: React.SyntheticEvent | null,
+            newValue: string | null
+          ) => {
+            const filters: any = [...props.filters];
+            filters[props.filterIndex].operation = newValue;
+            console.log(filters, props.filterIndex, props.setFilters);
+            props.setFilters(filters);
+            console.log(props.filters);
+          }}
+          size="sm"
+          defaultValue=">"
+          sx={{ minWidth: 60 }}
+        >
+          <Option value=">">{">"}</Option>
+          <Option value="<">{"<"}</Option>
+          <Option value=">=">{">="}</Option>
+          <Option value="<=">{"<="}</Option>
+          <Option value="==">{"=="}</Option>
+          <Option value="!=">{"!="}</Option>
+        </Select>
+        <Typography
+          sx={{ alignSelf: "center" }}
+          level="body-sm"
+          fontWeight={700}
+        >
+          Value:
+        </Typography>
+        <Input
+          value={props.value}
+          size="md"
+          sx={{ width: "100px" }}
+          onChange={(event) => {
+            const filters: any = [...props.filters];
+            filters[props.filterIndex].value = event.target.value;
+            props.setFilters(filters);
+          }}
+          placeholder="Small"
+        />
+      </Stack>
+      <IconButton
+        onClick={(event) => {
+          const filters: any = [...props.filters];
+          filters.splice(props.filterIndex, 1);
+          props.setFilters(filters);
+        }}
+        variant="plain"
+      >
+        <DeleteForeverOutlinedIcon />
+      </IconButton>
+    </Stack>
+  );
+}
 
 function SortBy(props: any) {
   return (
     <Stack
-            sx={{ width: "100%", justifyContent: "space-between" }}
-            direction="row"
-          >
-            <Stack spacing={2} direction="row">
-              <Typography sx={{alignSelf: 'center'}} level="body-sm" fontWeight={700}>
-                Sort by:
-              </Typography>
-              <Select
-                value={props.sort}
-                onChange={(
-                  event: React.SyntheticEvent | null,
-                  newValue: string | null
-                ) => props.setSort(newValue)}
-                size="sm"
-                defaultValue="1"
-                sx={{ minWidth: 160 }}
-              >
-                <Option value="time">Posted Time</Option>
-                <Option value="edit">Last Edit Time</Option>
-              </Select>
-              <Typography  sx={{alignSelf: 'center'}} level="body-sm" fontWeight={700}>
-                Sort direction:
-              </Typography>
-              <Select
-                value={props.sortDir}
-                onChange={(
-                  event: React.SyntheticEvent | null,
-                  newValue: string | null
-                ) => props.setSortDir(newValue)}
-                size="sm"
-                defaultValue="1"
-                sx={{ minWidth: 160 }}
-              >
-                <Option value="asc">Ascending</Option>
-                <Option value="desc">Descending</Option>
-              </Select>
-            </Stack>
-            <DeleteForeverOutlinedIcon />
-          </Stack>
-  )
-                }
+      sx={{ width: "100%", justifyContent: "space-between" }}
+      direction="row"
+    >
+      <Stack spacing={2} direction="row">
+        <Typography
+          sx={{ alignSelf: "center" }}
+          level="body-sm"
+          fontWeight={700}
+        >
+          Sort by:
+        </Typography>
+        <Select
+          value={props.field}
+          // onChange={(
+          //   event: React.SyntheticEvent | null,
+          //   newValue: string | null
+          // ) => props.setSort(newValue)}
+          onChange={(
+            event: React.SyntheticEvent | null,
+            newValue: string | null
+          ) => {
+            const sorts: any = [...props.sort];
+            sorts[props.sortIndex].field = newValue;
+            props.setSort(sorts);
+          }}
+          size="sm"
+          defaultValue="asc"
+          sx={{ minWidth: 160 }}
+        >
+          <Option value="time">Posted Time</Option>
+          <Option value="loves">Love Count</Option>
+
+          <Option value="edit">Last Edit Time</Option>
+        </Select>
+        <Typography
+          sx={{ alignSelf: "center" }}
+          level="body-sm"
+          fontWeight={700}
+        >
+          Sort direction:
+        </Typography>
+        <Select
+          value={props.direction}
+          onChange={(
+            event: React.SyntheticEvent | null,
+            newValue: string | null
+          ) => {
+            const sorts: any = [...props.sort];
+            sorts[props.sortIndex].direction = newValue;
+            props.setSort(sorts);
+          }}
+          size="sm"
+          defaultValue="1"
+          sx={{ minWidth: 160 }}
+        >
+          <Option value="asc">Ascending</Option>
+          <Option value="desc">Descending</Option>
+        </Select>
+      </Stack>
+      <IconButton
+        onClick={(event) => {
+          const sorts: any = [...props.sort];
+          sorts.splice(props.sortIndex, 1);
+          props.setSort(sorts);
+        }}
+        variant="plain"
+      >
+        <DeleteForeverOutlinedIcon />
+      </IconButton>
+    </Stack>
+  );
+}
 
 function Post(props: { data: any }) {
   var parse = require("html-react-parser");
@@ -287,17 +337,17 @@ function Post(props: { data: any }) {
 }
 
 export default function MyProfile(props: {
-  sort: string;
-  sortDir: string;
-  setSortDir: Function;
+  sort: any;
   setSort: Function;
   setPage: Function;
   filters: any;
   applyFilters: Function;
   setFilters: Function;
-  page: number;
+  page: string;
   user: string;
   pagination: any;
+  setSearch: Function;
+  search: string;
   loaded: boolean;
   selectedPosts: any;
 }) {
@@ -422,53 +472,46 @@ export default function MyProfile(props: {
         }}
       >
         <Stack spacing={2}>
-          <SortBy setSort={props.setSort} setSortDir={props.setSortDir} sort={props.sort} sortDir={props.sortDir} />
-          <Typography level="body-sm" fontWeight={700}>
-            Filters:
-          </Typography>
-          { props.filters.map((filter: any, index: number) => {
+          {props.sort.map((sort: any, index: number) => {
             return (
-          <FilterBy setFilters={props.setFilters} key={index} filters={props.filters} field={filter.field} operation={filter.operation} value={filter.value} filterIndex={index}/>
-            )})
-          }
-          <Stack spacing={1.5} direction="row" sx={{alignSelf: "flex-end"}}>
-          <Dropdown 
-          // sx={{ width: "130px", alignSelf: "flex-end" }}
-          >
-            <MenuButton
-              startDecorator={<FilterAltOutlinedIcon />}
-              // sx={{ width: "130px", alignSelf: "flex-end" }}
-            >
-              Add filter
-            </MenuButton>
-            <Menu>
-              <MenuItem
-              onClick={(event) => {
-                console.log('clicked on!!')
-                const filters : any = [...props.filters]
-                filters.push({'field': 'likes', 'operation': '>', 'value': '0'})
-                console.log(filters)
-                props.setFilters(filters)
-              }}>Filter by</MenuItem>
-              <MenuItem>Sort by</MenuItem>
-              <ListDivider />
-
-              <MenuItem>Add Calculation</MenuItem>
-            </Menu>
-          </Dropdown>
-          <Button
-          startDecorator={<PlayArrowOutlinedIcon />}
-          variant="solid"
-          onClick={(event) => {props.applyFilters()}}>
-            Apply Filters
-          </Button>
-          </Stack>
-        </Stack>
-        <Stack spacing={1.5} direction="row">
+              <SortBy
+                key={index}
+                setSort={props.setSort}
+                field={sort.field}
+                direction={sort.direction}
+                sort={props.sort}
+                sortIndex={index}
+              />
+            );
+          })}
+          <Typography level="body-sm" fontWeight={700}>
+            Filter by:
+          </Typography>
+          {props.filters.map((filter: any, index: number) => {
+            return (
+              <FilterBy
+                setFilters={props.setFilters}
+                key={index}
+                filters={props.filters}
+                field={filter.field}
+                operation={filter.operation}
+                value={filter.value}
+                filterIndex={index}
+              />
+            );
+          })}
+          <Typography level="body-sm" fontWeight={700}>
+            Text Search:
+          </Typography>
+          <Stack spacing={1.5} direction="row">
           <FormControl sx={{ flex: 1 }}>
             <Input
               placeholder="Search"
               startDecorator={<SearchIcon />}
+              value={props.search}
+              onChange={(event) => {
+                props.setSearch(event.target.value)
+              }}
               aria-label="Search"
             />
           </FormControl>
@@ -477,22 +520,71 @@ export default function MyProfile(props: {
               Clear
             </Button>
           </Box>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <Button variant="solid" color="primary">
-              Search
-            </Button>
-          </Box>
         </Stack>
+          <Stack spacing={1.5} direction="row" sx={{ alignSelf: "flex-end" }}>
+            <Dropdown
+            // sx={{ width: "130px", alignSelf: "flex-end" }}
+            >
+              <MenuButton
+                startDecorator={<AddOutlinedIcon />}
+                // sx={{ width: "130px", alignSelf: "flex-end" }}
+              >
+                Add filter
+              </MenuButton>
+              <Menu>
+                <MenuItem
+                  onClick={(event) => {
+                    console.log("clicked on!!");
+                    const filters: any = [...props.filters];
+                    filters.push({
+                      field: "loves",
+                      operation: ">",
+                      value: "0",
+                    });
+                    console.log(filters);
+                    props.setFilters(filters);
+                  }}
+                >
+                  Filter by
+                </MenuItem>
+                <MenuItem
+                onClick={(event) => {
+                  // console.log("clicked on!!");
+                  const sorts: any = [...props.sort];
+                  sorts.push({
+                    field: "loves",
+                    direction: "asc"
+                  });
+                  console.log(sorts);
+                  props.setSort(sorts);
+                }}>Sort by</MenuItem>
+                <ListDivider />
 
-        { (props.selectedPosts.length == 0 && props.loaded) ?
-        <EmptyState /> : 
-        props.loaded ? 
+                <MenuItem>Add Calculation</MenuItem>
+              </Menu>
+            </Dropdown>
+            <Button
+              startDecorator={<FilterAltOutlinedIcon />}
+              variant="solid"
+              onClick={(event) => {
+                props.applyFilters();
+              }}
+            >
+              Apply Filters
+            </Button>
+          </Stack>
+        </Stack>
+        
 
-        (props.selectedPosts.map((data: any) => {
-          return <Post key={data["_id"]} data={data} />;
-        }))
-
-        : <CircularProgress />}
+        {props.selectedPosts.length == 0 && props.loaded ? (
+          <EmptyState />
+        ) : props.loaded ? (
+          props.selectedPosts.map((data: any) => {
+            return <Post key={data["_id"]} data={data} />;
+          })
+        ) : (
+          <CircularProgress sx={{justifySelf: 'center', alignSelf: 'center'}} />
+        )}
         <div>
           <Box
             className="Pagination-mobile"
@@ -546,7 +638,10 @@ export default function MyProfile(props: {
                 <IconButton
                   key={page}
                   size="sm"
-                  onClick={() => props.setPage(page)}
+                  onClick={() => {
+                    props.setPage(parseInt(page));
+                    props.applyFilters();
+                  }}
                   variant={props.page == page ? "solid" : "outlined"}
                   color="neutral"
                 >
