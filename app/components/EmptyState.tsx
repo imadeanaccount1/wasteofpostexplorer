@@ -1,15 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from 'react';
 import Card, { CardProps } from '@mui/joy/Card';
-import Link from '@mui/joy/Link';
 import Typography from '@mui/joy/Typography';
 import AspectRatio from '@mui/joy/AspectRatio';
 
-export default function DropZone({
+export default function EmptyState({
   icon,
   sx,
+  contenttype,
   ...props
 }: CardProps & {
+  contenttype: string;
   icon?: React.ReactElement;
 }) {
   return (
@@ -46,11 +47,11 @@ export default function DropZone({
       </AspectRatio>
 
 <Typography level="body-lg" textAlign="center">
-No Posts Found
+No {contenttype} Found
 </Typography>
       <Typography level="body-sm" textAlign="center">
           
-        We could not find any posts for this user. This may be because the database only includes data created before October 2, 2023.
+        We could not find any {contenttype.toLowerCase()} for this filter. This may be because the database is outdated or because your filter is incorrect.
       </Typography>
     </Card>
   );

@@ -8,7 +8,7 @@ import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import MyProfile from "../components/PostList";
 
-export default function JoyOrderDashboardTemplate() {
+export default function Page() {
   const [loaded, setLoaded] = React.useState(false);
 
   const [neededPosts, setData] = React.useState([]);

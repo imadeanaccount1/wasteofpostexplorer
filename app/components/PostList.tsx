@@ -356,7 +356,7 @@ function Post(props: { data: any }) {
   );
 }
 
-export default function MyProfile(props: {
+export default function PostList(props: {
   sort: any;
   setSort: Function;
   setPage: Function;
@@ -622,7 +622,7 @@ export default function MyProfile(props: {
         
 
         {props.selectedPosts.length == 0 && props.loaded ? (
-          <EmptyState />
+          <EmptyState contenttype="Posts" />
         ) : props.loaded ? (
           props.selectedPosts.map((data: any) => {
             return <Post key={data["_id"]} data={data} />;

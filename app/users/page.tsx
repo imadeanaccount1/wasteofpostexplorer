@@ -8,7 +8,7 @@ import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import UserList from "../components/UserList";
 
-export default function JoyOrderDashboardTemplate({
+export default function Page({
   params,
 }: {
   params: { username: string };

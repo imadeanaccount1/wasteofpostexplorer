@@ -1,6 +1,5 @@
 import { ImageResponse } from 'next/server'
- 
-import Page from './page';
+import Typography from '@mui/joy/Typography';
 
 export const runtime = 'edge'
  
@@ -15,7 +14,7 @@ export default async function Image({ params }: { params: { username: string } }
  
   return new ImageResponse(
     (
-      <Page params={params} />
+      <Typography>{params.username}</Typography>
     ),
     {
       ...size,
