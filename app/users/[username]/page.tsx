@@ -6,8 +6,7 @@ import CssBaseline from "@mui/joy/CssBaseline";
 import Box from "@mui/joy/Box";
 import Sidebar from "../../components/Sidebar";
 import Header from "../../components/Header";
-import MyProfile from "../../components/MyProfile";
-import CircularProgress from "@mui/joy/CircularProgress";
+import MyProfile from "../../components/PostList";
 
 export default function JoyOrderDashboardTemplate({
   params,
@@ -52,7 +51,7 @@ export default function JoyOrderDashboardTemplate({
   function applyFilters() {
     console.log("applying filters");
     setLoaded(false);
-    setPage("1")
+    setPage("1");
     fetchData();
   }
   if (!loaded) {
@@ -63,7 +62,7 @@ export default function JoyOrderDashboardTemplate({
       <CssVarsProvider disableTransitionOnChange>
         <CssBaseline />
         <Box sx={{ display: "flex", minHeight: "100dvh" }}>
-          <Sidebar />
+          <Sidebar page="user" user={params.username} />
           <Header />
           <Box
             component="main"
