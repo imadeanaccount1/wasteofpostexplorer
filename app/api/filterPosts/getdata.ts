@@ -58,11 +58,10 @@ export async function getRecordCount(username: string | null, fullquery: any, se
   try {
     const database = client.db("womposts");
     const posts = database.collection("posts");
-    const users = database.collection("users");
 
     // Query for a movie that has the title 'Back to the Future'
     let query = { "poster.name": username };
-    query = { ...query, ...fullquery };
+    query = { ...query, ...fullquery, ...{ $text: { $search: searchtext } } };
 
     const movie = await posts.find(query).count();
     console.log("number of posts", movie);
