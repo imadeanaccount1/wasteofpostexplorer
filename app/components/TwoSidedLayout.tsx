@@ -9,15 +9,18 @@ import { typographyClasses } from '@mui/joy/Typography';
 export default function TwoSidedLayout({
   children,
   reversed,
-}: React.PropsWithChildren<{ reversed?: boolean }>) {
+  align,
+}: React.PropsWithChildren<{ reversed?: boolean }> & {
+    align: string,
+}) {
   return (
     <Container
       sx={{
         position: 'relative',
-        minHeight: '100vh',
         display: 'flex',
+        alignSelf: align,
         flexDirection: reversed ? 'column-reverse' : 'column',
-        alignItems: 'center',
+        alignItems: align,
         py: 10,
         gap: 4,
       }}
@@ -26,9 +29,9 @@ export default function TwoSidedLayout({
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
+          alignItems: align,
           gap: '1rem',
-          textAlign: 'center',
+          textAlign: align,
           flexShrink: 999,
           [`& .${typographyClasses.root}`]: {
             textWrap: 'balance',
