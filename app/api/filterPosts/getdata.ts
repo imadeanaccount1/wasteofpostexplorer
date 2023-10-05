@@ -19,7 +19,11 @@ export async function getData(
     let query = { "poster.name": username };
     let search = { $text: { $search: searchtext } }
     console.log(searchtext)
-    query = { ...query, ...fullquery, ...search };
+    if (searchtext === "") {
+    query = { ...query, ...fullquery };
+    } else {
+      query = { ...query, ...fullquery, ...search };
+    }
     let sort: any = { };
     // loop through sort
     console.log('sortloop', JSON.parse(sortValue))
@@ -62,8 +66,13 @@ export async function getRecordCount(username: string | null, fullquery: any, se
 
     // Query for a movie that has the title 'Back to the Future'
     let query = { "poster.name": username };
-    query = { ...query, ...fullquery, ...{ $text: { $search: searchtext } } };
-    console.log("query", query);
+    let search = { $text: { $search: searchtext } }
+
+    if (searchtext === "") {
+      query = { ...query, ...fullquery };
+      } else {
+        query = { ...query, ...fullquery, ...search };
+      }    console.log("query", query);
 
     const movie = await posts.find(query).count();
     console.log("number of posts", movie);
