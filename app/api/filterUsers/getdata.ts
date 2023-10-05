@@ -20,9 +20,22 @@ export async function getData(
     let sort: any = {};
     // loop through sort
     for (let i = 0; i < JSON.parse(sortValue).length; i++) {
-      sort[JSON.parse(sortValue)[i].field] =
+      let fieldValue = ""
+      if (JSON.parse(sortValue)[i].field === "join") {
+        fieldValue = "history.joined";
+      } else if (JSON.parse(sortValue)[i].field === "followers") {
+        fieldValue = "stats.followers";
+      } else if (JSON.parse(sortValue)[i].field === "following") {
+        fieldValue = "stats.following";
+      } else if (JSON.parse(sortValue)[i].field === "name") {
+        fieldValue = "name";
+      }
+
+      sort[fieldValue] =
         JSON.parse(sortValue)[i].direction === "asc" ? 1 : -1;
     }
+    console.log(sort)
+
 
     const postlist = await posts
       .find(query)
@@ -51,7 +64,6 @@ export async function getRecordCount(
   try {
     const database = client.db("womposts");
     const posts = database.collection("users");
-    console.log(fullquery)
 
     // Query for a movie that has the title 'Back to the Future'
     let search = { $text: { $search: searchtext } };
