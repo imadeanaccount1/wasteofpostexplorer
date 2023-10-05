@@ -39,8 +39,8 @@ export default function HeroLeft01() {
         </Typography>
         <Typography
                   sx={{maxWidth: "800px"}}
-                  ontSize="lg" textColor="text.secondary" lineHeight="lg">
-          Want to analyze wasteof.money posts and user data without doing thousands of API requests? Post Explorer doesn't do a single request to the wasteof.money API.
+                  fontSize="lg" textColor="text.secondary" lineHeight="lg">
+          Want to analyze wasteof.money posts and user data without doing thousands of API requests? Post Explorer doesn&apos;t do a single request to the wasteof.money API.
         </Typography>
   
       </TwoSidedLayout>
