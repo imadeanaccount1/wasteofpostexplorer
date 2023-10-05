@@ -5,8 +5,6 @@ import Link from '@mui/joy/Link';
 import Typography from '@mui/joy/Typography';
 import AspectRatio from '@mui/joy/AspectRatio';
 
-import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded';
-
 export default function DropZone({
   icon,
   sx,
