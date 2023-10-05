@@ -131,7 +131,8 @@ export default function Sidebar(props: { user: string, page: string}) {
           }}
         >
           <ListItem>
-            <ListItemButton selected={props.page=="home"}>
+            <ListItemButton 
+            component="a" href={props.page == "user" ? "../" : "../"} selected={props.page=="home"}>
               <HomeRoundedIcon sx={{marginRight: '8px'}}/>
               <ListItemContent>
                 <Typography level="title-sm">Home</Typography>
