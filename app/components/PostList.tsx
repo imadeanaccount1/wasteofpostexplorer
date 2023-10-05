@@ -418,11 +418,13 @@ export default function MyProfile(props: {
               fontSize={12}
               fontWeight={500}
             >
-              Users
+              {props.user == "any" ? "Posts" : "Users"}
             </Link>
+            { props.user == "any" ? null : (
             <Typography color="primary" fontWeight={500} fontSize={12}>
               {"@" + props.user + "'s"} profile
             </Typography>
+            )}
 
           </Breadcrumbs>
           { props.user == "any" ? (
