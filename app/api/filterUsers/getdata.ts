@@ -29,6 +29,8 @@ export async function getData(
         fieldValue = "stats.following";
       } else if (JSON.parse(sortValue)[i].field === "name") {
         fieldValue = "name";
+      } else if (JSON.parse(sortValue)[i].field === "posts") {
+        fieldValue = "stats.posts";
       }
 
       sort[fieldValue] =

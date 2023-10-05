@@ -1,9 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/joy/Box';
 import Card from '@mui/joy/Card';
-import Chip from '@mui/joy/Chip';
 import IconButton from '@mui/joy/IconButton';
-import Input from '@mui/joy/Input';
 import List from '@mui/joy/List';
 import ListItem from '@mui/joy/ListItem';
 import ListItemButton from '@mui/joy/ListItemButton';
@@ -11,6 +9,8 @@ import ListItemContent from '@mui/joy/ListItemContent';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 import Stack from '@mui/joy/Stack';
+import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
+
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import CollectionsBookmarkRoundedIcon from '@mui/icons-material/CollectionsBookmarkRounded';
@@ -149,10 +149,14 @@ export default function Sidebar(props: { user: string, page: string}) {
           </ListItem>
 
           <ListItem>
-            <ListItemButton>
-              <CollectionsBookmarkRoundedIcon />
+            <ListItemButton 
+                          href={props.page == "user" ? "../posts" : "posts"}
+                          component="a"
+
+                          selected={props.page=="posts"}>
+              <PostAddOutlinedIcon sx={{marginRight: '8px'}} />
               <ListItemContent>
-                <Typography level="title-sm">Projects</Typography>
+                <Typography level="title-sm">All Posts</Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>

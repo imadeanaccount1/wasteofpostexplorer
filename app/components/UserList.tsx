@@ -86,8 +86,9 @@ function FilterBy(props: any) {
           defaultValue="1"
           sx={{ minWidth: 160 }}
         >
-          <Option value="followers">Followers</Option>
-          <Option value="following">Following</Option>
+          <Option value="followers">Followers Count</Option>
+          <Option value="posts">Post Count</Option>
+          <Option value="following">Following Count</Option>
           <Option value="join">Join Date</Option>
           <Option value="name">Username</Option>
 
@@ -214,8 +215,9 @@ function SortBy(props: any) {
           defaultValue="join"
           sx={{ minWidth: 160 }}
         >
-          <Option value="followers">Followers</Option>
-          <Option value="following">Following</Option>
+          <Option value="followers">Followers Count</Option>
+          <Option value="following">Following Count</Option>
+          <Option value="posts">Post Count</Option>
           <Option value="join">Join Date</Option>
           <Option value="name">Username</Option>
         </Select>
@@ -650,7 +652,7 @@ export default function MyProfile(props: {
                   key={page}
                   size="sm"
                   onClick={() => {
-                    props.setPage(parseInt(page));
+                    props.setPage(page);
                     props.applyFilters();
                   }}
                   variant={props.page == page ? "solid" : "outlined"}

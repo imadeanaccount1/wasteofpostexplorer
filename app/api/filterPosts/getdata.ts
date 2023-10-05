@@ -14,7 +14,12 @@ export async function getData(
     const posts = database.collection("posts");
 
     // Query for a movie that has the title 'Back to the Future'
-    let query = { "poster.name": username };
+    let query : any = {}
+    if (username=="any") {
+      query["poster.name"] = { $exists: true }
+    } else {
+      query["poster.name"] = username;
+    }
     let search = { $text: { $search: searchtext } };
     if (searchtext === "") {
       query = { ...query, ...fullquery };
@@ -24,7 +29,17 @@ export async function getData(
     let sort: any = {};
     // loop through sort
     for (let i = 0; i < JSON.parse(sortValue).length; i++) {
-      sort[JSON.parse(sortValue)[i].field] =
+      let fieldValue = ""
+      if (JSON.parse(sortValue)[i].field === "loves") {
+        fieldValue = "loves";
+      } else if (JSON.parse(sortValue)[i].field === "comments") {
+        fieldValue = "comments";
+      } else if (JSON.parse(sortValue)[i].field === "reposts") {
+        fieldValue = "reposts";
+      } else if (JSON.parse(sortValue)[i].field === "date") {
+        fieldValue = "time";
+      } 
+      sort[fieldValue] =
         JSON.parse(sortValue)[i].direction === "asc" ? 1 : -1;
     }
 
@@ -58,7 +73,13 @@ export async function getRecordCount(
     const posts = database.collection("posts");
 
     // Query for a movie that has the title 'Back to the Future'
-    let query = { "poster.name": username };
+    let query : any = {}
+    if (username=="any") {
+      query["poster.name"] = { $exists: true }
+    } else {
+      query["poster.name"] = username;
+    }
+    // let query = { "poster.name": username };
     let search = { $text: { $search: searchtext } };
 
     if (searchtext === "") {

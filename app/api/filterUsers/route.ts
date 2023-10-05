@@ -15,7 +15,9 @@ async function getQuery(filters: any) {
       fieldValue = "stats.following";
     } else if (filters[step].field === "name") {
       fieldValue = "name";
-    }
+    } else if (filters[step].field === "posts") {
+      fieldValue = "stats.posts";
+    } 
 
     let valueValue: any = null;
     let mongoQuery: any = null;

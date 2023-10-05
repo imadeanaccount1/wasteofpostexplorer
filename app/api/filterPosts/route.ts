@@ -10,16 +10,33 @@ async function getQuery(filters: any) {
     let fieldValue: string | null = null;
     if (filters[step].field === "loves") {
       fieldValue = "loves";
+    } else if (filters[step].field === "reposts") {
+      fieldValue = "reposts";
+    } else if (filters[step].field === "comments") {
+      fieldValue = "comments";
+    } else if (filters[step].field === "name") {
+      fieldValue = "poster.name";
+    } else if (filters[step].field === "posted") {
+      fieldValue = "time"
     }
 
     let valueValue: any = null;
     let mongoQuery: any = null;
     if (filters[step].operation === ">") {
-      valueValue = parseInt(filters[step].value);
+      if (filters[step].field === "posted") {
+
+      valueValue = new Date(filters[step].value).getTime();
+      } else {
+        valueValue = parseInt(filters[step].value);
+      }
       mongoQuery = { $gt: valueValue };
     } else if (filters[step].operation === "<") {
-      valueValue = parseInt(filters[step].value);
-      mongoQuery = { $lt: valueValue };
+      if (filters[step].field === "posted") {
+
+        valueValue = new Date(filters[step].value);
+        } else {
+          valueValue = parseInt(filters[step].value);
+        }      mongoQuery = { $lt: valueValue };
     } else if (filters[step].operation === ">=") {
       valueValue = parseInt(filters[step].value);
       mongoQuery = { $gte: valueValue };
@@ -27,10 +44,20 @@ async function getQuery(filters: any) {
       valueValue = parseInt(filters[step].value);
       mongoQuery = { $lte: valueValue };
     } else if (filters[step].operation === "!=") {
+      if (filters[step].field === "name") {
+        valueValue = filters[step].value;
+
+      } else {
       valueValue = parseInt(filters[step].value);
+      }
       mongoQuery = { $ne: valueValue };
     } else if (filters[step].operation === "==") {
+      if (filters[step].field === "name") {
+        valueValue = filters[step].value;
+
+      } else {
       valueValue = parseInt(filters[step].value);
+      };
       mongoQuery = { $eq: valueValue };
     }
     fullquery[fieldValue!] = { ...fullquery[fieldValue!], ...mongoQuery };
@@ -51,7 +78,7 @@ export async function GET(request: NextRequest) {
   const recordCount = await getRecordCount(user, query, searchtext);
 
   const pageCount = Math.ceil(recordCount / 15);
-
+  console.log(query)
   const pages = Array.from({ length: pageCount }, (x, i) => i).map((page) =>
     (page + 1).toString()
   );

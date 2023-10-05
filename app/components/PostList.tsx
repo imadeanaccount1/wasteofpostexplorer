@@ -83,6 +83,10 @@ function FilterBy(props: any) {
           sx={{ minWidth: 160 }}
         >
           <Option value="loves">Love Count</Option>
+          <Option value="posted">Posted Time</Option>
+          <Option value="name">Username</Option>
+          <Option value="reposts">Repost Count</Option>
+          <Option value="comments">Comment Count</Option>
         </Select>
         <Typography
           sx={{ alignSelf: "center" }}
@@ -107,12 +111,21 @@ function FilterBy(props: any) {
           defaultValue=">"
           sx={{ minWidth: 60 }}
         >
+          { props.field == "name" ? (
+            <>
+            <Option value="==">{"=="}</Option>
+            <Option value="!=">{"!="}</Option>
+            </>
+          ) : (
+            <>
           <Option value=">">{">"}</Option>
           <Option value="<">{"<"}</Option>
           <Option value=">=">{">="}</Option>
           <Option value="<=">{"<="}</Option>
           <Option value="==">{"=="}</Option>
           <Option value="!=">{"!="}</Option>
+          </>
+          ) }
         </Select>
         <Typography
           sx={{ alignSelf: "center" }}
@@ -121,16 +134,34 @@ function FilterBy(props: any) {
         >
           Value:
         </Typography>
-        <Input
+        { props.field == "posted" ? 
+        (<Input
+          id="filters-start-date"
+          type="date"
+          placeholder="Jan 6 - Jan 13"
+          aria-label="Date"
           value={props.value}
-          size="md"
-          sx={{ width: "100px" }}
-          onChange={(event) => {
+          onChange={(
+            event
+          ) => {
             const filters: any = [...props.filters];
             filters[props.filterIndex].value = event.target.value;
+            console.log(filters, props.filterIndex, props.setFilters);
             props.setFilters(filters);
-          }}
-        />
+            console.log(props.filters);
+          }} />) : (
+            <Input
+            value={props.value}
+            size="md"
+            sx={{ width: "100px" }}
+            onChange={(event) => {
+              const filters: any = [...props.filters];
+              filters[props.filterIndex].value = event.target.value;
+              props.setFilters(filters);
+            }}
+          />
+          )}
+
       </Stack>
       <IconButton
         onClick={(event) => {
@@ -178,10 +209,12 @@ function SortBy(props: any) {
           defaultValue="asc"
           sx={{ minWidth: 160 }}
         >
-          <Option value="time">Posted Time</Option>
+          <Option value="date">Posted Time</Option>
           <Option value="loves">Love Count</Option>
+          <Option value="reposts">Repost Count</Option>
+          <Option value="comments">Comment Count</Option>
 
-          <Option value="edit">Last Edit Time</Option>
+
         </Select>
         <Typography
           sx={{ alignSelf: "center" }}
@@ -390,7 +423,21 @@ export default function MyProfile(props: {
             <Typography color="primary" fontWeight={500} fontSize={12}>
               {"@" + props.user + "'s"} profile
             </Typography>
+
           </Breadcrumbs>
+          { props.user == "any" ? (
+              <Typography
+              level="h2"
+              sx={{
+                mt: 1,
+                mb: 2,
+              }}
+            >
+              All Posts
+            </Typography>
+            ) : (
+              <Stack direction="row" spacing={1}>
+
           <Typography
             level="h2"
             sx={{
@@ -400,6 +447,14 @@ export default function MyProfile(props: {
           >
             {"@" + props.user + "'s"} profile
           </Typography>
+          <Divider orientation="vertical" />
+            <Link href={"https://wasteof.money/users/" + props.user}>
+            <Button>
+              View Profile on Wasteof
+            </Button>
+            </Link>
+            </Stack>
+            )}
         </Box>
         <Tabs
           defaultValue={0}
