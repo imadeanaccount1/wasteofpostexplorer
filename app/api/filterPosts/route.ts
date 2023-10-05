@@ -1,8 +1,12 @@
-import { type NextRequest } from "next/server";
+import { type NextRequest, type NextResponse } from "next/server";
 
 import { getData, getRecordCount } from "./getdata";
 
 import { isGreaterThan, isLessThan, greaterThanOrEqualTo, lessThanOrEqualTo, equalTo, notEqualTo } from "../utils";
+// @ts-ignore
+import { get, set } from 'lodash';
+import { AnyBulkWriteOperation } from "mongodb";
+
 
 async function getQuery(filters: any) {
   let fullquery: any = {};
@@ -65,7 +69,30 @@ async function getQuery(filters: any) {
   return fullquery;
 }
 
+const rateLimit = 20; // Number of allowed requests per minute
+
+const rateLimiter = {};
+
+const rateLimiterMiddleware = (ip: any) => {
+  const now = Date.now();
+  const windowStart = now - 60 * 1000; // 1 minute ago
+
+  const requestTimestamps = get(rateLimiter, ip, []).filter((timestamp: any) => timestamp > windowStart);
+  requestTimestamps.push(now);
+
+  set(rateLimiter, ip, requestTimestamps);
+
+  return requestTimestamps.length <= rateLimit;
+};
+
+
 export async function GET(request: NextRequest) {
+  const ip : any = request.headers.get('x-real-ip') ||  request.ip;
+
+  if (!rateLimiterMiddleware(ip)) {
+    return Response.json({ error: 'Rate Limited' }, { status: 500 })
+    // return Response.status(429).json({ message: 'Too Many Requests' });
+  }
   const searchParams = request.nextUrl.searchParams;
   const user = searchParams.get("user");
   const page: string = searchParams.get("page")!;

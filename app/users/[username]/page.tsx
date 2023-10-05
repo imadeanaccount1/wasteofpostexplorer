@@ -42,9 +42,13 @@ export default function JoyOrderDashboardTemplate({
     )
       .then((res) => res.json())
       .then((data) => {
+        if (data.error) {
+          alert("Rate limted. :/ Please wait 1 minute and try again")
+        } else {
         setData(data.posts);
         setPagination(data.pagination);
         setLoaded(true);
+        }
       });
   }
 

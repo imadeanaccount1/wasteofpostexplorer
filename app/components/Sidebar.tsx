@@ -165,22 +165,16 @@ export default function Sidebar(props: { user: string, page: string}) {
             >
               <List sx={{ gap: 0.5 }}>
                 <ListItem sx={{ mt: 0.5 }}>
-                  <ListItemButton>Random Posts</ListItemButton>
-                </ListItem>
-                <ListItem>
-                  <ListItemButton>Backlog</ListItemButton>
-                </ListItem>
-                <ListItem>
-                  <ListItemButton>In progress</ListItemButton>
-                </ListItem>
-                <ListItem>
-                  <ListItemButton>Done</ListItemButton>
+                <ShuffleIcon sx={{marginRight: '8px'}} />
+                  <ListItemContent>
+                    <Typography level="title-sm">Random Posts</Typography>
+                  </ListItemContent>
                 </ListItem>
               </List>
             </Toggler>
           </ListItem>
 
-          <ListItem nested>
+          {/* <ListItem nested>
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
@@ -209,7 +203,7 @@ export default function Sidebar(props: { user: string, page: string}) {
                 </ListItem>
               </List>
             </Toggler>
-          </ListItem>
+          </ListItem> */}
 
           <ListItem>
             <ListItemButton
