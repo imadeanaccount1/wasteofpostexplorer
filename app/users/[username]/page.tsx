@@ -52,6 +52,7 @@ export default function JoyOrderDashboardTemplate({
   function applyFilters() {
     console.log("applying filters");
     setLoaded(false);
+    setPage("1")
     fetchData();
   }
   if (!loaded) {
