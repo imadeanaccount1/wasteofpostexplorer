@@ -22,7 +22,7 @@ export default function JoyOrderDashboardTemplate({
     pageCount: 0,
   });
   const [page, setPage] = React.useState("1");
-  const [sort, setSort] = React.useState([{ field: "time", direction: "asc" }]);
+  const [sort, setSort] = React.useState([{ field: "posted", direction: "asc" }]);
   const [search, setSearch] = React.useState("");
   const [filters, setFilters] = React.useState([
     { field: "loves", operation: ">", value: "0" },

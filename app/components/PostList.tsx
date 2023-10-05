@@ -272,7 +272,7 @@ function Post(props: { data: any }) {
               maxHeight={48}
               sx={{ flex: 1, minWidth: 48, borderRadius: "100%" }}
             >
-                        <Link color="primary" href={"./" + props.data.name}>
+                        <Link color="primary" href={"./" + props.data.poster.name}>
 
               <Image
                 src={`https://api.wasteof.money/users/${props.data.poster.name}/picture`}
@@ -285,7 +285,7 @@ function Post(props: { data: any }) {
             </AspectRatio>
           </Stack>
           <Stack direction="column" spacing={0}>
-          <Link color="primary" href={"./" + props.data.name}>
+          <Link color="primary" href={"./" + props.data.poster.name}>
 
             <Typography level="title-md">@{props.data.poster.name}</Typography>
             </Link>
