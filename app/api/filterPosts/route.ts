@@ -74,11 +74,12 @@ export async function GET(request: NextRequest) {
   const filters: any = JSON.parse(searchParams.get("filters")!);
 
   const query = await getQuery(filters);
+  console.log("query", query)
+
   const filteredposts = await getData(user, page, query, sort, searchtext);
   const recordCount = await getRecordCount(user, query, searchtext);
 
   const pageCount = Math.ceil(recordCount / 15);
-  console.log(query)
   const pages = Array.from({ length: pageCount }, (x, i) => i).map((page) =>
     (page + 1).toString()
   );

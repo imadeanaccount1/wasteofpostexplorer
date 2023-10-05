@@ -16,7 +16,7 @@ import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import CollectionsBookmarkRoundedIcon from '@mui/icons-material/CollectionsBookmarkRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-
+import Link from '@mui/joy/Link';
 import ColorSchemeToggle from './ColorSchemeToggle';
 import { closeSidebar } from '../utils';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
@@ -131,25 +131,19 @@ export default function Sidebar(props: { user: string, page: string}) {
           }}
         >
           <ListItem>
-            <ListItemButton>
-              <HomeRoundedIcon />
+            <ListItemButton selected={props.page=="home"}>
+              <HomeRoundedIcon sx={{marginRight: '8px'}}/>
               <ListItemContent>
                 <Typography level="title-sm">Home</Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>
 
-          <ListItem>
-            <ListItemButton>
-              <DashboardRoundedIcon />
-              <ListItemContent>
-                <Typography level="title-sm">Dashboard</Typography>
-              </ListItemContent>
-            </ListItemButton>
-          </ListItem>
 
-          <ListItem>
-            <ListItemButton 
+          <ListItem nested>
+          <Toggler
+              renderToggle={({ open, setOpen }) => (
+                <ListItemButton onClick={() => setOpen(!open)}
                           href={props.page == "user" ? "../posts" : "posts"}
                           component="a"
 
@@ -157,8 +151,32 @@ export default function Sidebar(props: { user: string, page: string}) {
               <PostAddOutlinedIcon sx={{marginRight: '8px'}} />
               <ListItemContent>
                 <Typography level="title-sm">All Posts</Typography>
+                
               </ListItemContent>
+              <Link href="#">
+              <KeyboardArrowDownIcon
+                    
+                    sx={{ transform: open ? 'rotate(180deg)' : 'none' }}
+                  />
+                  </Link>
             </ListItemButton>
+            )}
+            >
+              <List sx={{ gap: 0.5 }}>
+                <ListItem sx={{ mt: 0.5 }}>
+                  <ListItemButton>Random Posts</ListItemButton>
+                </ListItem>
+                <ListItem>
+                  <ListItemButton>Backlog</ListItemButton>
+                </ListItem>
+                <ListItem>
+                  <ListItemButton>In progress</ListItemButton>
+                </ListItem>
+                <ListItem>
+                  <ListItemButton>Done</ListItemButton>
+                </ListItem>
+              </List>
+            </Toggler>
           </ListItem>
 
           <ListItem nested>
@@ -201,7 +219,7 @@ export default function Sidebar(props: { user: string, page: string}) {
             >
               <GroupOutlinedIcon sx={{marginRight: '8px'}} />
               <ListItemContent>
-                <Typography level="title-sm">Filter Users</Typography>
+                <Typography level="title-sm">Find Users</Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>

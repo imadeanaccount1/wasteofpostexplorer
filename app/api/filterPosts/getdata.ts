@@ -36,7 +36,7 @@ export async function getData(
         fieldValue = "comments";
       } else if (JSON.parse(sortValue)[i].field === "reposts") {
         fieldValue = "reposts";
-      } else if (JSON.parse(sortValue)[i].field === "date") {
+      } else if (JSON.parse(sortValue)[i].field === "posted") {
         fieldValue = "time";
       } 
       sort[fieldValue] =

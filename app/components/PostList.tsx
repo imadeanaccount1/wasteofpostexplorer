@@ -209,7 +209,7 @@ function SortBy(props: any) {
           defaultValue="asc"
           sx={{ minWidth: 160 }}
         >
-          <Option value="date">Posted Time</Option>
+          <Option value="posted">Posted Time</Option>
           <Option value="loves">Love Count</Option>
           <Option value="reposts">Repost Count</Option>
           <Option value="comments">Comment Count</Option>
