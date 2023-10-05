@@ -15,8 +15,12 @@ export async function getData(
     // Query for a movie that has the title 'Back to the Future'
     let search = { $text: { $search: searchtext } };
 
-    let query = {...fullquery};
-
+    let query = null;
+    if (searchtext === "") {
+      query = { ...fullquery };
+    } else {
+      query = { ...fullquery, ...search };
+    }
     let sort: any = {};
     // loop through sort
     for (let i = 0; i < JSON.parse(sortValue).length; i++) {
@@ -70,8 +74,12 @@ export async function getRecordCount(
     // Query for a movie that has the title 'Back to the Future'
     let search = { $text: { $search: searchtext } };
 
-    let query = { ...fullquery };
-    
+    let query = null;
+    if (searchtext === "") {
+      query = { ...fullquery };
+    } else {
+      query = { ...fullquery, ...search };
+    }    
     const count = await posts.find(query).count();
 
     return count;
