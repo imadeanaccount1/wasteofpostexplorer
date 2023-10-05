@@ -2,7 +2,6 @@ import { type NextRequest } from "next/server";
 
 import { getData, getRecordCount } from "./getdata";
 
-
 async function getQuery(filters: any) {
   let fullquery: any = {};
   for (let step = 0; step < filters.length; step++) {
@@ -17,15 +16,23 @@ async function getQuery(filters: any) {
       fieldValue = "name";
     } else if (filters[step].field === "posts") {
       fieldValue = "stats.posts";
-    } 
+    }
 
     let valueValue: any = null;
     let mongoQuery: any = null;
     if (filters[step].operation === ">") {
-      valueValue = parseInt(filters[step].value);
+      if (filters[step].field === "join") {
+        valueValue = new Date(filters[step].value).getTime();
+      } else {
+        valueValue = parseInt(filters[step].value);
+      }
       mongoQuery = { $gt: valueValue };
     } else if (filters[step].operation === "<") {
-      valueValue = parseInt(filters[step].value);
+      if (filters[step].field === "join") {
+        valueValue = new Date(filters[step].value).getTime();
+      } else {
+        valueValue = parseInt(filters[step].value);
+      }
       mongoQuery = { $lt: valueValue };
     } else if (filters[step].operation === ">=") {
       valueValue = parseInt(filters[step].value);
@@ -36,18 +43,16 @@ async function getQuery(filters: any) {
     } else if (filters[step].operation === "!=") {
       if (filters[step].field === "name") {
         valueValue = filters[step].value;
-
       } else {
-      valueValue = parseInt(filters[step].value);
+        valueValue = parseInt(filters[step].value);
       }
 
       mongoQuery = { $ne: valueValue };
     } else if (filters[step].operation === "==") {
       if (filters[step].field === "name") {
         valueValue = filters[step].value;
-
       } else {
-      valueValue = parseInt(filters[step].value);
+        valueValue = parseInt(filters[step].value);
       }
       mongoQuery = { $eq: valueValue };
     }
@@ -62,7 +67,7 @@ export async function GET(request: NextRequest) {
   const page: string = searchParams.get("page")!;
   const sort: any = searchParams.get("sort")!;
   const filters: any = JSON.parse(searchParams.get("filters")!);
-  const search : string = searchParams.get("search")!;
+  const search: string = searchParams.get("search")!;
 
   const query = await getQuery(filters);
   const filteredposts = await getData(page, query, sort, search);
