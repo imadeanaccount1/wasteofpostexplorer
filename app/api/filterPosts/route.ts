@@ -70,7 +70,7 @@ async function getQuery(filters: any) {
   return fullquery;
 }
 
-const rateLimit = 90; // Number of allowed requests per minute
+const rateLimit = 20; // Number of allowed requests per minute
 
 const rateLimiter = {};
 

@@ -652,6 +652,7 @@ export default function PostList(props: {
                   key={page}
                   size="sm"
                   onClick={() => {
+                    console.log(props.page, page)
                     props.setPage(page);
                     props.applyFilters();
                   }}

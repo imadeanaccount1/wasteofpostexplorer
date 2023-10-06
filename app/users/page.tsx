@@ -56,7 +56,6 @@ export default function Page({
   function applyFilters() {
     console.log("applying filters");
     setLoaded(false);
-    setPage("1");
     fetchData();
   }
   if (!loaded) {
