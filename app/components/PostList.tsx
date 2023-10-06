@@ -628,7 +628,9 @@ export default function PostList(props: {
             return <Post key={data["_id"]} data={data} />;
           })
         ) : (
+          <>
           <CircularProgress sx={{justifySelf: 'center', alignSelf: 'center'}} />
+          </>
         )}
         <div>
           <Box
@@ -696,7 +698,9 @@ export default function PostList(props: {
                   key={page}
                   size="sm"
                   onClick={() => {
-                    props.setPage(parseInt(page));
+                    console.log(page)
+                    props.setPage(page);
+                    console.log(props.page)
                     props.applyFilters();
                   }}
                   variant={props.page == page ? "solid" : "outlined"}
