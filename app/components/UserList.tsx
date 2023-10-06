@@ -300,7 +300,12 @@ function User (props: {data: any}) {
       <CardOverflow sx={{ borderTop: "1px solid", borderColor: "divider" }}>
         <CardActions sx={{ alignSelf: "flex-end", pt: 2 }}>
           <Stack spacing={3} direction="row">
-            <Typography startDecorator={<Groups3OutlinedIcon />}>
+            <Typography startDecorator={<Groups3OutlinedIcon />}
+                          sx={{
+                            textDecoration: "none",
+                          }}
+                          component="a"
+                          href={"https://wasteof.money/users/" + props.data.name + "/followers"}>
               {props.data.stats.followers}
             </Typography>
             <Typography
@@ -309,6 +314,11 @@ function User (props: {data: any}) {
                 xs: "none",
                 md: "flex",
               }}
+              sx={{
+                textDecoration: "none",
+              }}
+              component="a"
+              href={"https://wasteof.money/users/" + props.data.name + "/following"}
             >
               {props.data.stats.following}
             </Typography>
@@ -318,6 +328,11 @@ function User (props: {data: any}) {
                 xs: "none",
                 md: "flex",
               }}
+              sx={{
+                textDecoration: "none",
+              }}
+              component="a"
+              href={"https://wasteof.money/users/" + props.data.name}
             >
               {props.data.stats.posts}
             </Typography>
@@ -327,6 +342,11 @@ function User (props: {data: any}) {
                 xs: "none",
                 md: "flex",
               }}
+              sx={{
+                textDecoration: "none",
+              }}
+              component="a"
+              href={"https://wasteof.money/users/" + props.data.name}
             >
               {/* {JSON.stringify(props.data)} */}
               {"Joined " + (props.data.history != undefined ? formatTime(props.data.history.joined) : "")}

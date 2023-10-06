@@ -5,7 +5,7 @@ import Button from "@mui/joy/Button";
 import Chip from "@mui/joy/Chip";
 import Divider from "@mui/joy/Divider";
 import { iconButtonClasses } from "@mui/joy/IconButton";
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -47,10 +47,10 @@ import Dropdown from "@mui/joy/Dropdown";
 import Menu from "@mui/joy/Menu";
 import MenuButton from "@mui/joy/MenuButton";
 import MenuItem from "@mui/joy/MenuItem";
-import WestOutlinedIcon from '@mui/icons-material/WestOutlined';
-import EastOutlinedIcon from '@mui/icons-material/EastOutlined';
+import WestOutlinedIcon from "@mui/icons-material/WestOutlined";
+import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
 import formatTime from "../utils/formatTime";
-import Image from 'next/image'
+import Image from "next/image";
 
 import "./post.module.css";
 
@@ -112,21 +112,21 @@ function FilterBy(props: any) {
           defaultValue=">"
           sx={{ minWidth: 60 }}
         >
-          { props.field == "name" ? (
+          {props.field == "name" ? (
             <>
-            <Option value="==">{"=="}</Option>
-            <Option value="!=">{"!="}</Option>
+              <Option value="==">{"=="}</Option>
+              <Option value="!=">{"!="}</Option>
             </>
           ) : (
             <>
-          <Option value=">">{">"}</Option>
-          <Option value="<">{"<"}</Option>
-          <Option value=">=">{">="}</Option>
-          <Option value="<=">{"<="}</Option>
-          <Option value="==">{"=="}</Option>
-          <Option value="!=">{"!="}</Option>
-          </>
-          ) }
+              <Option value=">">{">"}</Option>
+              <Option value="<">{"<"}</Option>
+              <Option value=">=">{">="}</Option>
+              <Option value="<=">{"<="}</Option>
+              <Option value="==">{"=="}</Option>
+              <Option value="!=">{"!="}</Option>
+            </>
+          )}
         </Select>
         <Typography
           sx={{ alignSelf: "center" }}
@@ -135,23 +135,23 @@ function FilterBy(props: any) {
         >
           Value:
         </Typography>
-        { props.field == "posted" ? 
-        (<Input
-          id="filters-start-date"
-          type="date"
-          placeholder="Jan 6 - Jan 13"
-          aria-label="Date"
-          value={props.value}
-          onChange={(
-            event
-          ) => {
-            const filters: any = [...props.filters];
-            filters[props.filterIndex].value = event.target.value;
-            // console.log(filters, props.filterIndex, props.setFilters);
-            props.setFilters(filters);
-            // console.log(props.filters);
-          }} />) : (
-            <Input
+        {props.field == "posted" ? (
+          <Input
+            id="filters-start-date"
+            type="date"
+            placeholder="Jan 6 - Jan 13"
+            aria-label="Date"
+            value={props.value}
+            onChange={(event) => {
+              const filters: any = [...props.filters];
+              filters[props.filterIndex].value = event.target.value;
+              // console.log(filters, props.filterIndex, props.setFilters);
+              props.setFilters(filters);
+              // console.log(props.filters);
+            }}
+          />
+        ) : (
+          <Input
             value={props.value}
             size="md"
             sx={{ width: "100px" }}
@@ -161,8 +161,7 @@ function FilterBy(props: any) {
               props.setFilters(filters);
             }}
           />
-          )}
-
+        )}
       </Stack>
       <IconButton
         onClick={(event) => {
@@ -214,8 +213,6 @@ function SortBy(props: any) {
           <Option value="loves">Love Count</Option>
           <Option value="reposts">Repost Count</Option>
           <Option value="comments">Comment Count</Option>
-
-
         </Select>
         <Typography
           sx={{ alignSelf: "center" }}
@@ -273,56 +270,76 @@ function Post(props: { data: any }) {
               maxHeight={48}
               sx={{ flex: 1, minWidth: 48, borderRadius: "100%" }}
             >
-                        <Link color="primary" href={"./users/" + props.data.poster.name}>
-
-              <Image
-                src={`https://api.wasteof.money/users/${props.data.poster.name}/picture`}
-                loading="lazy"
-                alt=""
-                width="48"
-                height="48"
-              />
+              <Link color="primary" href={"./users/" + props.data.poster.name}>
+                <Image
+                  src={`https://api.wasteof.money/users/${props.data.poster.name}/picture`}
+                  loading="lazy"
+                  alt=""
+                  width="48"
+                  height="48"
+                />
               </Link>
             </AspectRatio>
           </Stack>
           <Stack direction="column" spacing={0}>
-          <Link color="primary" href={"./users/" + props.data.poster.name}>
-
-            <Typography level="title-md">@{props.data.poster.name}</Typography>
+            <Link color="primary" href={"./users/" + props.data.poster.name}>
+              <Typography level="title-md">
+                @{props.data.poster.name}
+              </Typography>
             </Link>
-            <Typography level="body-sm">
-              {props.data.poster.id}
-            </Typography>
+            <Typography level="body-sm">{props.data.poster.id}</Typography>
           </Stack>
         </Stack>
       </Box>
       <Divider />
-      <div className="postContent">
-      {parse(props.data.content)}
-      </div>
+      <div className="postContent">{parse(props.data.content)}</div>
       {props.data.repost ? <Post data={props.data.repost} /> : null}
       {/* {JSON.stringify(props.data)} */}
       <CardOverflow sx={{ borderTop: "1px solid", borderColor: "divider" }}>
         <CardActions sx={{ alignSelf: "flex-end", pt: 2 }}>
           <Stack spacing={3} direction="row">
-            <Typography startDecorator={<FavoriteBorderIcon />}>
+            <Typography
+              startDecorator={<FavoriteBorderIcon />}
+              sx={{
+                textDecoration: "none",
+              }}
+              component="a"
+              href={"https://wasteof.money/posts/" + props.data["_id"]}
+            >
               {props.data.loves}
             </Typography>
+            {/* <Link underline="hover" fontSize="lg" color="neutral" href={"https://beta.wasteof.money/posts/" + props.data["_id"] + "/reposts"}> */}
+
             <Typography
               startDecorator={<LoopIcon />}
               display={{
                 xs: "none",
                 md: "flex",
               }}
+              sx={{
+                textDecoration: "none",
+              }}
+              component="a"
+              href={
+                "https://beta.wasteof.money/posts/" +
+                props.data["_id"] +
+                "/reposts"
+              }
             >
               {props.data.reposts}
             </Typography>
+            {/* </Link> */}
             <Typography
               startDecorator={<ChatBubbleOutlineOutlinedIcon />}
               display={{
                 xs: "none",
                 md: "flex",
               }}
+              sx={{
+                textDecoration: "none",
+              }}
+              component="a"
+              href={"https://wasteof.money/posts/" + props.data["_id"]}
             >
               {props.data.comments}
             </Typography>
@@ -332,6 +349,11 @@ function Post(props: { data: any }) {
                 xs: "none",
                 md: "flex",
               }}
+              sx={{
+                textDecoration: "none",
+              }}
+              component="a"
+              href={"https://wasteof.money/posts/" + props.data["_id"]}
             >
               {props.data.revisions.length}
             </Typography>
@@ -341,14 +363,17 @@ function Post(props: { data: any }) {
                 xs: "none",
                 md: "flex",
               }}
+              sx={{
+                textDecoration: "none",
+              }}
+              component="a"
+              href={"https://wasteof.money/posts/" + props.data["_id"]}
             >
               {/* {props.data.time} */}
               {formatTime(props.data.time)}
             </Typography>
             <Link href={"https://wasteof.money/posts/" + props.data["_id"]}>
-            <Button >
-              Open Post on Wasteof
-            </Button>
+              <Button>Open Post on Wasteof</Button>
             </Link>
           </Stack>
         </CardActions>
@@ -421,15 +446,14 @@ export default function PostList(props: {
             >
               {props.user == "any" ? "Posts" : "Users"}
             </Link>
-            { props.user == "any" ? null : (
-            <Typography color="primary" fontWeight={500} fontSize={12}>
-              {"@" + props.user + "'s"} profile
-            </Typography>
+            {props.user == "any" ? null : (
+              <Typography color="primary" fontWeight={500} fontSize={12}>
+                {"@" + props.user + "'s"} profile
+              </Typography>
             )}
-
           </Breadcrumbs>
-          { props.user == "any" ? (
-              <Typography
+          {props.user == "any" ? (
+            <Typography
               level="h2"
               sx={{
                 mt: 1,
@@ -438,26 +462,23 @@ export default function PostList(props: {
             >
               All Posts
             </Typography>
-            ) : (
-              <Stack direction="row" spacing={1}>
-
-          <Typography
-            level="h2"
-            sx={{
-              mt: 1,
-              mb: 2,
-            }}
-          >
-            {"@" + props.user + "'s"} profile
-          </Typography>
-          <Divider orientation="vertical" />
-            <Link href={"https://wasteof.money/users/" + props.user}>
-            <Button>
-              View Profile on Wasteof
-            </Button>
-            </Link>
+          ) : (
+            <Stack direction="row" spacing={1}>
+              <Typography
+                level="h2"
+                sx={{
+                  mt: 1,
+                  mb: 2,
+                }}
+              >
+                {"@" + props.user + "'s"} profile
+              </Typography>
+              <Divider orientation="vertical" />
+              <Link href={"https://wasteof.money/users/" + props.user}>
+                <Button>View Profile on Wasteof</Button>
+              </Link>
             </Stack>
-            )}
+          )}
         </Box>
         <Tabs
           defaultValue={0}
@@ -492,11 +513,15 @@ export default function PostList(props: {
             </Tab>
             <Tab sx={{ borderRadius: "6px 6px 0 0" }} indicatorInset value={1}>
               Media
-              <Chip color="primary" variant="solid" sx={{marginLeft: '8px'}}>Soon!</Chip>
+              <Chip color="primary" variant="solid" sx={{ marginLeft: "8px" }}>
+                Soon!
+              </Chip>
             </Tab>
             <Tab sx={{ borderRadius: "6px 6px 0 0" }} indicatorInset value={2}>
               Statistics
-              <Chip color="primary" variant="solid" sx={{marginLeft: '8px'}}>Soon!</Chip>
+              <Chip color="primary" variant="solid" sx={{ marginLeft: "8px" }}>
+                Soon!
+              </Chip>
             </Tab>
           </TabList>
         </Tabs>
@@ -551,24 +576,29 @@ export default function PostList(props: {
             Text Search:
           </Typography>
           <Stack spacing={1.5} direction="row">
-          <FormControl sx={{ flex: 1 }}>
-            <Input
-              placeholder="Search"
-              startDecorator={<SearchIcon />}
-              value={props.search}
-              onChange={(event) => {
-                props.setSearch(event.target.value)
-              }}
-              aria-label="Search"
-            />
-          </FormControl>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <Button variant="outlined" color="neutral"
-            onClick={(event) => { props.setSearch("") }}>
-              Clear
-            </Button>
-          </Box>
-        </Stack>
+            <FormControl sx={{ flex: 1 }}>
+              <Input
+                placeholder="Search"
+                startDecorator={<SearchIcon />}
+                value={props.search}
+                onChange={(event) => {
+                  props.setSearch(event.target.value);
+                }}
+                aria-label="Search"
+              />
+            </FormControl>
+            <Box sx={{ display: { xs: "none", sm: "block" } }}>
+              <Button
+                variant="outlined"
+                color="neutral"
+                onClick={(event) => {
+                  props.setSearch("");
+                }}
+              >
+                Clear
+              </Button>
+            </Box>
+          </Stack>
           <Stack spacing={1.5} direction="row" sx={{ alignSelf: "flex-end" }}>
             <Dropdown
             // sx={{ width: "130px", alignSelf: "flex-end" }}
@@ -596,20 +626,31 @@ export default function PostList(props: {
                   Filter by
                 </MenuItem>
                 <MenuItem
-                onClick={(event) => {
-                  // console.log("clicked on!!");
-                  const sorts: any = [...props.sort];
-                  sorts.push({
-                    field: "loves",
-                    direction: "asc"
-                  });
-                  // console.log(sorts);
-                  props.setSort(sorts);
-                }}>Sort by</MenuItem>
+                  onClick={(event) => {
+                    // console.log("clicked on!!");
+                    const sorts: any = [...props.sort];
+                    sorts.push({
+                      field: "loves",
+                      direction: "asc",
+                    });
+                    // console.log(sorts);
+                    props.setSort(sorts);
+                  }}
+                >
+                  Sort by
+                </MenuItem>
                 <ListDivider />
 
-                <MenuItem disabled>Add Calculation              <Chip color="primary" variant="solid" sx={{marginLeft: '8px'}}>Soon!</Chip>
-</MenuItem>
+                <MenuItem disabled>
+                  Add Calculation{" "}
+                  <Chip
+                    color="primary"
+                    variant="solid"
+                    sx={{ marginLeft: "8px" }}
+                  >
+                    Soon!
+                  </Chip>
+                </MenuItem>
               </Menu>
             </Dropdown>
             <Button
@@ -623,7 +664,6 @@ export default function PostList(props: {
             </Button>
           </Stack>
         </Stack>
-        
 
         {props.selectedPosts.length == 0 && props.loaded ? (
           <EmptyState contenttype="Posts" />
@@ -633,7 +673,9 @@ export default function PostList(props: {
           })
         ) : (
           <>
-          <CircularProgress sx={{justifySelf: 'center', alignSelf: 'center'}} />
+            <CircularProgress
+              sx={{ justifySelf: "center", alignSelf: "center" }}
+            />
           </>
         )}
         <div>
@@ -702,9 +744,9 @@ export default function PostList(props: {
                   key={page}
                   size="sm"
                   onClick={async () => {
-                    console.log(typeof(page))
+                    console.log(typeof page);
                     await props.setPage(page);
-                    console.log('pags is equal to', props.page)
+                    console.log("pags is equal to", props.page);
                     // console.log(props.page)
                     props.applyFilters(page);
                   }}
