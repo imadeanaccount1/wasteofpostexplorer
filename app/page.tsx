@@ -9,7 +9,6 @@ import CssBaseline from "@mui/joy/CssBaseline";
 import Box from "@mui/joy/Box";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
-import MyProfile from "./components/PostList";
 
 export default function Page({
   params,

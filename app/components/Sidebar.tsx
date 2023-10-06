@@ -10,7 +10,7 @@ import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 import Stack from '@mui/joy/Stack';
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
-
+import SupportIcon from '@mui/icons-material/Support';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import CollectionsBookmarkRoundedIcon from '@mui/icons-material/CollectionsBookmarkRounded';
@@ -225,6 +225,15 @@ export default function Sidebar(props: { user: string, page: string}) {
             </Toggler>
           </ListItem>
 ) : null}
+          <ListItem>
+            <ListItemButton 
+            component="a" href={props.page == "user" ? "../contact" : "../contact"} selected={props.page=="contact"}>
+              <SupportIcon sx={{marginRight: '8px'}}/>
+              <ListItemContent>
+                <Typography level="title-sm">Contact, Credits, and License</Typography>
+              </ListItemContent>
+            </ListItemButton>
+          </ListItem>
         </List>
         <Card
           invertedColors
