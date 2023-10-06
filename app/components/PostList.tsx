@@ -483,8 +483,8 @@ export default function PostList(props: {
         <Tabs
           defaultValue={0}
           sx={{
-            top: '12px',
-            bgcolor: "transparent",
+            top: props.user=="any" ? "-4px" : '12px',
+            bgcolor: "white",
           }}
         >
           <TabList

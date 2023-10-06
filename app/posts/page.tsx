@@ -6,7 +6,7 @@ import CssBaseline from "@mui/joy/CssBaseline";
 import Box from "@mui/joy/Box";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import MyProfile from "../components/PostList";
+import PostList from "../components/PostList";
 import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
 
 export default function Page() {
@@ -93,7 +93,7 @@ export default function Page() {
               overflow: "auto",
             }}
           >
-            <MyProfile
+            <PostList
               applyFilters={applyFilters}
               setFilters={setFilters}
               filters={filters}

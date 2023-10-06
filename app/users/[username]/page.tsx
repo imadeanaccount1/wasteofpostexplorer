@@ -6,7 +6,7 @@ import CssBaseline from "@mui/joy/CssBaseline";
 import Box from "@mui/joy/Box";
 import Sidebar from "../../components/Sidebar";
 import Header from "../../components/Header";
-import MyProfile from "../../components/PostList";
+import PostList from "../../components/PostList";
 
 export default function Page({
   params,
@@ -92,7 +92,7 @@ export default function Page({
               overflow: "auto",
             }}
           >
-            <MyProfile
+            <PostList
               applyFilters={applyFilters}
               setFilters={setFilters}
               filters={filters}
