@@ -13,7 +13,7 @@ export default function Page({
 }: {
   params: { username: string };
 }) {
-  console.log(params.username);
+  // console.log(params.username);
   const [loaded, setLoaded] = React.useState(false);
 
   const [neededPosts, setData] = React.useState([]);
@@ -53,7 +53,7 @@ export default function Page({
   }
 
   function applyFilters() {
-    console.log("applying filters");
+    // console.log("applying filters");
     setLoaded(false);
     fetchData();
   }

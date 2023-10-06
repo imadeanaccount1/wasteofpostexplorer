@@ -40,8 +40,8 @@ export async function getData(
       sort[fieldValue] =
         JSON.parse(sortValue)[i].direction === "asc" ? 1 : -1;
     }
-    console.log(sort)
-    console.log(page)
+    // console.log(sort)
+    // console.log(page)
 
 
     const postlist = await posts

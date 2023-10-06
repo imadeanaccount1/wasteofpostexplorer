@@ -108,9 +108,9 @@ function FilterBy(props: any) {
           ) => {
             const filters: any = [...props.filters];
             filters[props.filterIndex].operation = newValue;
-            console.log(filters, props.filterIndex, props.setFilters);
+            // console.log(filters, props.filterIndex, props.setFilters);
             props.setFilters(filters);
-            console.log(props.filters);
+            // console.log(props.filters);
           }}
           size="sm"
           defaultValue=">"
@@ -151,9 +151,9 @@ function FilterBy(props: any) {
           ) => {
             const filters: any = [...props.filters];
             filters[props.filterIndex].value = event.target.value;
-            console.log(filters, props.filterIndex, props.setFilters);
+            // console.log(filters, props.filterIndex, props.setFilters);
             props.setFilters(filters);
-            console.log(props.filters);
+            // console.log(props.filters);
           }}
         />) : (
           <Input
@@ -535,14 +535,14 @@ export default function PostList(props: {
               <Menu>
                 <MenuItem
                   onClick={(event) => {
-                    console.log("clicked on!!");
+                    // console.log("clicked on!!");
                     const filters: any = [...props.filters];
                     filters.push({
                       field: "name",
                       operation: "==",
                       value: "imadeanaccount",
                     });
-                    console.log(filters);
+                    // console.log(filters);
                     props.setFilters(filters);
                   }}
                 >
@@ -556,7 +556,7 @@ export default function PostList(props: {
                     field: "followers",
                     direction: "asc"
                   });
-                  console.log(sorts);
+                  // console.log(sorts);
                   props.setSort(sorts);
                 }}>Sort by</MenuItem>
                 <ListDivider />
@@ -652,7 +652,7 @@ export default function PostList(props: {
                   key={page}
                   size="sm"
                   onClick={() => {
-                    console.log(props.page, page)
+                    // console.log(props.page, page)
                     props.setPage(page);
                     props.applyFilters();
                   }}

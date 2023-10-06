@@ -37,7 +37,7 @@ export default function Page() {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        // console.log(data)
         if (data.error) {
           alert("Rate limted. :/ Please wait 1 minute and try again")
         } else {
@@ -49,7 +49,7 @@ export default function Page() {
   }
 
   function applyFilters() {
-    console.log("applying filters");
+    // console.log("applying filters");
     setLoaded(false);
     // setPage("1");
     fetchData();
