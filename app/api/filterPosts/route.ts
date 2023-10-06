@@ -88,6 +88,7 @@ const rateLimiterMiddleware = (ip: any) => {
 
 
 export async function GET(request: NextRequest) {
+  console.log('request')
   const ip : any = request.headers.get('x-real-ip') ||  request.ip;
 
   if (!rateLimiterMiddleware(ip)) {

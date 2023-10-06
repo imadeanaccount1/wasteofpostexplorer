@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/joy/Box';
 import Card from '@mui/joy/Card';
+import Chip from '@mui/joy/Chip';
 import IconButton from '@mui/joy/IconButton';
 import List from '@mui/joy/List';
 import ListItem from '@mui/joy/ListItem';
@@ -12,8 +13,6 @@ import Stack from '@mui/joy/Stack';
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
 import SupportIcon from '@mui/icons-material/Support';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
-import CollectionsBookmarkRoundedIcon from '@mui/icons-material/CollectionsBookmarkRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Link from '@mui/joy/Link';
@@ -24,6 +23,7 @@ import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import Image from 'next/image';
+import SearchIcon from '@mui/icons-material/Search';
 
 function Toggler({
   defaultExpanded = false,
@@ -167,7 +167,8 @@ export default function Sidebar(props: { user: string, page: string}) {
                 <ListItem sx={{ mt: 0.5 }}>
                 <ShuffleIcon sx={{marginRight: '8px'}} />
                   <ListItemContent>
-                    <Typography level="title-sm">Random Posts</Typography>
+                    <Typography level="title-sm">Random Posts              <Chip color="primary" variant="solid" sx={{marginLeft: '8px'}}>Soon!</Chip>
+</Typography>
                   </ListItemContent>
                 </ListItem>
               </List>
@@ -225,6 +226,15 @@ export default function Sidebar(props: { user: string, page: string}) {
             </Toggler>
           </ListItem>
 ) : null}
+ <ListItem>
+            <ListItemButton 
+            component="a" href={props.page == "search" ? "../finduser" : "../finduser"} selected={props.page=="contact"}>
+              <SearchIcon sx={{marginRight: '8px'}}/>
+              <ListItemContent>
+                <Typography level="title-sm">Specific User</Typography>
+              </ListItemContent>
+            </ListItemButton>
+          </ListItem>
           <ListItem>
             <ListItemButton 
             component="a" href={props.page == "user" ? "../contact" : "../contact"} selected={props.page=="contact"}>

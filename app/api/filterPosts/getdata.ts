@@ -43,6 +43,8 @@ export async function getData(
         JSON.parse(sortValue)[i].direction === "asc" ? 1 : -1;
     }
 
+    console.log(15 * (parseInt(page) - 1))
+
     const postlist = await posts
       .find(query)
       .sort(sort)

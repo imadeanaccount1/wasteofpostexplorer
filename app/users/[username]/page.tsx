@@ -15,6 +15,7 @@ export default function Page({
 }) {
   // console.log(params.username);
   const [loaded, setLoaded] = React.useState(false);
+  const [everloaded, seteverLoaded] = React.useState(false);
 
   const [neededPosts, setData] = React.useState([]);
   const [pagination, setPagination] = React.useState({
@@ -27,12 +28,12 @@ export default function Page({
   const [filters, setFilters] = React.useState([
     { field: "loves", operation: ">", value: "0" },
   ]);
-  function fetchData() {
+  function fetchData(thispage: string|null=null) {
     fetch(
       "../../api/filterPosts?user=" +
         params.username +
         "&page=" +
-        page.toString() +
+        (thispage?thispage:page) +
         "&sort=" +
         JSON.stringify(sort) +
         "&filters=" +
@@ -45,19 +46,21 @@ export default function Page({
         if (data.error) {
           alert("Rate limted. :/ Please wait 1 minute and try again")
         } else {
+                  setPagination(data.pagination);
+
         setData(data.posts);
-        setPagination(data.pagination);
         setLoaded(true);
+        seteverLoaded(true)
         }
       });
   }
 
-  function applyFilters() {
+  function applyFilters(thispage: string|null=null) {
     // console.log("applying filters");
     setLoaded(false);
-    fetchData();
+    fetchData(thispage);
   }
-  if (!loaded) {
+  if (!everloaded) {
     fetchData();
   }
   return (

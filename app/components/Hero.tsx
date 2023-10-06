@@ -11,7 +11,7 @@ export default function HeroLeft01() {
     <>
     <TwoSidedLayout align="center">
       <Typography color="primary" fontSize="lg" fontWeight="lg">
-        Wasteof.money Post Explorer
+        wasteof.money Post Explorer
       </Typography>
       <Typography
         level="h1"

@@ -2,6 +2,7 @@ import * as React from "react";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
+import Chip from "@mui/joy/Chip";
 import Divider from "@mui/joy/Divider";
 import { iconButtonClasses } from "@mui/joy/IconButton";
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
@@ -491,9 +492,11 @@ export default function PostList(props: {
             </Tab>
             <Tab sx={{ borderRadius: "6px 6px 0 0" }} indicatorInset value={1}>
               Media
+              <Chip color="primary" variant="solid" sx={{marginLeft: '8px'}}>Soon!</Chip>
             </Tab>
             <Tab sx={{ borderRadius: "6px 6px 0 0" }} indicatorInset value={2}>
               Statistics
+              <Chip color="primary" variant="solid" sx={{marginLeft: '8px'}}>Soon!</Chip>
             </Tab>
           </TabList>
         </Tabs>
@@ -605,7 +608,8 @@ export default function PostList(props: {
                 }}>Sort by</MenuItem>
                 <ListDivider />
 
-                <MenuItem>Add Calculation</MenuItem>
+                <MenuItem disabled>Add Calculation              <Chip color="primary" variant="solid" sx={{marginLeft: '8px'}}>Soon!</Chip>
+</MenuItem>
               </Menu>
             </Dropdown>
             <Button
@@ -644,7 +648,7 @@ export default function PostList(props: {
               size="sm"
               onClick={(event) => {
                 props.setPage((parseInt(props.page) - 1).toString());
-                props.applyFilters();
+                props.applyFilters((parseInt(props.page) - 1).toString());
               }}
             >
               <WestOutlinedIcon />
@@ -659,7 +663,7 @@ export default function PostList(props: {
               size="sm"
               onClick={(event) => {
                 props.setPage((parseInt(props.page) + 1).toString());
-                props.applyFilters();
+                props.applyFilters((parseInt(props.page) + 1).toString());
               }}
             >
               <EastOutlinedIcon />
@@ -684,7 +688,7 @@ export default function PostList(props: {
               startDecorator={<WestOutlinedIcon />}
               onClick={(event) => {
                 props.setPage((parseInt(props.page) - 1).toString());
-                props.applyFilters();
+                props.applyFilters((parseInt(props.page) - 1).toString());
               }}
             >
               Previous
@@ -697,11 +701,12 @@ export default function PostList(props: {
                 <IconButton
                   key={page}
                   size="sm"
-                  onClick={() => {
-                    // console.log(page)
-                    props.setPage(page);
+                  onClick={async () => {
+                    console.log(typeof(page))
+                    await props.setPage(page);
+                    console.log('pags is equal to', props.page)
                     // console.log(props.page)
-                    props.applyFilters();
+                    props.applyFilters(page);
                   }}
                   variant={props.page == page ? "solid" : "outlined"}
                   color="neutral"
@@ -718,7 +723,7 @@ export default function PostList(props: {
               endDecorator={<EastOutlinedIcon />}
               onClick={(event) => {
                 props.setPage((parseInt(props.page) + 1).toString());
-                props.applyFilters();
+                props.applyFilters((parseInt(props.page) + 1).toString());
               }}
             >
               Next

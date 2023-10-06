@@ -1,6 +1,7 @@
 import * as React from "react";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/joy/Box";
+import Chip from "@mui/joy/Chip";
 import Button from "@mui/joy/Button";
 import Divider from "@mui/joy/Divider";
 import { iconButtonClasses } from "@mui/joy/IconButton";
@@ -561,7 +562,8 @@ export default function PostList(props: {
                 }}>Sort by</MenuItem>
                 <ListDivider />
 
-                <MenuItem>Add Calculation</MenuItem>
+                <MenuItem disabled>Add Calculation              <Chip color="primary" variant="solid" sx={{marginLeft: '8px'}}>Soon!</Chip>
+</MenuItem>
               </Menu>
             </Dropdown>
             <Button
@@ -598,7 +600,7 @@ export default function PostList(props: {
               size="sm"
               onClick={(event) => {
                 props.setPage((parseInt(props.page) - 1).toString());
-                props.applyFilters();
+                props.applyFilters((parseInt(props.page) - 1).toString());
               }}
             >
               <WestOutlinedIcon />
@@ -613,7 +615,7 @@ export default function PostList(props: {
               size="sm"
               onClick={(event) => {
                 props.setPage((parseInt(props.page) + 1).toString());
-                props.applyFilters();
+                props.applyFilters((parseInt(props.page) + 1).toString());
               }}
             >
               <EastOutlinedIcon />
@@ -638,7 +640,7 @@ export default function PostList(props: {
               startDecorator={<WestOutlinedIcon />}
               onClick={(event) => {
                 props.setPage((parseInt(props.page) - 1).toString());
-                props.applyFilters();
+                props.applyFilters((parseInt(props.page) - 1).toString());
               }}
             >
               Previous
@@ -654,7 +656,7 @@ export default function PostList(props: {
                   onClick={() => {
                     // console.log(props.page, page)
                     props.setPage(page);
-                    props.applyFilters();
+                    props.applyFilters(page);
                   }}
                   variant={props.page == page ? "solid" : "outlined"}
                   color="neutral"
@@ -671,7 +673,7 @@ export default function PostList(props: {
               endDecorator={<EastOutlinedIcon />}
               onClick={(event) => {
                 props.setPage((parseInt(props.page) + 1).toString());
-                props.applyFilters();
+                props.applyFilters((parseInt(props.page) + 1).toString());
               }}
             >
               Next
