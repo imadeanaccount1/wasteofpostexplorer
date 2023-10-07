@@ -52,6 +52,7 @@ import WestOutlinedIcon from "@mui/icons-material/WestOutlined";
 import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
 import formatTime from "../utils/formatTime";
 import Image from "next/image";
+import type { ChangeEvent } from "react";
 
 import "./post.module.css";
 
@@ -398,6 +399,8 @@ export default function PostList(props: {
   loaded: boolean;
   selectedPosts: any;
 }) {
+
+
   return (
     <Box
       sx={{

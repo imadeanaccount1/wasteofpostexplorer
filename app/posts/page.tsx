@@ -8,8 +8,12 @@ import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import PostList from "../components/PostList";
 import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [loaded, setLoaded] = React.useState(false);
   const [everloaded, seteverLoaded] = React.useState(false);
 
@@ -18,14 +22,16 @@ export default function Page() {
     pages: [],
     pageCount: 0,
   });
-  const [page, setPage] = React.useState("1");
-  const [sort, setSort] = React.useState([{ field: "posted", direction: "asc" }]);
-  const [search, setSearch] = React.useState("");
-  const [filters, setFilters] = React.useState([
+  const [page, setPage] = React.useState(searchParams.get("page") || "1");
+  const [sort, setSort] = React.useState(JSON.parse(searchParams.get("sort")!) || [{ field: "posted", direction: "asc" }]);
+  const [search, setSearch] = React.useState(searchParams.get("search") ||"");
+
+  const [filters, setFilters] = React.useState(JSON.parse(searchParams.get("filters")!) ||[
     { field: "loves", operation: ">", value: "0" },
   ]);
   function fetchData(thispage: string|null=null) {
     console.log('sending page ' + thispage)
+    onSelect(sort, filters, search, thispage ? thispage : page)
     fetch(
       "../../api/filterPosts?user=" +
         "any" +
@@ -51,6 +57,43 @@ export default function Page() {
         }
       });
   }
+
+  
+  const onSelect = (sort: any, filters: any, search: string, page:string) => {
+    // now you got a read/write object
+    const current = new URLSearchParams(Array.from(searchParams.entries())); // -> has to use this form
+
+    // update as necessary
+
+    if (!search) {
+      current.delete("search");
+    } else {
+
+      current.set("search", search)
+    }
+    if (filters.length == 0) {
+      current.delete("filters");
+    } else {
+      current.set("filters", JSON.stringify(filters));
+    }
+    if (sort.length == 0) {
+      current.delete("sort");
+    } else {
+      current.set("sort", JSON.stringify(sort));
+    }
+    if (page == "1") {
+      current.delete("page");
+    } else {
+      current.set("page", page);
+    }
+
+    // cast to string
+    const searchp = current.toString();
+    // or const query = `${'?'.repeat(search.length && 1)}${search}`;
+    const query = searchp ? `?${searchp}` : "";
+
+    router.push(`${pathname}${query}`);
+  };
 
   function applyFilters(thispage: string|null=null) {
     // console.log("applying filters");
