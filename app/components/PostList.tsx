@@ -400,6 +400,11 @@ export default function PostList(props: {
   selectedPosts: any;
 }) {
 
+  var parse = require("html-react-parser");
+
+
+  const [tab, setTab] = React.useState("Posts")
+  const [pictures , setPictures] = React.useState([])
 
   return (
     <Box
@@ -485,7 +490,17 @@ export default function PostList(props: {
           )}
         </Box>
         <Tabs
-          defaultValue={0}
+          defaultValue="Posts"
+          onChange={(event, newValue) => {
+            console.log(newValue);
+            setTab(newValue);
+            if (newValue == "Media") {
+              console.log('media tab!!')
+              fetch('../api/getMedia').then((res) => res.json()).then((data) => {
+                setPictures(data);
+              })
+            }
+          }}
           sx={{
             top: props.user=="any" ? "-4px" : '12px',
             bgcolor: "white",
@@ -513,16 +528,16 @@ export default function PostList(props: {
               },
             }}
           >
-            <Tab sx={{ borderRadius: "6px 6px 0 0" }} indicatorInset value={0}>
+            <Tab sx={{ borderRadius: "6px 6px 0 0" }} indicatorInset value="Posts">
               Posts
             </Tab>
-            <Tab sx={{ borderRadius: "6px 6px 0 0" }} indicatorInset value={1}>
+            <Tab sx={{ borderRadius: "6px 6px 0 0" }} indicatorInset value="Media">
               Media
               <Chip color="primary" variant="solid" sx={{ marginLeft: "8px" }}>
                 Soon!
               </Chip>
             </Tab>
-            <Tab sx={{ borderRadius: "6px 6px 0 0" }} indicatorInset value={2}>
+            <Tab sx={{ borderRadius: "6px 6px 0 0" }} indicatorInset value="Stats">
               Statistics
               <Chip color="primary" variant="solid" sx={{ marginLeft: "8px" }}>
                 Soon!
@@ -548,6 +563,8 @@ export default function PostList(props: {
           },
         }}
       >
+        { tab=="Posts" ? (
+          <>
         <Stack spacing={2}>
           {props.sort.map((sort: any, index: number) => {
             return (
@@ -774,6 +791,18 @@ export default function PostList(props: {
             </Button>
           </Box>
         </div>
+        </>
+        ) : (
+          <Stack spacing={2}>
+            <Typography level="h2">Media</Typography>
+            <Typography level="title-sm">Filters <Chip sx={{marginLeft: '4px'}} color="primary">Soon!</Chip></Typography>
+            { pictures.map((picture: any) => {
+              return (
+                parse(picture.imgTag)
+              )
+            })}
+          </Stack>
+        )}
       </Stack>
     </Box>
   );
