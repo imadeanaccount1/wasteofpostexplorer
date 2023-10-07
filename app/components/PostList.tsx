@@ -816,7 +816,17 @@ export default function PostList(props: {
                   color: 'white',
                   textShadow: '3px 3px 3px black',
                 }}>
-                  {picture.imgTag.split('.')[picture.imgTag.split('.').length-2].split('/')[picture.imgTag.split('.')[picture.imgTag.split('.').length-2].split('/').length-1]}
+                  {picture.imgTag.split('.')[picture.imgTag.split('.').length-2] ? picture.imgTag.split('.')[picture.imgTag.split('.').length-2].split('/')[picture.imgTag.split('.')[picture.imgTag.split('.').length-2].split('/').length-1] : ""}
+                </Typography>
+                <Typography level="body-sm" fontWeight={700} sx={{
+                  position: 'absolute',
+                  zIndex: 2,
+                  left: 8,
+                  bottom: 8,
+                  color: 'white',
+                  textShadow: '3px 3px 3px black',
+                }}>
+                  Posted by {picture.poster.name} {formatTime(picture.time)}
                 </Typography>
                 <Link href={"https://wasteof.money/posts/" + picture["_id"]} sx={{
                   position: 'absolute',

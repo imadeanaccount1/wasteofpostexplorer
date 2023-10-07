@@ -80,7 +80,7 @@ export async function GET(request: NextRequest) {
     queryval["poster.name"] = user;
   }
   // let query = { "poster.name": username };
-  console.log(search)
+  console.log(search);
   let searchval = { $text: { $search: search } };
 
   if (search === "") {
@@ -141,6 +141,8 @@ export async function GET(request: NextRequest) {
       },
       {
         $project: {
+          time: 1,
+          poster: 1,
           imgTags: {
             $regexFindAll: {
               input: "$content",
@@ -152,12 +154,6 @@ export async function GET(request: NextRequest) {
       {
         $unwind: "$imgTags",
       },
-      {
-        $project: {
-          _id: 1,
-          imgTag: "$imgTags.match",
-        },
-      },
     ];
 
     if (Object.keys(sortval)) {
@@ -166,12 +162,16 @@ export async function GET(request: NextRequest) {
       // @ts-ignore
       postlistpipeline.push({ $sort: sortval });
     }
-    // @ts-ignore
-    countpipeline.push({ $count: "passing_scores" });
+
     // @ts-ignore
     postlistpipeline.push({ $skip: 15 * (parseInt(page) - 1) });
     // @ts-ignore
     postlistpipeline.push({ $limit: 15 });
+    // @ts-ignore
+    postlistpipeline.push({ $project: { _id: 1, imgTag: "$imgTags.match", time: 1, poster:  1} });
+    countpipeline.push({ $project: { _id: 1, imgTag: "$imgTags.match" } });
+        // @ts-ignore
+        countpipeline.push({ $count: "passing_scores" });
     console.log(postlistpipeline);
     const postlist = posts.aggregate(postlistpipeline);
     const postcounts = posts.aggregate(countpipeline);
