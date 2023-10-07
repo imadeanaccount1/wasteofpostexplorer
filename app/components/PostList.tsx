@@ -402,8 +402,9 @@ export default function PostList(props: {
 
   var parse = require("html-react-parser");
 
+  type MyType = string | number | null
 
-  const [tab, setTab] = React.useState("Posts")
+  const [tab, setTab] = React.useState<MyType>("Posts") 
   const [pictures , setPictures] = React.useState([])
 
   return (
