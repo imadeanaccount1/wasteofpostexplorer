@@ -18,6 +18,8 @@ export default function Page() {
   const [everloaded, seteverLoaded] = React.useState(false);
 
   const [neededPosts, setData] = React.useState([]);
+  const [neededMedia, setMediaData] = React.useState([]);
+
   const [pagination, setPagination] = React.useState({
     pages: [],
     pageCount: 0,
@@ -31,6 +33,25 @@ export default function Page() {
   const [filters, setFilters] = React.useState(JSON.parse(searchParams.get("filters")!) ||[
     { field: "loves", operation: ">", value: "0" },
   ]);
+  
+  function fetchMedia(thispage: string|null=null) {
+    onSelect(sort, filters, search, thispage ? thispage : page)
+
+    fetch('../api/getMedia?user=' + "any" + "&page=" +
+              (thispage?thispage:page) +
+              "&sort=" +
+              JSON.stringify(sort) +
+              "&filters=" +
+              JSON.stringify(filters) +
+              "&search=" +
+              search).then((res) => res.json()).then((data) => {
+                setPagination(data.pagination);
+
+                setMediaData(data.posts);
+        setLoaded(true);
+        seteverLoaded(true)
+              })
+            }
   function fetchData(thispage: string|null=null) {
     console.log('sending page ' + thispage)
     onSelect(sort, filters, search, thispage ? thispage : page)
@@ -101,8 +122,11 @@ export default function Page() {
     // console.log("applying filters");
     setLoaded(false);
     // setPage("1");
-    fetchData(thispage);
-  }
+    if (tab == "Posts") {
+      fetchData(thispage);
+      } else {
+        fetchMedia(thispage)
+      }  }
   if (!everloaded) {
     fetchData();
   }
@@ -153,7 +177,7 @@ export default function Page() {
               page={page}
               pagination={pagination}
               selectedPosts={neededPosts}
-              
+              selectedMedia={neededMedia}
               loaded={loaded}
               user={"any"}
             />
