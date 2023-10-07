@@ -25,7 +25,9 @@ export default function Page() {
   const [page, setPage] = React.useState(searchParams.get("page") || "1");
   const [sort, setSort] = React.useState(JSON.parse(searchParams.get("sort")!) || [{ field: "posted", direction: "asc" }]);
   const [search, setSearch] = React.useState(searchParams.get("search") ||"");
+  type MyType = string | number | null
 
+  const [tab, setTab] = React.useState<MyType>("Posts") 
   const [filters, setFilters] = React.useState(JSON.parse(searchParams.get("filters")!) ||[
     { field: "loves", operation: ">", value: "0" },
   ]);
@@ -137,6 +139,9 @@ export default function Page() {
             }}
           >
             <PostList
+
+              tab={tab}
+              setTab={setTab}
               applyFilters={applyFilters}
               setFilters={setFilters}
               filters={filters}
@@ -148,6 +153,7 @@ export default function Page() {
               page={page}
               pagination={pagination}
               selectedPosts={neededPosts}
+              
               loaded={loaded}
               user={"any"}
             />

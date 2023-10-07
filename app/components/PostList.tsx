@@ -8,8 +8,9 @@ import { iconButtonClasses } from "@mui/joy/IconButton";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import LinearProgress from '@mui/joy/LinearProgress';
 import CircularProgress from "@mui/joy/CircularProgress";
-
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import SearchIcon from "@mui/icons-material/Search";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 import Input from "@mui/joy/Input";
 import FormControl from "@mui/joy/FormControl";
@@ -294,7 +295,10 @@ function Post(props: { data: any }) {
         </Stack>
       </Box>
       <Divider />
-      <div className="postContent">{parse(props.data.content)}</div>
+      <div className="postContent">{
+      parse(props.data.content)
+      }              
+      </div>
       {props.data.repost ? <Post data={props.data.repost} /> : null}
       {/* {JSON.stringify(props.data)} */}
       <CardOverflow sx={{ borderTop: "1px solid", borderColor: "divider" }}>
@@ -394,18 +398,18 @@ export default function PostList(props: {
   page: string;
   user: string;
   pagination: any;
+  tab: string | number | null;
+  setTab: Function;
   setSearch: Function;
   search: string;
   loaded: boolean;
   selectedPosts: any;
+  selectedMedia: any;
 }) {
 
   var parse = require("html-react-parser");
 
-  type MyType = string | number | null
 
-  const [tab, setTab] = React.useState<MyType>("Posts") 
-  const [pictures , setPictures] = React.useState([])
 
   return (
     <Box
@@ -494,13 +498,10 @@ export default function PostList(props: {
           defaultValue="Posts"
           onChange={(event, newValue) => {
             console.log(newValue);
-            setTab(newValue);
-            if (newValue == "Media") {
-              console.log('media tab!!')
-              fetch('../api/getMedia?user=' + props.user).then((res) => res.json()).then((data) => {
-                setPictures(data);
-              })
-            }
+            props.setTab(newValue);
+            // if (newValue == "Media") {
+            //   console.log('media tab!!')
+            // }
           }}
           sx={{
             top: props.user=="any" ? "-4px" : '12px',
@@ -564,9 +565,7 @@ export default function PostList(props: {
           },
         }}
       >
-        { tab=="Posts" ? (
-          <>
-        <Stack spacing={2}>
+         <Stack spacing={2}>
           {props.sort.map((sort: any, index: number) => {
             return (
               <SortBy
@@ -687,6 +686,8 @@ export default function PostList(props: {
             </Button>
           </Stack>
         </Stack>
+        { props.tab=="Posts" ? (
+          <>
         {props.selectedPosts.length == 0 && props.loaded ? (
           <EmptyState contenttype="Posts" />
         ) : props.loaded ? (
@@ -795,13 +796,154 @@ export default function PostList(props: {
         </>
         ) : (
           <Stack spacing={2}>
-            <Typography level="h2">Media</Typography>
-            <Typography level="title-sm">Filters <Chip sx={{marginLeft: '4px'}} color="primary">Soon!</Chip></Typography>
-            { pictures.map((picture: any) => {
-              return (
-                parse(picture.imgTag)
-              )
-            })}
+            {props.selectedMedia.length == 0 && props.loaded ? (
+          <EmptyState contenttype="Images" />
+        ) : props.loaded ? (
+          props.selectedMedia.map((picture: any) => {
+            return (
+              <div style={{position: 'relative'}} key={picture["_id"]}>
+                
+                  <AspectRatio sx={{ width: "100%" }}>
+{
+              parse(picture.imgTag)
+}
+              </AspectRatio>
+               <Typography level="body-sm" fontWeight={700} sx={{
+                  position: 'absolute',
+                  zIndex: 2,
+                  left: 8,
+                  top: 8,
+                  color: 'white',
+                  textShadow: '3px 3px 3px black',
+                }}>
+                  {picture.imgTag.split('.')[picture.imgTag.split('.').length-2].split('/')[picture.imgTag.split('.')[picture.imgTag.split('.').length-2].split('/').length-1]}
+                </Typography>
+                <Link href={"https://wasteof.money/posts/" + picture["_id"]} sx={{
+                  position: 'absolute',
+                  zIndex: 2,
+                  right: 8,
+                  bottom: 8,
+                  boxShadow: 'sm',
+                }}>
+                <Button startDecorator={<OpenInNewIcon />} variant="solid" color="primary" >View Post</Button>
+                </Link>
+              {/* <IconButton
+      aria-label="upload new picture"
+      size="sm"
+      variant="outlined"
+      color="neutral"
+      sx={{
+        bgcolor: 'background.body',
+        position: 'absolute',
+        zIndex: 2,
+        borderRadius: '50%',
+        right: 0,
+        bottom: 0,
+        boxShadow: 'sm',
+      }}
+    ><EditRoundedIcon /></IconButton> */}
+              </div>
+            )
+          })
+        ) : (
+          <>
+            <LinearProgress />
+          </>
+        )}
+            <div>
+          <Box
+            className="Pagination-mobile"
+            sx={{ display: { xs: "flex", md: "none" }, alignItems: "center" }}
+          >
+            <IconButton
+              aria-label="previous page"
+              variant="outlined"
+              color="neutral"
+              size="sm"
+              onClick={(event) => {
+                props.setPage((parseInt(props.page) - 1).toString());
+                props.applyFilters((parseInt(props.page) - 1).toString());
+              }}
+            >
+              <WestOutlinedIcon />
+            </IconButton>
+            <Typography level="body-sm" mx="auto">
+              Page {props.page} of 10
+            </Typography>
+            <IconButton
+              aria-label="next page"
+              variant="outlined"
+              color="neutral"
+              size="sm"
+              onClick={(event) => {
+                props.setPage((parseInt(props.page) + 1).toString());
+                props.applyFilters((parseInt(props.page) + 1).toString());
+              }}
+            >
+              <EastOutlinedIcon />
+            </IconButton>
+          </Box>
+          <Box
+            className="Pagination-laptopUp"
+            sx={{
+              pt: 0.5,
+              gap: 1,
+              [`& .${iconButtonClasses.root}`]: { borderRadius: "50%" },
+              display: {
+                xs: "none",
+                md: "flex",
+              },
+            }}
+          >
+            <Button
+              size="sm"
+              variant="plain"
+              color="neutral"
+              startDecorator={<WestOutlinedIcon />}
+              onClick={(event) => {
+                props.setPage((parseInt(props.page) - 1).toString());
+                props.applyFilters((parseInt(props.page) - 1).toString());
+              }}
+            >
+              Previous
+            </Button>
+
+            <Box sx={{ flex: 1 }} />
+            {props.pagination.pages
+              .map((x: any) => x.toString())
+              .map((page: any) => (
+                <IconButton
+                  key={page}
+                  size="sm"
+                  onClick={async () => {
+                    console.log(typeof page);
+                    await props.setPage(page);
+                    console.log("pags is equal to", props.page);
+                    // console.log(props.page)
+                    props.applyFilters(page);
+                  }}
+                  variant={props.page == page ? "solid" : "outlined"}
+                  color="neutral"
+                >
+                  {page}
+                </IconButton>
+              ))}
+            <Box sx={{ flex: 1 }} />
+
+            <Button
+              size="sm"
+              variant="plain"
+              color="neutral"
+              endDecorator={<EastOutlinedIcon />}
+              onClick={(event) => {
+                props.setPage((parseInt(props.page) + 1).toString());
+                props.applyFilters((parseInt(props.page) + 1).toString());
+              }}
+            >
+              Next
+            </Button>
+          </Box>
+        </div>
           </Stack>
         )}
       </Stack>

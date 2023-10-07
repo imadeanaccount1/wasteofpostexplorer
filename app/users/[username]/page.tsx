@@ -22,6 +22,8 @@ export default function Page({
   const [everloaded, seteverLoaded] = React.useState(false);
 
   const [neededPosts, setData] = React.useState([]);
+  const [neededMedia, setMediaData] = React.useState([]);
+
   const [pagination, setPagination] = React.useState({
     pages: [],
     pageCount: 0,
@@ -32,6 +34,10 @@ export default function Page({
   const [filters, setFilters] = React.useState(JSON.parse(searchParams.get("filters")!) ||[
     { field: "loves", operation: ">", value: "0" },
   ]);
+  type MyType = string | number | null
+
+  const [tab, setTab] = React.useState<MyType>("Posts") 
+
   function fetchData(thispage: string|null=null) {
     onSelect(sort, filters, search, thispage ? thispage : page)
 
@@ -60,6 +66,25 @@ export default function Page({
         }
       });
   }
+  
+  function fetchMedia(thispage: string|null=null) {
+    onSelect(sort, filters, search, thispage ? thispage : page)
+
+    fetch('../api/getMedia?user=' + params.username + "&page=" +
+              (thispage?thispage:page) +
+              "&sort=" +
+              JSON.stringify(sort) +
+              "&filters=" +
+              JSON.stringify(filters) +
+              "&search=" +
+              search).then((res) => res.json()).then((data) => {
+                setPagination(data.pagination);
+
+                setMediaData(data.posts);
+        setLoaded(true);
+        seteverLoaded(true)
+              })
+            }
 
   const onSelect = (sort: any, filters: any, search: string, page:string) => {
     // now you got a read/write object
@@ -100,7 +125,11 @@ export default function Page({
   function applyFilters(thispage: string|null=null) {
     // console.log("applying filters");
     setLoaded(false);
+    if (tab == "Posts") {
     fetchData(thispage);
+    } else {
+      fetchMedia(thispage)
+    }
   }
   if (!everloaded) {
     fetchData();
@@ -146,6 +175,9 @@ export default function Page({
               page={page}
               pagination={pagination}
               selectedPosts={neededPosts}
+              selectedMedia={neededMedia}
+              tab={tab}
+              setTab={setTab}
               loaded={loaded}
               user={params.username}
             />
