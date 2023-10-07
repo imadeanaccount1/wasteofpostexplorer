@@ -496,7 +496,7 @@ export default function PostList(props: {
             setTab(newValue);
             if (newValue == "Media") {
               console.log('media tab!!')
-              fetch('../api/getMedia').then((res) => res.json()).then((data) => {
+              fetch('../api/getMedia?user=' + props.user).then((res) => res.json()).then((data) => {
                 setPictures(data);
               })
             }

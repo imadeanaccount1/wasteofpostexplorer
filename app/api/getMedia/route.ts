@@ -4,13 +4,18 @@ import { type NextRequest } from "next/server";
 export async function GET(request: NextRequest) {
     const uri = process.env.CONNECTION_STRING;
   const client = new MongoClient(uri);
+  const searchParams = request.nextUrl.searchParams;
+
+  const user = searchParams.get("user");
+
   try {
+    
     const database = client.db("womposts");
     const posts = database.collection("posts");
     const postlist = posts.aggregate([
         {
             $match: {
-                "poster.name": { $eq: "imadeanaccount" }
+                "poster.name": { $eq: user }
             }
         },
         {
