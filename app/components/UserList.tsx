@@ -6,6 +6,7 @@ import Button from "@mui/joy/Button";
 import Divider from "@mui/joy/Divider";
 import { iconButtonClasses } from "@mui/joy/IconButton";
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import LinearProgress from "@mui/joy/LinearProgress";
 
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -606,7 +607,7 @@ export default function PostList(props: {
             return <User key={data["id"]} data={data} />;
           })
         ) : (
-          <CircularProgress sx={{justifySelf: 'center', alignSelf: 'center'}} />
+            <LinearProgress />
         )}
         <div>
           <Box

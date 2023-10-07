@@ -6,6 +6,8 @@ import Chip from "@mui/joy/Chip";
 import Divider from "@mui/joy/Divider";
 import { iconButtonClasses } from "@mui/joy/IconButton";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import LinearProgress from '@mui/joy/LinearProgress';
+import CircularProgress from "@mui/joy/CircularProgress";
 
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -22,7 +24,6 @@ import Link from "@mui/joy/Link";
 import Card from "@mui/joy/Card";
 import CardActions from "@mui/joy/CardActions";
 import CardOverflow from "@mui/joy/CardOverflow";
-import CircularProgress from "@mui/joy/CircularProgress";
 
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
@@ -665,7 +666,6 @@ export default function PostList(props: {
             </Button>
           </Stack>
         </Stack>
-
         {props.selectedPosts.length == 0 && props.loaded ? (
           <EmptyState contenttype="Posts" />
         ) : props.loaded ? (
@@ -674,9 +674,7 @@ export default function PostList(props: {
           })
         ) : (
           <>
-            <CircularProgress
-              sx={{ justifySelf: "center", alignSelf: "center" }}
-            />
+            <LinearProgress />
           </>
         )}
         <div>
