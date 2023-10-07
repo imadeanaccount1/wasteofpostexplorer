@@ -536,7 +536,7 @@ export default function PostList(props: {
             <Tab sx={{ borderRadius: "6px 6px 0 0" }} indicatorInset value="Media">
               Media
               <Chip color="primary" variant="solid" sx={{ marginLeft: "8px" }}>
-                Soon!
+                New!
               </Chip>
             </Tab>
             <Tab sx={{ borderRadius: "6px 6px 0 0" }} indicatorInset value="Stats">
