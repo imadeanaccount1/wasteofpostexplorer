@@ -35,6 +35,10 @@ return (
     >
       <Box
         sx={{
+          paddingTop: {
+            xs: '68px',
+            md: '0px',
+          },
           px: {
             xs: 2,
             md: 6,
@@ -76,8 +80,8 @@ return (
         </Typography>
       </Box>
       </Box>
-      <Box sx={{ marginLeft: '50px', marginRight: '50px' }}>
-        <Typography fontSize='md' sx={{marginTop:'40px', marginBottom: '16px'}}>
+      <Box sx={{ marginLeft: '4vw', marginRight: '4vw' }}>
+        <Typography fontSize='md' sx={{marginTop:'16px', marginBottom: '16px'}}>
         Find a specific user by their username. (Autocomplete coming soon!)
         </Typography>
       <Stack direction="row" spacing={1} alignItems="center">

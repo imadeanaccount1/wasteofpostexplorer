@@ -23,10 +23,14 @@ export default function Page({ params }: { params: { username: string } }) {
             component="main"
             className="MainContent"
             sx={{
-              pt: {
-                xs: "calc(12px + var(--Header-height))",
-                md: 3,
+              paddingTop: {
+                xs: '68px',
+                md: '0px',
               },
+              // pt: {
+              //   xs: "calc(12px + var(--Header-height))",
+              //   md: 3,
+              // },
               pb: {
                 xs: 2,
                 sm: 2,
