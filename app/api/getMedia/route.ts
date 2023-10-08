@@ -192,7 +192,7 @@ export async function GET(request: NextRequest) {
     postlistpipeline.push({ $project: { _id: 1, imgTag: "$imgTags.match", time: 1, poster:  1} });
     countpipeline.push({ $project: { _id: 1, imgTag: "$imgTags.match" } });
         // @ts-ignore
-        countpipeline.push({ $count: "passing_scores" });
+        countpipeline.push({ $count: "numberOfImages" });
     console.log(postlistpipeline);
     const postlist = posts.aggregate(postlistpipeline);
     const postcounts = posts.aggregate(countpipeline);
@@ -211,7 +211,7 @@ export async function GET(request: NextRequest) {
     //     pictures.push(doc)
     // }
     console.log(counts);
-    const recordCount = counts[0].passing_scores;
+    const recordCount = counts[0].numberOfImages;
     const pageCount = Math.ceil(recordCount / 15);
 
     const pages = Array.from({ length: pageCount }, (x, i) => i).map((page) =>
