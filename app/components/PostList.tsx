@@ -826,7 +826,7 @@ export default function PostList(props: {
                   color: 'white',
                   textShadow: '3px 3px 3px black',
                 }}>
-                  Posted by {picture.poster.name} {formatTime(picture.time)}
+                  Posted by @{picture.poster.name} {formatTime(picture.time)}
                 </Typography>
                 <Link href={"https://wasteof.money/posts/" + picture["_id"]} sx={{
                   position: 'absolute',
