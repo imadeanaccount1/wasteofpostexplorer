@@ -7,8 +7,6 @@ import Divider from "@mui/joy/Divider";
 import { iconButtonClasses } from "@mui/joy/IconButton";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import LinearProgress from '@mui/joy/LinearProgress';
-import CircularProgress from "@mui/joy/CircularProgress";
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import SearchIcon from "@mui/icons-material/Search";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
@@ -63,7 +61,7 @@ function FilterBy(props: any) {
       sx={{ width: "100%", justifyContent: "space-between" }}
       direction="row"
     >
-      <Stack spacing={2} direction="row">
+      <Stack sx={{flexWrap: "wrap", rowGap: "8px"}} spacing={2} direction="row">
         <FilterAltOutlinedIcon sx={{ alignSelf: "center" }} />
         <Typography
           sx={{ alignSelf: "center" }}
@@ -186,7 +184,7 @@ function SortBy(props: any) {
       sx={{ width: "100%", justifyContent: "space-between" }}
       direction="row"
     >
-      <Stack spacing={2} direction="row">
+      <Stack sx={{flexWrap: "wrap", rowGap: "8px"}} spacing={2} direction="row">
         <Typography
           sx={{ alignSelf: "center" }}
           level="body-sm"
@@ -265,7 +263,7 @@ function Post(props: { data: any }) {
         <Stack
           direction="row"
           spacing={2}
-          sx={{ display: { xs: "none", md: "flex" }, my: 1 }}
+          sx={{ my: 1 }}
         >
           <Stack direction="column" spacing={1}>
             <AspectRatio
@@ -304,7 +302,7 @@ function Post(props: { data: any }) {
       {/* {JSON.stringify(props.data)} */}
       <CardOverflow sx={{ borderTop: "1px solid", borderColor: "divider" }}>
         <CardActions sx={{ alignSelf: "flex-end", pt: 2 }}>
-          <Stack spacing={3} direction="row">
+          <Stack sx={{flexWrap: "wrap", rowGap: "12px"}} spacing={3} direction="row">
             <Typography
               startDecorator={<FavoriteBorderIcon />}
               sx={{
@@ -319,10 +317,10 @@ function Post(props: { data: any }) {
 
             <Typography
               startDecorator={<LoopIcon />}
-              display={{
-                xs: "none",
-                md: "flex",
-              }}
+              // display={{
+              //   xs: "none",
+              //   md: "flex",
+              // }}
               sx={{
                 textDecoration: "none",
               }}
@@ -338,10 +336,10 @@ function Post(props: { data: any }) {
             {/* </Link> */}
             <Typography
               startDecorator={<ChatBubbleOutlineOutlinedIcon />}
-              display={{
-                xs: "none",
-                md: "flex",
-              }}
+              // display={{
+              //   xs: "none",
+              //   md: "flex",
+              // }}
               sx={{
                 textDecoration: "none",
               }}
@@ -352,10 +350,10 @@ function Post(props: { data: any }) {
             </Typography>
             <Typography
               startDecorator={<EditNoteOutlinedIcon />}
-              display={{
-                xs: "none",
-                md: "flex",
-              }}
+              // display={{
+              //   xs: "none",
+              //   md: "flex",
+              // }}
               sx={{
                 textDecoration: "none",
               }}
@@ -366,10 +364,10 @@ function Post(props: { data: any }) {
             </Typography>
             <Typography
               startDecorator={<QueryBuilderOutlinedIcon />}
-              display={{
-                xs: "none",
-                md: "flex",
-              }}
+              // display={{
+              //   xs: "none",
+              //   md: "flex",
+              // }}
               sx={{
                 textDecoration: "none",
               }}
@@ -432,6 +430,10 @@ export default function PostList(props: {
       >
         <Box
           sx={{
+            paddingTop: {
+              xs: '68px',
+              md: '0px',
+            },
             px: {
               xs: 2,
               md: 6,
@@ -610,7 +612,7 @@ export default function PostList(props: {
                 aria-label="Search"
               />
             </FormControl>
-            <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            <Box>
               <Button
                 variant="outlined"
                 color="neutral"

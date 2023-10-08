@@ -65,7 +65,7 @@ function FilterBy(props: any) {
       sx={{ width: "100%", justifyContent: "space-between" }}
       direction="row"
     >
-      <Stack spacing={2} direction="row">
+      <Stack sx={{flexWrap: "wrap", rowGap: "8px"}} spacing={2} direction="row">
         <FilterAltOutlinedIcon sx={{ alignSelf: "center" }} />
         <Typography
           sx={{ alignSelf: "center" }}
@@ -191,7 +191,7 @@ function SortBy(props: any) {
       sx={{ width: "100%", justifyContent: "space-between" }}
       direction="row"
     >
-      <Stack spacing={2} direction="row">
+      <Stack spacing={2} sx={{flexWrap: "wrap", rowGap: "8px"}} direction="row">
         <Typography
           sx={{ alignSelf: "center" }}
           level="body-sm"
@@ -269,7 +269,7 @@ function User (props: {data: any}) {
         <Stack
           direction="row"
           spacing={2}
-          sx={{ display: { xs: "none", md: "flex" }, my: 1 }}
+          sx={{ my: 1 }}
         >
           <Stack direction="column" spacing={1}>
             <AspectRatio
@@ -300,7 +300,7 @@ function User (props: {data: any}) {
       </Box>
       <CardOverflow sx={{ borderTop: "1px solid", borderColor: "divider" }}>
         <CardActions sx={{ alignSelf: "flex-end", pt: 2 }}>
-          <Stack spacing={3} direction="row">
+          <Stack sx={{flexWrap: "wrap", rowGap: "8px"}} spacing={3} direction="row">
             <Typography startDecorator={<Groups3OutlinedIcon />}
                           sx={{
                             textDecoration: "none",
@@ -311,10 +311,6 @@ function User (props: {data: any}) {
             </Typography>
             <Typography
               startDecorator={<GroupAddOutlinedIcon />}
-              display={{
-                xs: "none",
-                md: "flex",
-              }}
               sx={{
                 textDecoration: "none",
               }}
@@ -325,10 +321,6 @@ function User (props: {data: any}) {
             </Typography>
             <Typography
               startDecorator={<PostAddOutlinedIcon />}
-              display={{
-                xs: "none",
-                md: "flex",
-              }}
               sx={{
                 textDecoration: "none",
               }}
@@ -339,10 +331,6 @@ function User (props: {data: any}) {
             </Typography>
             <Typography
               startDecorator={<QueryBuilderOutlinedIcon />}
-              display={{
-                xs: "none",
-                md: "flex",
-              }}
               sx={{
                 textDecoration: "none",
               }}
@@ -402,6 +390,10 @@ export default function PostList(props: {
       >
         <Box
           sx={{
+            paddingTop: {
+              xs: '68px',
+              md: '0px',
+            },
             px: {
               xs: 2,
               md: 6,
@@ -537,7 +529,7 @@ export default function PostList(props: {
               aria-label="Search"
             />
           </FormControl>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+          <Box>
             <Button variant="outlined" color="neutral"
             onClick={(event) => { props.setSearch("") }}>
               Clear
