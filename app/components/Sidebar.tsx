@@ -271,7 +271,7 @@ export default function Sidebar(props: { user: string; page: string }) {
         <Card
           invertedColors
           variant="soft"
-          color="warning"
+          color="primary"
           size="sm"
           sx={{ boxShadow: "none" }}
         >
@@ -280,14 +280,11 @@ export default function Sidebar(props: { user: string; page: string }) {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Typography level="title-sm">Notice</Typography>
-            <IconButton size="sm">
-              <CloseRoundedIcon />
-            </IconButton>
+            <Typography level="title-sm">Note:</Typography>
           </Stack>
           <Typography level="body-xs">
-            Post Explorer Data is old and may not be accurate. Deleted or
-            admin-removed posts may be shown.
+            Post Explorer Data may be outdated or inaccurate. Deleted or
+            admin-removed posts may be shown, contact us to report them. 
           </Typography>
         </Card>
       </Box>
