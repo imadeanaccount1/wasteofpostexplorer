@@ -36,7 +36,7 @@ export default function Page({
   ]);
   type MyType = string | number | null
 
-  const [tab, setTab] = React.useState<MyType>("Posts") 
+  const [tab, setTab] = React.useState<MyType>(searchParams.get("tab") ||"Posts") 
 
   function fetchData(thispage: string|null=null) {
     onSelect(sort, filters, search, thispage ? thispage : page)
@@ -67,8 +67,9 @@ export default function Page({
       });
   }
   
-  function fetchMedia(thispage: string|null=null) {
-    onSelect(sort, filters, search, thispage ? thispage : page)
+  function fetchMedia(thispage: string|null=null, thistab: string|null=null) {
+    // @ts-ignore
+    onSelect(sort, filters, search, thispage ? thispage : page, thistab ? thistab : tab)
 
     fetch('../api/getMedia?user=' + params.username + "&page=" +
               (thispage?thispage:page) +
@@ -86,12 +87,13 @@ export default function Page({
               })
             }
 
-  const onSelect = (sort: any, filters: any, search: string, page:string) => {
-    // now you got a read/write object
+            const onSelect = (sort: any, filters: any, search: string, page:string, thistab:string="Posts") => {
+              // now you got a read/write object
     const current = new URLSearchParams(Array.from(searchParams.entries())); // -> has to use this form
 
     // update as necessary
-
+    // @ts-ignore
+    current.set("tab", tab)
     if (!search) {
       current.delete("search");
     } else {
@@ -122,17 +124,21 @@ export default function Page({
     router.push(`${pathname}${query}`);
   };
 
-  function applyFilters(thispage: string|null=null) {
+  function applyFilters(thispage: string|null=null, thistab: string|null="Posts") {
     // console.log("applying filters");
     setLoaded(false);
-    if (tab == "Posts") {
-    fetchData(thispage);
-    } else {
-      fetchMedia(thispage)
-    }
+    if (thistab== "Posts" && tab == "Posts") {
+      fetchData(thispage);
+      } else {
+        fetchMedia(thispage, thistab)
+      }
   }
   if (!everloaded) {
-    fetchData();
+    if (tab == "Posts") {
+      fetchData();
+      } else {
+        fetchMedia()
+      }
   }
   return (
     <>

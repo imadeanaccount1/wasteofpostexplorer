@@ -68,7 +68,7 @@ export default function Page({
     const current = new URLSearchParams(Array.from(searchParams.entries())); // -> has to use this form
 
     // update as necessary
-
+    // @ts-ignore
     if (!search) {
       current.delete("search");
     } else {

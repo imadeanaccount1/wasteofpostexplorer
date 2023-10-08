@@ -499,12 +499,14 @@ export default function PostList(props: {
         </Box>
         <Tabs
           defaultValue="Posts"
+          value={props.tab}
           onChange={(event, newValue) => {
             console.log(newValue);
             props.setTab(newValue);
-            // if (newValue == "Media") {
-            //   console.log('media tab!!')
-            // }
+            if (newValue == "Media") {
+              console.log('media tab!!')
+              props.applyFilters(props.page, "Media")
+            }
           }}
           sx={{
             top: props.user=="any" ? "-4px" : '12px',
