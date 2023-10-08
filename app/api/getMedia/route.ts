@@ -1,7 +1,22 @@
 const { MongoClient } = require("mongodb");
 import { type NextRequest } from "next/server";
-import { listenerCount } from "process";
+// @ts-ignore
+import { get, set } from 'lodash';
+const rateLimit = 20; // Number of allowed requests per minute
 
+const rateLimiter = {};
+
+const rateLimiterMiddleware = (ip: any) => {
+  const now = Date.now();
+  const windowStart = now - 60 * 1000; // 1 minute ago
+
+  const requestTimestamps = get(rateLimiter, ip, []).filter((timestamp: any) => timestamp > windowStart);
+  requestTimestamps.push(now);
+
+  set(rateLimiter, ip, requestTimestamps);
+
+  return requestTimestamps.length <= rateLimit;
+};
 async function getQuery(filters: any) {
   let fullquery: any = {};
   for (let step = 0; step < filters.length; step++) {
@@ -60,6 +75,12 @@ async function getQuery(filters: any) {
   return fullquery;
 }
 export async function GET(request: NextRequest) {
+  const ip : any = request.headers.get('x-real-ip') ||  request.ip;
+
+  if (!rateLimiterMiddleware(ip)) {
+    return Response.json({ error: 'Rate Limited' }, { status: 429 })
+    // return Response.status(429).json({ message: 'Too Many Requests' });
+  }
   const uri = process.env.CONNECTION_STRING;
   const client = new MongoClient(uri);
   const searchParams = request.nextUrl.searchParams;

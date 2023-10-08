@@ -84,7 +84,7 @@ export async function GET(request: NextRequest) {
   const ip : any = request.headers.get('x-real-ip') ||  request.ip;
 
   if (!rateLimiterMiddleware(ip)) {
-    return Response.json({ error: 'Rate Limited' }, { status: 500 })
+    return Response.json({ error: 'Rate Limited' }, { status: 429 })
     // return Response.status(429).json({ message: 'Too Many Requests' });
   }
   const searchParams = request.nextUrl.searchParams;
