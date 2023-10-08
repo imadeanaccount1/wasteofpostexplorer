@@ -883,7 +883,7 @@ export default function PostList(props: {
               <WestOutlinedIcon />
             </IconButton>
             <Typography level="body-sm" mx="auto">
-              Page {props.page} of 10
+              Page {props.page} of {props.pagination.pages[props.pagination.pages.length-1]}
             </Typography>
             <IconButton
               aria-label="next page"
