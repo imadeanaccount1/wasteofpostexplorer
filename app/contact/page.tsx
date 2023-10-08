@@ -27,6 +27,8 @@ export default function Page({ params }: { params: { username: string } }) {
                 xs: '68px',
                 md: '0px',
               },
+              paddingLeft: "5vw",
+              paddingRight: "5vw",
               // pt: {
               //   xs: "calc(12px + var(--Header-height))",
               //   md: 3,

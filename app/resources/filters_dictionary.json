@@ -1,0 +1,13 @@
+{
+    "filters":{
+        "fields": [
+            {"id": "loves", "name": "Love Count", "operations": ["int"], "valueType": "int"}
+        ],
+        "operations": [
+            {"id": ">", "name": "Greater Than", "groups": ["int"], "valueType": "default"},
+            {"id": "<", "name": "Less Than"},
+            {"id": "==", "name": "Equal To"}
+        ]
+    }
+
+}
