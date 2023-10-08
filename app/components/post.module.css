@@ -1,5 +1,5 @@
-.postContent > p {
-    margin-top: 4px;
-    margin-bottom: 4px;
-    word-wrap: break-word;
+.postContent > img {
+    max-width: 100% !important;
+
 }
+

@@ -55,7 +55,7 @@ import formatTime from "../utils/formatTime";
 import Image from "next/image";
 import type { ChangeEvent } from "react";
 
-import "./post.module.css";
+import styles from "./post.module.css";
 
 function FilterBy(props: any) {
   return (
@@ -295,7 +295,8 @@ function Post(props: { data: any }) {
         </Stack>
       </Box>
       <Divider />
-      <div className="postContent">{
+      <div style={{width: "100%"}} className={styles.postContent}>
+{
       parse(props.data.content)
       }              
       </div>
