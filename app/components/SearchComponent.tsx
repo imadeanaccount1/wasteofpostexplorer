@@ -173,7 +173,7 @@ const Listbox = React.forwardRef<HTMLUListElement, any>((props2, ref) => (
                 { props.advanced ? (
                 <Typography sx={{marginRight: '8px'}} level="title-sm">{option.type}:</Typography>
           ) : null}
-              <Image style={{marginRight: '8px'}} alt={option.name + "'s profile picture"} src={"https://api.wasteof.money/users/" + option.name + "/picture"} width={18} height={18} />
+              <Image style={{marginRight: '8px', borderRadius: '100%'}} alt={option.name + "'s profile picture"} src={"https://api.wasteof.money/users/" + option.name + "/picture"} width={18} height={18} />
                 <Typography level="title-sm">{option.name}</Typography>
             </AutocompleteOption>
           )}
