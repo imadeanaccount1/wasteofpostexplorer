@@ -1,4 +1,7 @@
 ## wasteof.money Post Explorer
+
+[![All Contributors](https://img.shields.io/github/all-contributors/imadeanaccount1/wasteofpostexplorer?color=ee8449&style=flat-square)](#contributors)
+
 - 🔍 **Explore wasteof.money data like never before**: wasteof.money post explorer allows you to search, filter, sort, and aggregate archived wasteof.money users and posts, with new queries, options, features, charts, and views being added constantly.
 - 📊 **The perfect solution for analyzing wasteof.money data**: Want to analyze wasteof.money posts and user data without doing thousands of API requests? Post Explorer doesn't do a single request to the wasteof.money API.
 
@@ -14,3 +17,14 @@ and of course, the wasteof.money social media is developed by [jeffalo](https://
 
 ## License
 the wasteof post explorer is licensed under the MIT licensed
+
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
