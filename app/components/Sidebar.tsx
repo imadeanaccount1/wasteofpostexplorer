@@ -214,7 +214,10 @@ export default function Sidebar(props: { user: string; page: string }) {
                       alt=""
                       width="24"
                       height="24"
-                      style={{ marginRight: "8px" }}
+                      style={{
+                        marginRight: "8px",
+                        borderRadius: "50%",
+                      }}
                     />
                     <ListItemContent>
                       <Typography level="title-sm">
