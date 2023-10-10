@@ -5,16 +5,9 @@ import Link from "@mui/joy/Link";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import Typography from "@mui/joy/Typography";
-import SearchIcon from '@mui/icons-material/Search';
-import Stack from "@mui/joy/Stack";
-import Button from "@mui/joy/Button";
-import Input from "@mui/joy/Input";
-
-import {useRouter} from "next/navigation";
-
+import SearchComponent from "./SearchComponent";
 export default function FindSpecificUser(props: {}) {
-  const router = useRouter();
-  const [search, setSearch] = React.useState("");
+
 return (
     <Box
     sx={{
@@ -79,28 +72,18 @@ return (
          Find Specific User
         </Typography>
       </Box>
-      </Box>
-      <Box sx={{ marginLeft: '4vw', marginRight: '4vw' }}>
+      <Box sx={{ px: {
+            xs: 2,
+            md: 6,
+          },}}>
         <Typography fontSize='md' sx={{marginTop:'16px', marginBottom: '16px'}}>
-        Find a specific user by their username. (Autocomplete coming soon!)
+        Autocomplete Search for a user by their username.
         </Typography>
-      <Stack direction="row" spacing={1} alignItems="center">
-      <Input
-      value={search}
-      onChange={(e) => setSearch(e.target.value)}
-          size="lg"
-          placeholder="Search Username"
-          startDecorator={<SearchIcon />}
-          sx={{ flexGrow: 1 }}
-        />
-        <Button size="lg"
-        onClick={(e) => {
-          router.push(`/users/${search}`)
-        }}>
-          Go to User Profile
-        </Button>
-        </Stack>
+               
+          <SearchComponent advanced={false} />
         </Box>
+      </Box>
+      
       </Box>
 
 )

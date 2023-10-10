@@ -3,3 +3,7 @@
 
 }
 
+.postContent > p {
+    text-wrap: wrap;
+    word-wrap: break-word;
+}

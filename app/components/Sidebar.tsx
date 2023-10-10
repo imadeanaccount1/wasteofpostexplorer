@@ -13,7 +13,6 @@ import Stack from "@mui/joy/Stack";
 import PostAddOutlinedIcon from "@mui/icons-material/PostAddOutlined";
 import SupportIcon from "@mui/icons-material/Support";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Link from "@mui/joy/Link";
 import ColorSchemeToggle from "./ColorSchemeToggle";
@@ -24,6 +23,7 @@ import ShuffleIcon from "@mui/icons-material/Shuffle";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import Image from "next/image";
 import SearchIcon from "@mui/icons-material/Search";
+import SearchComponent from "./SearchComponent";
 
 function Toggler({
   defaultExpanded = false,
@@ -132,6 +132,7 @@ export default function Sidebar(props: { user: string; page: string }) {
             "--ListItem-radius": (theme) => theme.vars.radius.sm,
           }}
         >
+          <SearchComponent advanced={true} />
           <ListItem>
             <ListItemButton
               component="a"
@@ -249,7 +250,7 @@ export default function Sidebar(props: { user: string; page: string }) {
             >
               <SearchIcon sx={{ marginRight: "8px" }} />
               <ListItemContent>
-                <Typography level="title-sm">Specific User</Typography>
+                <Typography level="title-sm">Specific User<Chip sx={{marginLeft: '8px'}} color="primary" variant="solid">New!</Chip></Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>
