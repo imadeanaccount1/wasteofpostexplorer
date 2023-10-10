@@ -27,6 +27,7 @@ the wasteof post explorer is licensed under the MIT licensed
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/imadeanaccount1"><img src="https://avatars.githubusercontent.com/u/138229538?v=4?s=100" width="100px;" alt="imadeanaccount"/><br /><sub><b>imadeanaccount</b></sub></a><br /><a href="#code-imadeanaccount1" title="Code">💻</a> <a href="#ideas-imadeanaccount1" title="Ideas, Planning, & Feedback">🤔</a> <a href="#review-imadeanaccount1" title="Reviewed Pull Requests">👀</a> <a href="#design-imadeanaccount1" title="Design">🎨</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://radi8.dev"><img src="https://avatars.githubusercontent.com/u/124477460?v=4?s=100" width="100px;" alt="radeeyate"/><br /><sub><b>radeeyate</b></sub></a><br /><a href="#data-radeeyate" title="Data">🔣</a> <a href="#code-radeeyate" title="Code">💻</a> <a href="#infra-radeeyate" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
     </tr>
   </tbody>
 </table>
