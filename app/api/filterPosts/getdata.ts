@@ -38,7 +38,9 @@ export async function getData(
         fieldValue = "reposts";
       } else if (JSON.parse(sortValue)[i].field === "posted") {
         fieldValue = "time";
-      } 
+      } else if (JSON.parse(sortValue[i].field == "edits"){
+        fieldValue = "revisions.length";
+      }
       sort[fieldValue] =
         JSON.parse(sortValue)[i].direction === "asc" ? 1 : -1;
     }
