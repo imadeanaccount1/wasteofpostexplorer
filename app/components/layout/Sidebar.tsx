@@ -15,15 +15,15 @@ import SupportIcon from "@mui/icons-material/Support";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Link from "@mui/joy/Link";
-import ColorSchemeToggle from "./ColorSchemeToggle";
-import { closeSidebar } from "../utils";
+import ColorSchemeToggle from "../utils/ColorSchemeToggle";
+import { closeSidebar } from "../../utils";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import Image from "next/image";
 import SearchIcon from "@mui/icons-material/Search";
-import SearchComponent from "./SearchComponent";
+import SearchComponent from "../SearchComponent";
 
 function Toggler({
   defaultExpanded = false,
