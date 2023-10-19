@@ -244,7 +244,7 @@ export async function GET(request: NextRequest) {
     const displaypages = pages;
     return Response.json({
       posts: pictures,
-      pagination: { pages: displaypages, pageCount: pageCount },
+      pagination: { pages: displaypages, recordCount: recordCount, pageCount: pageCount },
     });
   } finally {
     await client.close();

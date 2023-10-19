@@ -129,6 +129,6 @@ export async function GET(request: NextRequest) {
 
   return Response.json({
     posts: filteredposts,
-    pagination: { pages: displaypages, pageCount: pageCount },
+    pagination: { pages: displaypages, recordCount: recordCount, pageCount: pageCount },
   });
 }
