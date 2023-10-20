@@ -98,16 +98,8 @@ export default function Page() {
 
       current.set("search", search)
     }
-    if (filters.length == 0) {
-      current.delete("filters");
-    } else {
       current.set("filters", JSON.stringify(filters));
-    }
-    if (sort.length == 0) {
-      current.delete("sort");
-    } else {
       current.set("sort", JSON.stringify(sort));
-    }
     if (page == "1") {
       current.delete("page");
     } else {
