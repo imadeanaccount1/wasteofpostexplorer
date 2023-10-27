@@ -4,8 +4,8 @@ import * as React from "react";
 import { CssVarsProvider } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
 import Box from "@mui/joy/Box";
-import Sidebar from "../../components/Sidebar";
-import Header from "../../components/Header";
+import Sidebar from "../../components/layout/Sidebar";
+import Header from "../../components/layout/Header";
 import PostList from "../../components/PostList";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 

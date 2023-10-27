@@ -23,20 +23,12 @@ import Link from "@mui/joy/Link";
 import Card from "@mui/joy/Card";
 import CardActions from "@mui/joy/CardActions";
 import CardOverflow from "@mui/joy/CardOverflow";
-import CircularProgress from "@mui/joy/CircularProgress";
 
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 
-import EmptyState from "./EmptyState";
-
-import FolderIcon from "@mui/icons-material/Folder";
-import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
-import LoopIcon from "@mui/icons-material/Loop";
+import EmptyState from "./utils/EmptyState";
 import formatTime from "../utils/formatTime";
-
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
 import QueryBuilderOutlinedIcon from "@mui/icons-material/QueryBuilderOutlined";
 
 import Select from "@mui/joy/Select";

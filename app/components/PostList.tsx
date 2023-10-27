@@ -27,9 +27,8 @@ import CardOverflow from "@mui/joy/CardOverflow";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 
-import EmptyState from "./EmptyState";
+import EmptyState from "./utils/EmptyState";
 
-import FolderIcon from "@mui/icons-material/Folder";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import LoopIcon from "@mui/icons-material/Loop";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -51,7 +50,6 @@ import WestOutlinedIcon from "@mui/icons-material/WestOutlined";
 import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
 import formatTime from "../utils/formatTime";
 import Image from "next/image";
-import type { ChangeEvent } from "react";
 
 import styles from "./post.module.css";
 
