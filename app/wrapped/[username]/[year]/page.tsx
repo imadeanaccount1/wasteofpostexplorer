@@ -10,6 +10,7 @@ import Box from "@mui/joy/Box";
 // import Tooltip from "@uiw/react-tooltip";
 import Tooltip from '@mui/joy/Tooltip';
 import Sidebar from "../../../components/Sidebar";
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
 import CalculateOutlinedIcon from '@mui/icons-material/CalculateOutlined';
 import ChildCareOutlinedIcon from '@mui/icons-material/ChildCareOutlined';
@@ -522,7 +523,7 @@ export default function Page({
 
                       <Typography level="h2">{trends.immark_v2} time{trends.immark_v2 > 1 ? 's' : ''}</Typography>
                     </CardContent>
-                    <RocketLaunchOutlinedIcon />
+                    <InsertEmoticonIcon />
                   </CardContent>
                  
                 </Card>

@@ -91,7 +91,7 @@ export async function GET(request: NextRequest) {
     },
     {
       $match: {
-        "poster.name": { $eq: user },
+        "poster.id": { $eq: userrecord.id },
       },
     },
     {
@@ -109,7 +109,7 @@ export async function GET(request: NextRequest) {
     },
     {
       $match: {
-        "poster.name": { $eq: user },
+        "poster.id": { $eq: userrecord.id },
       },
     },
     {
@@ -127,7 +127,7 @@ export async function GET(request: NextRequest) {
     },
     {
       $match: {
-        "poster.name": { $eq: user },
+        "poster.id": { $eq: userrecord.id },
       },
     },
     {
@@ -268,7 +268,7 @@ export async function GET(request: NextRequest) {
     });
     const nightyMorningList = await posts
     .find({
-      $text: { $search: "nighty morning" },
+      $text: { $search: "\"nighty morning\"" },
       "poster.id": { $eq: userrecord.id },
       time: {
         $gte: new Date(year + "-01-01").getTime(),
