@@ -321,6 +321,28 @@ export async function GET(request: NextRequest) {
       if (err) throw err;
       client.close();
     });
+    const repostList = await posts
+    .find({
+      "poster.id": { $eq: userrecord.id },
+      "repost._id": { $exists: true },
+      time: {
+        $gte: new Date(year + "-01-01").getTime(),
+        $lte: new Date(year + "-12-31").getTime(),
+      },
+
+    })
+    .count();
+
+    const repostList2 = await posts
+    .find({
+      "poster.id": { $eq: userrecord.id },
+      "repost._id": { $exists: true },
+      time: {
+        $gte: new Date((parseInt(year) - 1).toString() + "-01-01").getTime(),
+        $lte: new Date((parseInt(year) - 1).toString() + "-12-31").getTime(),
+      },
+    })
+    .count();
     const ratiodList = await posts
     .find({
       $text: { $search: "\"ratio\"" },
@@ -410,6 +432,8 @@ export async function GET(request: NextRequest) {
     postCount: {
       count: pictures2[0] ? pictures2[0].number_of_days : 0,
       count2: pictures3[0] ? pictures3[0].number_of_days : 0,
+      repostCount: repostList > 0? repostList : 0,
+      repostCount2: repostList2 > 0 ? repostList2 : 0,
     },
     statChanges: {
       followerChange: followerChange,

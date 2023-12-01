@@ -10,6 +10,7 @@ import Box from "@mui/joy/Box";
 // import Tooltip from "@uiw/react-tooltip";
 import Tooltip from '@mui/joy/Tooltip';
 import Sidebar from "../../../components/Sidebar";
+import RecyclingOutlinedIcon from '@mui/icons-material/RecyclingOutlined';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
 import CalculateOutlinedIcon from '@mui/icons-material/CalculateOutlined';
@@ -58,6 +59,8 @@ export default function Page({
   const [followingPercent, setFollowingPercent] = React.useState<any>("");
   const [postCountChange, setPostCountChange] = React.useState<any>("");
   const [trends, setTrends] = React.useState<any>({});
+  const [repostPercent, setRepostPercent] = React.useState<any>("");
+  const [repostIncrease, setRepostIncrease] = React.useState<any>("");
   function fetchData() {
     console.log('fetch data')
     seteverLoaded(true)
@@ -76,6 +79,8 @@ export default function Page({
       setFollowingPercent(Math.round(Math.abs((1-(data.stats.following / (data.stats.following - (data.joindate > new Date(params.year + '-01-01').getTime() ? data.stats.following : data.statChanges.followingChange)))) * 100)).toString() + "% " + ((1-(data.stats.following / (data.stats.following - (data.joindate > new Date(params.year + '-01-01').getTime() ? data.stats.following : data.statChanges.followingChange)))) > 0 ? "decrease" : "increase"))
       setPostCountChange(Math.abs(Math.round(((1-(data.datesPosted.length/data.datesPostedLastYear.length))*100))).toString() + "% " + ((1-(data.datesPosted.length/data.datesPostedLastYear.length)) > 0 ? "decrease" : "increase"))
       setTrends(data.trends)
+      setRepostPercent(Math.round((data.postCount.repostCount / data.postCount.count)*100).toString() + "%")
+      setRepostIncrease((Math.round((data.postCount.repostCount / data.postCount.count)*100) - Math.round((data.postCount.repostCount2 / data.postCount.count2)*100)).toString() + "% " + ((Math.round((data.postCount.repostCount / data.postCount.count)*100) - Math.round((data.postCount.repostCount2 / data.postCount.count2)*100)) > 0 ? "increase" : "decrease"))
     })
 
   }
@@ -135,6 +140,11 @@ export default function Page({
                 justifyContent: "center",
                 justifyItems: "center",
                 marginTop: "24px",
+                position: "sticky",
+                top: {
+                  sm: -100,
+                  md: -110,
+                },
               }} direction="row">
             <Image
                       src={`https://api.wasteof.money/users/${params.username}/picture`}
@@ -208,9 +218,7 @@ export default function Page({
                       </Typography>
                       <Typography level="h2">Feb 22, 2023</Typography>
                     </CardContent>
-                    <CircularProgress size="lg" determinate value={20}>
                       <CakeOutlinedIcon />
-                    </CircularProgress>
                   </CardContent>
                 </Card>
                 : null }
@@ -226,9 +234,7 @@ export default function Page({
                       <Typography level="h2">{postCount}</Typography>
                       <Typography level="body-md">created posts</Typography>
                     </CardContent>
-                    <CircularProgress size="lg" determinate value={20}>
                       <EditOutlinedIcon />
-                    </CircularProgress>
                   </CardContent>
                   <CardActions>
                     <Button variant="soft" size="sm">
@@ -252,9 +258,7 @@ export default function Page({
                       <Typography level="h2">{followerIncrease}</Typography>
                       <Typography level="body-md">{followerIncrease > 0 ? 'gained' : 'lost' } followers</Typography>
                     </CardContent>
-                    <CircularProgress size="lg" determinate value={20}>
                       <PersonAddAltOutlinedIcon />
-                    </CircularProgress>
                   </CardContent>
                   <CardActions>
                     <Button variant="soft" size="sm">
@@ -278,9 +282,7 @@ export default function Page({
                       <Typography level="h2">{followingIncrease}</Typography>
                       <Typography level="body-md">{followingIncrease > 0 ? 'followed' : 'unfollowed' } users</Typography>
                     </CardContent>
-                    <CircularProgress size="lg" determinate value={20}>
                       <GroupOutlinedIcon />
-                    </CircularProgress>
                   </CardContent>
                   <CardActions>
                     <Button variant="soft" size="sm">
@@ -292,7 +294,7 @@ export default function Page({
                   </CardActions>
                 </Card>
               : null }  
-               { datesPosted != null && datesPosted != undefined ?
+               { datesPosted != null && datesPosted != undefined && datesPosted.length > 0 ?
                 <Card
                   sx={{ height: "160px", width: "300px", margin: "8px" }}
                   variant="solid"
@@ -304,9 +306,7 @@ export default function Page({
                       <Typography level="h2">{datesPosted.length}</Typography>
                       <Typography level="body-md">days posted</Typography>
                     </CardContent>
-                    <CircularProgress size="lg" determinate value={20}>
                       <TodayOutlinedIcon />
-                    </CircularProgress>
                   </CardContent>
                   <CardActions>
                     <Button variant="soft" size="sm">
@@ -414,6 +414,23 @@ export default function Page({
                   </CardActions>
                 </Card>
               : null }  
+              { trends.kidsAreMore ?
+                <Card
+                  sx={{ height: "160px", width: "300px", margin: "8px" }}
+                  variant="outlined"
+                  color="primary"
+                  invertedColors
+                >
+                  <CardContent orientation="horizontal">
+                    <CardContent>
+                    <Typography level="h3" fontWeight="bold">discussed how kids are more accepting than adults</Typography>
+
+                    </CardContent>
+                    <ChildCareOutlinedIcon />
+                  </CardContent>
+                 
+                </Card>
+              : null } 
                        { trends["8443"] ?
                 <Card
                   sx={{ height: "160px", width: "300px", margin: "8px" }}
@@ -467,9 +484,7 @@ export default function Page({
 
                       <Typography level="h2">{trends.nightyMorning} time{trends.nightyMorning > 1 ? 's' : ''}</Typography>
                     </CardContent>
-                    <CircularProgress size="lg" determinate value={20}>
                       <NightsStayOutlinedIcon />
-                    </CircularProgress>
                   </CardContent>
                  
                 </Card>
@@ -529,27 +544,42 @@ export default function Page({
                 </Card>
               : null } 
 
-              { trends.kidsAreMore ?
+              
+              </Stack>
+              <Typography level="h2" sx={{ mb: "24px", centerSelf: "center" }}>
+              Of your posts,
+              </Typography>
+              <Stack direction="row" alignItems="center" flexWrap={{
+                  xs: "wrap",
+                  sm: "wrap",
+                }}>
+                  { repostPercent ? 
                 <Card
                   sx={{ height: "160px", width: "300px", margin: "8px" }}
-                  variant="outlined"
+                  variant="solid"
                   color="primary"
                   invertedColors
                 >
                   <CardContent orientation="horizontal">
                     <CardContent>
-                    <Typography level="h3" fontWeight="bold">discussed how kids are more accepting than adults</Typography>
-
+                      <Typography level="h2">{repostPercent}</Typography>
+                      <Typography level="body-md">were reposts</Typography>
                     </CardContent>
-                    <ChildCareOutlinedIcon />
+                    <CircularProgress size="lg" determinate value={parseInt(repostPercent.replace('%', '').replace('Infinity', '0'))}>
+                      <RecyclingOutlinedIcon />
+                    </CircularProgress>
                   </CardContent>
-                 
+                  <CardActions>
+                    <Button variant="soft" size="sm">
+                      {repostIncrease.replace('Infinity', '∞')} from {(parseInt(params.year)-1).toString()}
+                    </Button>
+                    {/* <Button variant="solid" size="sm">
+          See breakdown
+        </Button> */}
+                  </CardActions>
                 </Card>
-              : null } 
-              </Stack>
-              <Typography level="h2" sx={{ mb: "24px", centerSelf: "center" }}>
-              Of your posts,
-              </Typography>
+                : null }
+                </Stack>
               <Typography level="h2" sx={{ mb: "24px", centerSelf: "center" }}>
               Your posts throughout the year:
               </Typography>
