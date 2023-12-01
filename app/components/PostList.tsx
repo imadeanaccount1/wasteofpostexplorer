@@ -378,7 +378,7 @@ function Post(props: { data: any }) {
               {formatTime(props.data.time)}
             </Typography>
             <Link href={"https://wasteof.money/posts/" + props.data["_id"]}>
-              <Button>Open Post on Wasteof</Button>
+              <Button>Open Post on wasteof</Button>
             </Link>
           </Stack>
         </CardActions>
@@ -492,7 +492,7 @@ export default function PostList(props: {
               </Typography>
               <Divider orientation="vertical" />
               <Link href={"https://wasteof.money/users/" + props.user}>
-                <Button>View Profile on Wasteof</Button>
+                <Button>View Profile on wasteof</Button>
               </Link>
             </Stack>
           )}
@@ -684,6 +684,7 @@ export default function PostList(props: {
               startDecorator={<FilterAltOutlinedIcon />}
               variant="solid"
               onClick={(event) => {
+                console.log(props.filters)
                 props.applyFilters();
               }}
             >

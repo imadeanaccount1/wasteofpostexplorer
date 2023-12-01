@@ -18,13 +18,13 @@ import Link from "@mui/joy/Link";
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import { closeSidebar } from "../utils";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
-
+import CakeOutlinedIcon from '@mui/icons-material/CakeOutlined';
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import Image from "next/image";
 import SearchIcon from "@mui/icons-material/Search";
 import SearchComponent from "./SearchComponent";
-
+import RedeemIcon from '@mui/icons-material/Redeem';
 function Toggler({
   defaultExpanded = false,
   renderToggle,
@@ -253,7 +253,19 @@ export default function Sidebar(props: { user: string; page: string }) {
             >
               <SearchIcon sx={{ marginRight: "8px" }} />
               <ListItemContent>
-                <Typography level="title-sm">Specific User<Chip sx={{marginLeft: '8px'}} color="primary" variant="solid">New!</Chip></Typography>
+                <Typography level="title-sm">Specific User</Typography>
+              </ListItemContent>
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton
+              component="a"
+              href={props.page == "wrapped" ? "../wrapped" : "../wrapped"}
+              selected={props.page == "wrapped"}
+            >
+              <RedeemIcon sx={{ marginRight: "8px" }} />
+              <ListItemContent>
+                <Typography level="title-sm">wasteof Wrapped<Chip sx={{marginLeft: '8px'}} color="primary" variant="solid">New!</Chip></Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>

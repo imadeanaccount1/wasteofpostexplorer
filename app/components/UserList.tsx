@@ -342,7 +342,7 @@ function User (props: {data: any}) {
             </Typography>
             <Link href={"https://wasteof.money/users/" + props.data.name}>
             <Button >
-              Open User on Wasteof
+              Open User on wasteof
             </Button>
             </Link>
           </Stack>

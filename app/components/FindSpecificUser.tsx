@@ -6,7 +6,7 @@ import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import Typography from "@mui/joy/Typography";
 import SearchComponent from "./SearchComponent";
-export default function FindSpecificUser(props: {}) {
+export default function FindSpecificUser(props: { wrapped: boolean }) {
 
 return (
     <Box
@@ -59,7 +59,7 @@ return (
             fontSize={12}
             fontWeight={500}
           >
-            Find Specific User
+            { !props.wrapped ? 'Find Specific User' : 'wasteof Wrapped' }
           </Link>
         </Breadcrumbs>
         <Typography
@@ -69,7 +69,7 @@ return (
             mb: 2,
           }}
         >
-         Find Specific User
+         { !props.wrapped ? 'Find Specific User' : 'Select User' }
         </Typography>
       </Box>
       <Box sx={{ px: {
@@ -80,7 +80,7 @@ return (
         Autocomplete Search for a user by their username.
         </Typography>
                
-          <SearchComponent advanced={false} />
+          <SearchComponent wrapped={props.wrapped} advanced={false} />
         </Box>
       </Box>
       
