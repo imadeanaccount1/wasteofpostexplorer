@@ -61,6 +61,8 @@ export default function Page({
   const [trends, setTrends] = React.useState<any>({});
   const [repostPercent, setRepostPercent] = React.useState<any>("");
   const [repostIncrease, setRepostIncrease] = React.useState<any>("");
+  const [blankRepostPercent, setBlankRepostPercent] = React.useState<any>("");
+  const [blankRepostCount, setBlankRepostCount] = React.useState<any>("");
   function fetchData() {
     console.log('fetch data')
     seteverLoaded(true)
@@ -81,6 +83,8 @@ export default function Page({
       setTrends(data.trends)
       setRepostPercent(Math.round((data.postCount.repostCount / data.postCount.count)*100).toString() + "%")
       setRepostIncrease((Math.round((data.postCount.repostCount / data.postCount.count)*100) - Math.round((data.postCount.repostCount2 / data.postCount.count2)*100)).toString() + "% " + ((Math.round((data.postCount.repostCount / data.postCount.count)*100) - Math.round((data.postCount.repostCount2 / data.postCount.count2)*100)) > 0 ? "increase" : "decrease"))
+      setBlankRepostCount(data.postCount.blankRepostCount)
+      setBlankRepostPercent(Math.round((data.postCount.blankRepostCount / data.postCount.repostCount)*100).toString() + "%")
     })
 
   }
@@ -543,6 +547,25 @@ export default function Page({
                  
                 </Card>
               : null } 
+              { blankRepostCount > 0 ?
+                <Card
+                  sx={{ height: "160px", width: "300px", margin: "8px" }}
+                  variant="soft"
+                  color="primary"
+                  invertedColors
+                >
+                  <CardContent orientation="horizontal">
+                    <CardContent>
+                    <Typography level="body-md">posted blank reposts</Typography>
+
+                      <Typography level="h2">{blankRepostCount} time{blankRepostCount > 1 ? 's' : ''}</Typography>
+
+                    </CardContent>
+                    <RecyclingOutlinedIcon />
+                  </CardContent>
+                 
+                </Card>
+              : null } 
 
               
               </Stack>
@@ -566,6 +589,32 @@ export default function Page({
                       <Typography level="body-md">were reposts</Typography>
                     </CardContent>
                     <CircularProgress size="lg" determinate value={parseInt(repostPercent.replace('%', '').replace('Infinity', '0'))}>
+                      <RecyclingOutlinedIcon />
+                    </CircularProgress>
+                  </CardContent>
+                  <CardActions>
+                    <Button variant="soft" size="sm">
+                      {repostIncrease.replace('Infinity', '∞')} from {(parseInt(params.year)-1).toString()}
+                    </Button>
+                    {/* <Button variant="solid" size="sm">
+          See breakdown
+        </Button> */}
+                  </CardActions>
+                </Card>
+                : null }
+                                  { blankRepostPercent ? 
+                <Card
+                  sx={{ height: "160px", width: "300px", margin: "8px" }}
+                  variant="soft"
+                  color="primary"
+                  invertedColors
+                >
+                  <CardContent orientation="horizontal">
+                    <CardContent>
+                      <Typography level="h2">{blankRepostPercent}</Typography>
+                      <Typography level="body-md">of your reposts were blank</Typography>
+                    </CardContent>
+                    <CircularProgress size="lg" determinate value={parseInt(blankRepostPercent.replace('%', '').replace('Infinity', '0'))}>
                       <RecyclingOutlinedIcon />
                     </CircularProgress>
                   </CardContent>

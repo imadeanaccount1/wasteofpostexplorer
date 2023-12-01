@@ -343,6 +343,18 @@ export async function GET(request: NextRequest) {
       },
     })
     .count();
+    const blankRepostCount = await posts
+    .find({
+      "poster.id": { $eq: userrecord.id },
+      "content": "",
+      "repost._id": { $exists: true},
+
+      time: {
+        $gte: new Date((parseInt(year) - 1).toString() + "-01-01").getTime(),
+        $lte: new Date((parseInt(year) - 1).toString() + "-12-31").getTime(),
+      },
+    })
+    .count();
     const ratiodList = await posts
     .find({
       $text: { $search: "\"ratio\"" },
@@ -434,6 +446,7 @@ export async function GET(request: NextRequest) {
       count2: pictures3[0] ? pictures3[0].number_of_days : 0,
       repostCount: repostList > 0? repostList : 0,
       repostCount2: repostList2 > 0 ? repostList2 : 0,
+      blankRepostCount: blankRepostCount > 0 ? blankRepostCount : 0,
     },
     statChanges: {
       followerChange: followerChange,
