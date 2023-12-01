@@ -24,6 +24,7 @@ import Button from "@mui/joy/Button";
 import EmojiNatureOutlinedIcon from '@mui/icons-material/EmojiNatureOutlined';
 import Typography from "@mui/joy/Typography";
 import CircularProgress from "@mui/joy/CircularProgress";
+import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import PercentIcon from '@mui/icons-material/Percent';
 import Stack from "@mui/joy/Stack";
 import SvgIcon from "@mui/joy/SvgIcon";
@@ -561,7 +562,7 @@ export default function Page({
                       <Typography level="h2">{blankRepostCount} time{blankRepostCount > 1 ? 's' : ''}</Typography>
 
                     </CardContent>
-                    <RecyclingOutlinedIcon />
+                    <ForumOutlinedIcon />
                   </CardContent>
                  
                 </Card>
@@ -615,7 +616,7 @@ export default function Page({
                       <Typography level="body-md">of your reposts were blank</Typography>
                     </CardContent>
                     <CircularProgress size="lg" determinate value={parseInt(blankRepostPercent.replace('%', '').replace('Infinity', '0'))}>
-                      <RecyclingOutlinedIcon />
+                      <ForumOutlinedIcon />
                     </CircularProgress>
                   </CardContent>
                   <CardActions>
