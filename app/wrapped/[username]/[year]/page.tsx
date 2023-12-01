@@ -5,6 +5,7 @@ import { CssVarsProvider } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
 // import 'react-calendar-heatmap/dist/styles.css';
 // import CalendarHeatmap from 'react-calendar-heatmap';
+import WhatshotOutlinedIcon from '@mui/icons-material/WhatshotOutlined';
 
 import Box from "@mui/joy/Box";
 // import Tooltip from "@uiw/react-tooltip";
@@ -42,6 +43,9 @@ import ElectricalServicesOutlinedIcon from '@mui/icons-material/ElectricalServic
 import TodayOutlinedIcon from '@mui/icons-material/TodayOutlined';
 import CelebrationOutlinedIcon from '@mui/icons-material/CelebrationOutlined';
 import NightsStayOutlinedIcon from '@mui/icons-material/NightsStayOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
+
 export default function Page({
   params,
 }: {
@@ -64,6 +68,7 @@ export default function Page({
   const [repostIncrease, setRepostIncrease] = React.useState<any>("");
   const [blankRepostPercent, setBlankRepostPercent] = React.useState<any>("");
   const [blankRepostCount, setBlankRepostCount] = React.useState<any>("");
+  const [postAverages, setPostAverages] = React.useState<any>({});
   function fetchData() {
     console.log('fetch data')
     seteverLoaded(true)
@@ -86,6 +91,7 @@ export default function Page({
       setRepostIncrease((Math.round((data.postCount.repostCount / data.postCount.count)*100) - Math.round((data.postCount.repostCount2 / data.postCount.count2)*100)).toString() + "% " + ((Math.round((data.postCount.repostCount / data.postCount.count)*100) - Math.round((data.postCount.repostCount2 / data.postCount.count2)*100)) > 0 ? "increase" : "decrease"))
       setBlankRepostCount(data.postCount.blankRepostCount)
       setBlankRepostPercent(Math.round((data.postCount.blankRepostCount / data.postCount.repostCount)*100).toString() + "%")
+      setPostAverages(data.postAverages)
     })
 
   }
@@ -530,6 +536,25 @@ export default function Page({
                  
                 </Card>
               : null } 
+              { trends.hottake > 0 ?
+                <Card
+                  sx={{ height: "160px", width: "300px", margin: "8px" }}
+                  variant="soft"
+                  color="primary"
+                  invertedColors
+                >
+                  <CardContent orientation="horizontal">
+                    <CardContent>
+                    <Typography level="body-md">shared hot takes</Typography>
+
+                      <Typography level="h2">{trends.hottake} time{trends.hottake > 1 ? 's' : ''}</Typography>
+
+                    </CardContent>
+                    <WhatshotOutlinedIcon />
+                  </CardContent>
+                 
+                </Card>
+              : null } 
                                           { trends.immark_v2 > 0 ?
                 <Card
                   sx={{ height: "160px", width: "300px", margin: "8px" }}
@@ -580,7 +605,7 @@ export default function Page({
                   { repostPercent ? 
                 <Card
                   sx={{ height: "160px", width: "300px", margin: "8px" }}
-                  variant="solid"
+                  variant="soft"
                   color="primary"
                   invertedColors
                 >
@@ -603,7 +628,65 @@ export default function Page({
                   </CardActions>
                 </Card>
                 : null }
-                                  { blankRepostPercent ? 
+                           
+                                                  { postAverages.averageLoves ? 
+                <Card
+                  sx={{ height: "160px", width: "300px", margin: "8px" }}
+                  variant="solid"
+                  color="primary"
+                  invertedColors
+                >
+                  <CardContent orientation="horizontal">
+                    <CardContent>
+
+                      <Typography level="h2">{Math.round(postAverages.averageLoves*100)/100}</Typography>
+                      <Typography level="body-md">average loves</Typography>
+
+                    </CardContent>
+                      <FavoriteBorderOutlinedIcon />
+                  </CardContent>
+                  
+                </Card>
+                : null }
+      { postAverages.averageComments ? 
+                <Card
+                  sx={{ height: "160px", width: "300px", margin: "8px" }}
+                  variant="solid"
+                  color="primary"
+                  invertedColors
+                >
+                  <CardContent orientation="horizontal">
+                    <CardContent>
+
+                      <Typography level="h2">{Math.round(postAverages.averageComments*100)/100}</Typography>
+                      <Typography level="body-md">average comments</Typography>
+
+                    </CardContent>
+                      <CommentOutlinedIcon />
+                  </CardContent>
+                  
+                </Card>
+                : null }
+                 { postAverages.averageReposts ? 
+                <Card
+                  sx={{ height: "160px", width: "300px", margin: "8px" }}
+                  variant="solid"
+                  color="primary"
+                  invertedColors
+                >
+                  <CardContent orientation="horizontal">
+                    <CardContent>
+
+                      <Typography level="h2">{Math.round(postAverages.averageReposts*100)/100}</Typography>
+                      <Typography level="body-md">average reposts</Typography>
+
+                    </CardContent>
+                      <RecyclingOutlinedIcon />
+                  </CardContent>
+                  
+                </Card>
+                : null }
+                       { blankRepostPercent ? 
                 <Card
                   sx={{ height: "160px", width: "300px", margin: "8px" }}
                   variant="soft"
@@ -619,14 +702,7 @@ export default function Page({
                       <ForumOutlinedIcon />
                     </CircularProgress>
                   </CardContent>
-                  <CardActions>
-                    <Button variant="soft" size="sm">
-                      {repostIncrease.replace('Infinity', '∞')} from {(parseInt(params.year)-1).toString()}
-                    </Button>
-                    {/* <Button variant="solid" size="sm">
-          See breakdown
-        </Button> */}
-                  </CardActions>
+                  
                 </Card>
                 : null }
                 </Stack>

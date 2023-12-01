@@ -98,6 +98,72 @@ export async function GET(request: NextRequest) {
       $count: "number_of_days",
     },
   ]);
+  const averageLoves = posts.aggregate([
+    {
+      $match: {
+        time: {
+          $gte: new Date(year + "-01-01").getTime(),
+          $lte: new Date(year + "-12-31").getTime(),
+        },
+      },
+    },
+    {
+      $match: {
+        "poster.id": { $eq: userrecord.id },
+      },
+    },
+    {
+      $group:
+        {
+          _id: "poster.id",
+          avgQuantity: { $avg: "$loves" }
+        }
+    }
+  ]);
+  const averageComments = posts.aggregate([
+    {
+      $match: {
+        time: {
+          $gte: new Date(year + "-01-01").getTime(),
+          $lte: new Date(year + "-12-31").getTime(),
+        },
+      },
+    },
+    {
+      $match: {
+        "poster.id": { $eq: userrecord.id },
+      },
+    },
+    {
+      $group:
+        {
+          _id: "poster.id",
+          avgQuantity: { $avg: "$comments" }
+        }
+    }
+  ]);
+  const averageReposts = posts.aggregate([
+    {
+      $match: {
+        time: {
+          $gte: new Date(year + "-01-01").getTime(),
+          $lte: new Date(year + "-12-31").getTime(),
+        },
+      },
+    },
+    {
+      $match: {
+        "poster.id": { $eq: userrecord.id },
+      },
+    },
+    {
+      $group:
+        {
+          _id: "poster.id",
+          avgQuantity: { $avg: "$reposts" }
+        }
+    }
+  ]);
   const query3 = posts.aggregate([
     {
       $match: {
@@ -368,6 +434,19 @@ export async function GET(request: NextRequest) {
       if (err) throw err;
       client.close();
     });
+    const hotTakeList = await posts
+    .find({
+      $text: { $search: "\"hot take\"" },
+      "poster.id": { $eq: userrecord.id },
+      time: {
+        $gte: new Date(year + "-01-01").getTime(),
+        $lte: new Date(year + "-12-31").getTime(),
+      },
+    })
+    .toArray(function (err: any, result: any) {
+      if (err) throw err;
+      client.close();
+    });
     const mathClassList = await posts
     .find({
       "poster.id": { $eq: userrecord.id },
@@ -410,11 +489,23 @@ export async function GET(request: NextRequest) {
       if (err) throw err;
       client.close();
     });
-  console.log(rawBeesList);
   const pictures = [];
   for await (const doc of query) {
     pictures.push(doc);
   }
+  const pictures5 = [];
+  for await (const doc of averageLoves) {
+    pictures5.push(doc);
+  }
+  const pictures6 = [];
+  for await (const doc of averageComments) {
+    pictures6.push(doc);
+  }
+  const pictures7 = [];
+  for await (const doc of averageReposts) {
+    pictures7.push(doc);
+  }
+  console.log(pictures5)
   const pictures2 = [];
 
   for await (const doc of query2) {
@@ -436,7 +527,6 @@ export async function GET(request: NextRequest) {
   //     count: previousValue.count + currentValue.count
   //   }
   // });
-  console.log(ratioList)
   return Response.json({
     datesPosted: pictures,
     datesPostedLastYear: pictures4,
@@ -448,11 +538,16 @@ export async function GET(request: NextRequest) {
       repostCount2: repostList2 > 0 ? repostList2 : 0,
       blankRepostCount: blankRepostCount > 0 ? blankRepostCount : 0,
     },
+    postAverages: {
+      averageLoves: pictures5[0] ? pictures5[0].avgQuantity : 0,
+      averageComments: pictures6[0] ? pictures6[0].avgQuantity : 0,
+      averageReposts: pictures7[0] ? pictures7[0].avgQuantity : 0,      
+    },
     statChanges: {
       followerChange: followerChange,
       followingChange: followingChange,
     },
     stats: userrecord.stats,
-    trends: { rawBees: rawBeesList.length > 0, ratioList: ratioList.length > 0 ? ratioList.map((post: any) => post.loves > post.repost.loves) : [], ratiodList: ratiodList.length > 0 ? ratiodList.map((post: any) => post.loves > post.repost.loves) : [], kidsAreMore: kidsAreMoreList.length > 0, elonMusk: elonList.length > 0 ? elonList.length : 0, mathClass: mathClassList.length > 0 ? mathClassList.length : 0, nightyMorning: nightyMorningList.length > 0 ? nightyMorningList.length : 0,"8443": list8443.length > 0, twoyear: userrecord.history.joined < 1676091600000, immark_v2: immark_v2List.length > 0 ? immark_v2List.length : 0 },
+    trends: { hottake: hotTakeList.length > 0 ? hotTakeList.length : 0, rawBees: rawBeesList.length > 0, ratioList: ratioList.length > 0 ? ratioList.map((post: any) => post.loves > post.repost.loves) : [], ratiodList: ratiodList.length > 0 ? ratiodList.map((post: any) => post.loves > post.repost.loves) : [], kidsAreMore: kidsAreMoreList.length > 0, elonMusk: elonList.length > 0 ? elonList.length : 0, mathClass: mathClassList.length > 0 ? mathClassList.length : 0, nightyMorning: nightyMorningList.length > 0 ? nightyMorningList.length : 0,"8443": list8443.length > 0, twoyear: userrecord.history.joined < 1676091600000, immark_v2: immark_v2List.length > 0 ? immark_v2List.length : 0 },
   });
 }
