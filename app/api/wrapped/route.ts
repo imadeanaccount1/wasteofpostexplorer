@@ -120,6 +120,63 @@ export async function GET(request: NextRequest) {
         }
     }
   ]);
+  const averageLoves2 = posts.aggregate([
+    {
+      $match: {
+        time: {
+          $gte: new Date((parseInt(year) - 1).toString() + "-01-01").getTime(),
+          $lte: new Date((parseInt(year) - 1).toString() + "-12-31").getTime(),
+        },
+      },
+    },
+    {
+      $match: {
+        "poster.id": { $eq: userrecord.id },
+      },
+    },
+    {
+      $group:
+        {
+          _id: "poster.id",
+          avgQuantity: { $avg: "$loves" }
+        }
+    }
+  ]);
+  const countpipeline = posts.aggregate([
+    {
+      $match: {
+        time: {
+          $gte: new Date(year + "-01-01").getTime(),
+          $lte: new Date(year + "-12-31").getTime(),
+        },
+      },
+    },
+    {
+      $match: {
+        "poster.id": { $eq: userrecord.id },
+      },
+    },
+    {
+      $project: {
+        imgTags: {
+          $regexFindAll: {
+            input: "$content",
+            regex: "<img[^>]*>",
+          },
+        },
+      },
+    },
+    {
+      $unwind: "$imgTags",
+    },
+    {
+      $project: {
+        _id: 1,
+        imgTag: "$imgTags.match",
+      },
+    },
+    { $project: { _id: 1, imgTag: "$imgTags.match" } },
+    { $count: "numberOfImages" }])
   const averageComments = posts.aggregate([
     {
       $match: {
@@ -142,12 +199,56 @@ export async function GET(request: NextRequest) {
         }
     }
   ]);
+  const averageComments2 = posts.aggregate([
+    {
+      $match: {
+        time: {
+          $gte: new Date((parseInt(year) - 1).toString() + "-01-01").getTime(),
+          $lte: new Date((parseInt(year) - 1).toString() + "-12-31").getTime(),
+        },
+      },
+    },
+    {
+      $match: {
+        "poster.id": { $eq: userrecord.id },
+      },
+    },
+    {
+      $group:
+        {
+          _id: "poster.id",
+          avgQuantity: { $avg: "$comments" }
+        }
+    }
+  ]);
   const averageReposts = posts.aggregate([
     {
       $match: {
         time: {
           $gte: new Date(year + "-01-01").getTime(),
           $lte: new Date(year + "-12-31").getTime(),
+        },
+      },
+    },
+    {
+      $match: {
+        "poster.id": { $eq: userrecord.id },
+      },
+    },
+    {
+      $group:
+        {
+          _id: "poster.id",
+          avgQuantity: { $avg: "$reposts" }
+        }
+    }
+  ]);
+  const averageReposts2 = posts.aggregate([
+    {
+      $match: {
+        time: {
+          $gte: new Date((parseInt(year) - 1).toString() + "-01-01").getTime(),
+          $lte: new Date((parseInt(year) - 1).toString() + "-12-31").getTime(),
         },
       },
     },
@@ -516,10 +617,27 @@ export async function GET(request: NextRequest) {
   for await (const doc of query3) {
     pictures3.push(doc);
   }
+  const pictures8 = [];
+
+  for await (const doc of countpipeline) {
+    pictures8.push(doc);
+  }
   const pictures4 = [];
 
   for await (const doc of query4) {
     pictures4.push(doc);
+  }
+  const pictures9 = [];
+  for await (const doc of averageLoves2) {
+    pictures9.push(doc);
+  }
+  const pictures10 = [];
+  for await (const doc of averageComments2) {
+    pictures10.push(doc);
+  }
+  const pictures11 = [];
+  for await (const doc of averageReposts2) {
+    pictures11.push(doc);
   }
 
   // var val = pictures.reduce(function(previousValue, currentValue) {
@@ -537,11 +655,15 @@ export async function GET(request: NextRequest) {
       repostCount: repostList > 0? repostList : 0,
       repostCount2: repostList2 > 0 ? repostList2 : 0,
       blankRepostCount: blankRepostCount > 0 ? blankRepostCount : 0,
+      mediaCount: pictures8[0] ? pictures8[0].numberOfImages : 0,
     },
     postAverages: {
       averageLoves: pictures5[0] ? pictures5[0].avgQuantity : 0,
       averageComments: pictures6[0] ? pictures6[0].avgQuantity : 0,
-      averageReposts: pictures7[0] ? pictures7[0].avgQuantity : 0,      
+      averageReposts: pictures7[0] ? pictures7[0].avgQuantity : 0, 
+      averageLoves2: pictures9[0] ? pictures9[0].avgQuantity : 0,
+      averageComments2: pictures10[0] ? pictures10[0].avgQuantity : 0,
+      averageReposts2: pictures11[0] ? pictures11[0].avgQuantity : 0,
     },
     statChanges: {
       followerChange: followerChange,

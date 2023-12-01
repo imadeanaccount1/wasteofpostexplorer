@@ -69,6 +69,11 @@ export default function Page({
   const [blankRepostPercent, setBlankRepostPercent] = React.useState<any>("");
   const [blankRepostCount, setBlankRepostCount] = React.useState<any>("");
   const [postAverages, setPostAverages] = React.useState<any>({});
+  const [mediaCount, setMediaCount] = React.useState<any>(0);
+  const [mediaPercent, setMediaPercent] = React.useState<any>("");
+  const [lovesIncrease, setLovesIncrease] = React.useState<any>("");
+  const [commentsIncrease, setCommentsIncrease] = React.useState<any>("");
+  const [repostsIncrease, setRepostsIncrease] = React.useState<any>("");
   function fetchData() {
     console.log('fetch data')
     seteverLoaded(true)
@@ -92,6 +97,12 @@ export default function Page({
       setBlankRepostCount(data.postCount.blankRepostCount)
       setBlankRepostPercent(Math.round((data.postCount.blankRepostCount / data.postCount.repostCount)*100).toString() + "%")
       setPostAverages(data.postAverages)
+      setMediaCount(data.postCount.mediaCount)
+      setMediaPercent(Math.round((data.postCount.mediaCount / data.postCount.count)*100).toString() + "%")
+      // set loves count (data.postAverages.averageLoves) increase/decrease since last year (data.postAverages.averageLoves2) 
+      setLovesIncrease((Math.round((data.postAverages.averageLoves / data.postAverages.averageLoves2)*100) - 100).toString() + "% " + ((Math.round((data.postAverages.averageLoves / data.postAverages.averageLoves2)*100) - 100) > 0 ? "increase" : "decrease"))
+      setCommentsIncrease((Math.round((data.postAverages.averageComments / data.postAverages.averageComments2)*100) - 100).toString() + "% " + ((Math.round((data.postAverages.averageComments / data.postAverages.averageComments2)*100) - 100) > 0 ? "increase" : "decrease"))
+      setRepostsIncrease((Math.round((data.postAverages.averageReposts / data.postAverages.averageReposts2)*100) - 100).toString() + "% " + ((Math.round((data.postAverages.averageReposts / data.postAverages.averageReposts2)*100) - 100) > 0 ? "increase" : "decrease"))
     })
 
   }
@@ -592,6 +603,25 @@ export default function Page({
                  
                 </Card>
               : null } 
+              { mediaCount > 0 ?
+                <Card
+                  sx={{ height: "160px", width: "300px", margin: "8px" }}
+                  variant="soft"
+                  color="primary"
+                  invertedColors
+                >
+                  <CardContent orientation="horizontal">
+                    <CardContent>
+                    <Typography level="body-md">posted images</Typography>
+
+                      <Typography level="h2">{mediaCount} time{mediaCount > 1 ? 's' : ''}</Typography>
+
+                    </CardContent>
+                    <ForumOutlinedIcon />
+                  </CardContent>
+                 
+                </Card>
+              : null } 
 
               
               </Stack>
@@ -645,6 +675,41 @@ export default function Page({
                     </CardContent>
                       <FavoriteBorderOutlinedIcon />
                   </CardContent>
+                  <CardActions>
+                    <Button variant="soft" size="sm">
+                      {lovesIncrease.replace('Infinity', '∞')} from {(parseInt(params.year)-1).toString()}
+                    </Button>
+                    {/* <Button variant="solid" size="sm">
+          See breakdown
+        </Button> */}
+                  </CardActions>
+                  
+                </Card>
+                : null }
+                                                               { lovesIncrease ? 
+                <Card
+                  sx={{ height: "160px", width: "300px", margin: "8px" }}
+                  variant="solid"
+                  color="primary"
+                  invertedColors
+                >
+                  <CardContent orientation="horizontal">
+                    <CardContent>
+
+                      <Typography level="h2">{Math.round(postAverages.averageLoves*100)/100}</Typography>
+                      <Typography level="body-md">average loves</Typography>
+
+                    </CardContent>
+                      <FavoriteBorderOutlinedIcon />
+                  </CardContent>
+                  <CardActions>
+                    <Button variant="soft" size="sm">
+                      {lovesIncrease.replace('Infinity', '∞')} from {(parseInt(params.year)-1).toString()}
+                    </Button>
+                    {/* <Button variant="solid" size="sm">
+          See breakdown
+        </Button> */}
+                  </CardActions>
                   
                 </Card>
                 : null }
@@ -664,6 +729,14 @@ export default function Page({
                     </CardContent>
                       <CommentOutlinedIcon />
                   </CardContent>
+                  <CardActions>
+                    <Button variant="soft" size="sm">
+                      {commentsIncrease.replace('Infinity', '∞')} from {(parseInt(params.year)-1).toString()}
+                    </Button>
+                    {/* <Button variant="solid" size="sm">
+          See breakdown
+        </Button> */}
+                  </CardActions>
                   
                 </Card>
                 : null }
@@ -683,6 +756,14 @@ export default function Page({
                     </CardContent>
                       <RecyclingOutlinedIcon />
                   </CardContent>
+                  <CardActions>
+                    <Button variant="soft" size="sm">
+                      {repostsIncrease.replace('Infinity', '∞')} from {(parseInt(params.year)-1).toString()}
+                    </Button>
+                    {/* <Button variant="solid" size="sm">
+          See breakdown
+        </Button> */}
+                  </CardActions>
                   
                 </Card>
                 : null }
@@ -699,6 +780,25 @@ export default function Page({
                       <Typography level="body-md">of your reposts were blank</Typography>
                     </CardContent>
                     <CircularProgress size="lg" determinate value={parseInt(blankRepostPercent.replace('%', '').replace('Infinity', '0'))}>
+                      <ForumOutlinedIcon />
+                    </CircularProgress>
+                  </CardContent>
+                  
+                </Card>
+                : null }
+                { mediaPercent ? 
+                <Card
+                  sx={{ height: "160px", width: "300px", margin: "8px" }}
+                  variant="soft"
+                  color="primary"
+                  invertedColors
+                >
+                  <CardContent orientation="horizontal">
+                    <CardContent>
+                      <Typography level="h2">{mediaPercent}</Typography>
+                      <Typography level="body-md">of your posts had images</Typography>
+                    </CardContent>
+                    <CircularProgress size="lg" determinate value={parseInt(mediaPercent.replace('%', '').replace('Infinity', '0'))}>
                       <ForumOutlinedIcon />
                     </CircularProgress>
                   </CardContent>
