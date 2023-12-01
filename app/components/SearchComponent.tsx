@@ -70,7 +70,7 @@ export default function SearchComponent(props: any) {
           }
           if (reason != "selectOption") return;
           if (newValue.type == "user") {
-            router.push(`/${props.wrapped ? 'wrapped' : 'users'}/${newValue.name}/${year}`);
+            router.push(`/${props.wrapped ? 'wrapped' : 'users'}/${newValue.name}/${props.wrapped ? year : ''}`);
           } else {
             router.push(
               `/posts?filters=[{"field":"name", "operation":"==", "value":"${newValue.name}"}]`

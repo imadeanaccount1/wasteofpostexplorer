@@ -49,7 +49,6 @@ export async function GET(request: NextRequest) {
       `https://raw.githubusercontent.com/Quantum-Codes/Wob-Graphs/main/stats/${userrecord.id}.json`
     );
     userGraph = await userGraph.json();
-    console.log(userGraph);
     const firstGreaterThan = userGraph.timestamp.findIndex(
       (element: any) =>
         element >= new Date(year + "-01-01").getTime() / 1000 &&
@@ -64,7 +63,6 @@ export async function GET(request: NextRequest) {
             element >= new Date(year + "-01-01").getTime() / 1000 &&
             element <= new Date(year + "-12-31").getTime() / 1000
         );
-    console.log(firstGreaterThan, lastGreaterThan);
     if (firstGreaterThan !== -1) {
       followerChange =
         userGraph.followers[lastGreaterThan - 1] -
@@ -78,10 +76,6 @@ export async function GET(request: NextRequest) {
       } else {
         initialFollowers = userGraph.followers[firstGreaterThan];
       }
-      console.log(
-        userGraph.followers[lastGreaterThan - 1] -
-          userGraph.followers[firstGreaterThan]
-      );
     }
   }
   const database = client.db("womposts");
@@ -201,7 +195,7 @@ export async function GET(request: NextRequest) {
     },
     {
       $match: {
-        "poster.name": { $eq: user },
+        "poster.id": { $eq: userrecord.id },
       },
     },
     {
@@ -261,7 +255,7 @@ export async function GET(request: NextRequest) {
   const rawBeesList = await posts
     .find({
       $text: { $search: "raw bees" },
-      "poster.name": user,
+      "poster.id": { $eq: userrecord.id },
       time: {
         $gte: new Date(year + "-01-01").getTime(),
         $lte: new Date(year + "-12-31").getTime(),
@@ -272,16 +266,112 @@ export async function GET(request: NextRequest) {
       if (err) throw err;
       client.close();
     });
+    const nightyMorningList = await posts
+    .find({
+      $text: { $search: "nighty morning" },
+      "poster.id": { $eq: userrecord.id },
+      time: {
+        $gte: new Date(year + "-01-01").getTime(),
+        $lte: new Date(year + "-12-31").getTime(),
+      },
+    })
+    .toArray(function (err: any, result: any) {
+      if (err) throw err;
+      client.close();
+    });
   const list8443 = await posts
     .find({
       $text: { $search: "8443" },
-      "poster.name": user,
+      "poster.id": { $eq: userrecord.id },
       time: {
         $gte: new Date(year + "-01-01").getTime(),
         $lte: new Date(year + "-12-31").getTime(),
       },
     })
     .limit(1)
+    .toArray(function (err: any, result: any) {
+      if (err) throw err;
+      client.close();
+    });
+    const kidsAreMoreList = await posts
+    .find({
+      $text: { $search: "\"kids\" \more accepting\" \"adults\"" },
+      "poster.id": { $eq: userrecord.id },
+      time: {
+        $gte: new Date(year + "-01-01").getTime(),
+        $lte: new Date(year + "-12-31").getTime(),
+      },
+    })
+    .limit(1)
+    .toArray(function (err: any, result: any) {
+      if (err) throw err;
+      client.close();
+    });
+    const ratioList = await posts
+    .find({
+      $text: { $search: "\"ratio\"" },
+      "poster.id": { $eq: userrecord.id },
+      "repost._id": { $exists: true },
+      time: {
+        $gte: new Date(year + "-01-01").getTime(),
+        $lte: new Date(year + "-12-31").getTime(),
+      },
+    })
+    .toArray(function (err: any, result: any) {
+      if (err) throw err;
+      client.close();
+    });
+    const ratiodList = await posts
+    .find({
+      $text: { $search: "\"ratio\"" },
+      "repost.poster.id": { $eq: userrecord.id },
+      time: {
+        $gte: new Date(year + "-01-01").getTime(),
+        $lte: new Date(year + "-12-31").getTime(),
+      },
+    })
+    .toArray(function (err: any, result: any) {
+      if (err) throw err;
+      client.close();
+    });
+    const mathClassList = await posts
+    .find({
+      "poster.id": { $eq: userrecord.id },
+      "repost._id": "648cb32739982005336a7a6d",
+
+      time: {
+        $gte: new Date(year + "-01-01").getTime(),
+        $lte: new Date(year + "-12-31").getTime(),
+      },
+    })
+    .toArray(function (err: any, result: any) {
+      if (err) throw err;
+      client.close();
+    });
+    const elonList = await posts
+    .find({
+      "poster.id": { $eq: userrecord.id },
+      $text: { $search: "\"elon\"" },
+
+      time: {
+        $gte: new Date(year + "-01-01").getTime(),
+        $lte: new Date(year + "-12-31").getTime(),
+      },
+    })
+    .toArray(function (err: any, result: any) {
+      if (err) throw err;
+      client.close();
+    });
+    const immark_v2List = await posts
+    .find({
+      "poster.id": { $eq: userrecord.id },
+      "repost.poster.name": "immark_v2",
+
+      time: {
+        $gte: new Date(year + "-01-01").getTime(),
+        $lte: new Date(year + "-12-31").getTime(),
+      },
+    })
     .toArray(function (err: any, result: any) {
       if (err) throw err;
       client.close();
@@ -312,6 +402,7 @@ export async function GET(request: NextRequest) {
   //     count: previousValue.count + currentValue.count
   //   }
   // });
+  console.log(ratioList)
   return Response.json({
     datesPosted: pictures,
     datesPostedLastYear: pictures4,
@@ -325,6 +416,6 @@ export async function GET(request: NextRequest) {
       followingChange: followingChange,
     },
     stats: userrecord.stats,
-    trends: { rawBees: rawBeesList.length > 0, "8443": list8443.length > 0, twoyear: userrecord.history.joined < 1676091600000 },
+    trends: { rawBees: rawBeesList.length > 0, ratioList: ratioList.length > 0 ? ratioList.map((post: any) => post.loves > post.repost.loves) : [], ratiodList: ratiodList.length > 0 ? ratiodList.map((post: any) => post.loves > post.repost.loves) : [], kidsAreMore: kidsAreMoreList.length > 0, elonMusk: elonList.length > 0 ? elonList.length : 0, mathClass: mathClassList.length > 0 ? mathClassList.length : 0, nightyMorning: nightyMorningList.length > 0 ? nightyMorningList.length : 0,"8443": list8443.length > 0, twoyear: userrecord.history.joined < 1676091600000, immark_v2: immark_v2List.length > 0 ? immark_v2List.length : 0 },
   });
 }

@@ -136,7 +136,7 @@ export default function Sidebar(props: { user: string; page: string }) {
           <ListItem>
             <ListItemButton
               component="a"
-              href={props.page == "user" ? "../" : "../"}
+              href={props.page == "user" ? "../" :props.page == "wrapped" ? "../../" : "../"}
               selected={props.page == "home"}
             >
               <HomeRoundedIcon sx={{ marginRight: "8px" }} />
@@ -151,7 +151,7 @@ export default function Sidebar(props: { user: string; page: string }) {
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton
                   onClick={() => setOpen(!open)}
-                  href={props.page == "user" ? "../posts" : "posts"}
+                  href={props.page == "user" ? "../posts" : props.page == "wrapped" ? "../../posts" : "posts"}
                   component="a"
                   selected={props.page == "posts"}
                 >
@@ -194,7 +194,7 @@ export default function Sidebar(props: { user: string; page: string }) {
               selected={props.page == "users"}
               role="menuitem"
               component="a"
-              href={props.page == "user" ? "../users" : "users"}
+              href={props.page == "user" ? "../users" : props.page == "wrapped" ? "../../users" : "users"}
             >
               <GroupOutlinedIcon sx={{ marginRight: "8px" }} />
               <ListItemContent>
@@ -248,7 +248,7 @@ export default function Sidebar(props: { user: string; page: string }) {
           <ListItem>
             <ListItemButton
               component="a"
-              href={props.page == "search" ? "../finduser" : "../finduser"}
+              href={props.page == "search" ? "../finduser" : props.page == "wrapped" ? "../../finduser" : "../finduser"}
               selected={props.page == "search"}
             >
               <SearchIcon sx={{ marginRight: "8px" }} />
@@ -260,7 +260,7 @@ export default function Sidebar(props: { user: string; page: string }) {
           <ListItem>
             <ListItemButton
               component="a"
-              href={props.page == "wrapped" ? "../wrapped" : "../wrapped"}
+              href={props.page == "wrapped" ? "../wrapped" : props.page == "wrapped" ? "../../wrapped" : "../wrapped"}
               selected={props.page == "wrapped"}
             >
               <RedeemIcon sx={{ marginRight: "8px" }} />
@@ -272,7 +272,7 @@ export default function Sidebar(props: { user: string; page: string }) {
           <ListItem>
             <ListItemButton
               component="a"
-              href={props.page == "user" ? "../contact" : "../contact"}
+              href={props.page == "user" ? "../contact" : props.page == "wrapped" ? "../../contact" : "../contact"}
               selected={props.page == "contact"}
             >
               <SupportIcon sx={{ marginRight: "8px" }} />

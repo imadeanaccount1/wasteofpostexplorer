@@ -510,7 +510,6 @@ export default function PostList(props: {
           }}
           sx={{
             top: props.user=="any" ? "-4px" : '12px',
-            bgcolor: "white",
           }}
         >
           <TabList

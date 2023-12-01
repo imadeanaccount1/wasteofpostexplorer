@@ -10,6 +10,9 @@ import Box from "@mui/joy/Box";
 // import Tooltip from "@uiw/react-tooltip";
 import Tooltip from '@mui/joy/Tooltip';
 import Sidebar from "../../../components/Sidebar";
+import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
+import CalculateOutlinedIcon from '@mui/icons-material/CalculateOutlined';
+import ChildCareOutlinedIcon from '@mui/icons-material/ChildCareOutlined';
 import Header from "../../../components/Header";
 // import Cal from '../../../components/CalHeatmap';
 import Card from "@mui/joy/Card";
@@ -19,6 +22,7 @@ import Button from "@mui/joy/Button";
 import EmojiNatureOutlinedIcon from '@mui/icons-material/EmojiNatureOutlined';
 import Typography from "@mui/joy/Typography";
 import CircularProgress from "@mui/joy/CircularProgress";
+import PercentIcon from '@mui/icons-material/Percent';
 import Stack from "@mui/joy/Stack";
 import SvgIcon from "@mui/joy/SvgIcon";
 import CakeOutlinedIcon from "@mui/icons-material/CakeOutlined";
@@ -34,7 +38,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 import ElectricalServicesOutlinedIcon from '@mui/icons-material/ElectricalServicesOutlined';
 import TodayOutlinedIcon from '@mui/icons-material/TodayOutlined';
 import CelebrationOutlinedIcon from '@mui/icons-material/CelebrationOutlined';
-
+import NightsStayOutlinedIcon from '@mui/icons-material/NightsStayOutlined';
 export default function Page({
   params,
 }: {
@@ -142,7 +146,7 @@ export default function Page({
                         borderRadius: "50%",
                       }}
                     />
-                    <Typography fontSize="medium" fontWeight="bold">{params.username}</Typography>
+                    <Typography fontSize="medium" fontWeight="bold">@{params.username}</Typography>
             </Stack>
               </Stack>
               
@@ -192,7 +196,7 @@ export default function Page({
                 { joinedDate > new Date(params.year + '-01-01').getTime() ?
                 <Card
                   sx={{ height: "160px", width: "300px", margin: "8px" }}
-                  variant="soft"
+                  variant="outlined"
                   color="primary"
                   invertedColors
                 >
@@ -227,7 +231,7 @@ export default function Page({
                   </CardContent>
                   <CardActions>
                     <Button variant="soft" size="sm">
-                      {postIncrease} from {(parseInt(params.year)-1).toString()}
+                      {postIncrease.replace('Infinity', '∞')} from {(parseInt(params.year)-1).toString()}
                     </Button>
                     {/* <Button variant="solid" size="sm">
           See breakdown
@@ -238,7 +242,7 @@ export default function Page({
                 { followerIncrease > 0 ?
                 <Card
                   sx={{ height: "160px", width: "300px", margin: "8px" }}
-                  variant="soft"
+                  variant="solid"
                   color="primary"
                   invertedColors
                 >
@@ -253,7 +257,7 @@ export default function Page({
                   </CardContent>
                   <CardActions>
                     <Button variant="soft" size="sm">
-                      {followerPercent} from {(parseInt(params.year)-1).toString()}
+                      {followerPercent.replace('Infinity', '∞')} from {(parseInt(params.year)-1).toString()}
                     </Button>
                     {/* <Button variant="solid" size="sm">
           See breakdown
@@ -264,7 +268,7 @@ export default function Page({
                               { followingIncrease > 0 ?
                 <Card
                   sx={{ height: "160px", width: "300px", margin: "8px" }}
-                  variant="soft"
+                  variant="solid"
                   color="primary"
                   invertedColors
                 >
@@ -279,7 +283,7 @@ export default function Page({
                   </CardContent>
                   <CardActions>
                     <Button variant="soft" size="sm">
-                      {followingPercent} from {(parseInt(params.year)-1).toString()}
+                      {followingPercent.replace('Infinity', '∞')} from {(parseInt(params.year)-1).toString()}
                     </Button>
                     {/* <Button variant="solid" size="sm">
           See breakdown
@@ -290,7 +294,7 @@ export default function Page({
                { datesPosted != null && datesPosted != undefined ?
                 <Card
                   sx={{ height: "160px", width: "300px", margin: "8px" }}
-                  variant="soft"
+                  variant="solid"
                   color="primary"
                   invertedColors
                 >
@@ -305,7 +309,7 @@ export default function Page({
                   </CardContent>
                   <CardActions>
                     <Button variant="soft" size="sm">
-                      {postCountChange} from {(parseInt(params.year)-1).toString()}
+                      {postCountChange.replace('Infinity', '∞')} from {(parseInt(params.year)-1).toString()}
                     </Button>
                     {/* <Button variant="solid" size="sm">
           See breakdown
@@ -313,6 +317,82 @@ export default function Page({
                   </CardActions>
                 </Card>
               : null }  
+                          { (trends.ratioList ? trends.ratioList.filter((l: any) => { return (l)}).length > 0 : false) ?
+                <Card
+                  sx={{ height: "160px", width: "300px", margin: "8px" }}
+                  variant="soft"
+                  color="primary"
+                  invertedColors
+                >
+                  <CardContent orientation="horizontal">
+                    <CardContent>
+                    <Typography level="body-md">successfully ratio{"'"}d</Typography>
+
+                    <Typography level="h2">{trends.ratioList.filter((l: any) => { return (l)}).length} time{trends.ratioList.filter((l: any) => { return (l)}).length > 1 ? 's' : ''}</Typography>
+
+                    </CardContent>
+                    <PercentIcon />
+                  </CardContent>
+                 
+                </Card>
+              : null } 
+              { (trends.ratioList ? trends.ratioList.filter((l: any) => { return (!l)}).length > 0 : false) ?
+                <Card
+                  sx={{ height: "160px", width: "300px", margin: "8px" }}
+                  variant="soft"
+                  color="primary"
+                  invertedColors
+                >
+                  <CardContent orientation="horizontal">
+                    <CardContent>
+                    <Typography level="body-md">unsuccessfully ratio{"'"}d</Typography>
+
+                      <Typography level="h2">{trends.ratioList.filter((l: any) => { return (!l)}).length} time{trends.ratioList.filter((l: any) => { return (!l)}).length > 1 ? 's' : ''}</Typography>
+
+                    </CardContent>
+                    <PercentIcon />
+                  </CardContent>
+                 
+                </Card>
+              : null } 
+                          { (trends.ratiodList ? trends.ratiodList.filter((l: any) => { return (l)}).length > 0 : false) ?
+                <Card
+                  sx={{ height: "160px", width: "300px", margin: "8px" }}
+                  variant="soft"
+                  color="primary"
+                  invertedColors
+                >
+                  <CardContent orientation="horizontal">
+                    <CardContent>
+                    <Typography level="body-md">been successfully ratio{"'"}d</Typography>
+
+                      <Typography level="h2">{trends.ratiodList.filter((l: any) => { return (l)}).length} time{trends.ratiodList.filter((l: any) => { return (l)}).length > 1 ? 's' : ''}</Typography>
+
+                    </CardContent>
+                    <PercentIcon />
+                  </CardContent>
+                 
+                </Card>
+              : null } 
+                                        { (trends.ratiodList ? trends.ratiodList.filter((l: any) => { return (!l)}).length > 0 : false) ?
+                <Card
+                  sx={{ height: "160px", width: "300px", margin: "8px" }}
+                  variant="soft"
+                  color="primary"
+                  invertedColors
+                >
+                  <CardContent orientation="horizontal">
+                    <CardContent>
+                    <Typography level="body-md">been unsuccessfully ratio{"'"}d</Typography>
+
+                    <Typography level="h2">{trends.ratiodList.filter((l: any) => { return (!l)}).length} time{trends.ratiodList.filter((l: any) => { return (!l)}).length > 1 ? 's' : ''}</Typography>
+
+                    </CardContent>
+                    <PercentIcon />
+                  </CardContent>
+                 
+                </Card>
+              : null }
                                { trends.rawBees ?
                 <Card
                   sx={{ height: "160px", width: "300px", margin: "8px" }}
@@ -371,6 +451,98 @@ export default function Page({
           See breakdown
         </Button> */}
                   </CardActions>
+                </Card>
+              : null } 
+              { trends.nightyMorning > 0 ?
+                <Card
+                  sx={{ height: "160px", width: "300px", margin: "8px" }}
+                  variant="soft"
+                  color="primary"
+                  invertedColors
+                >
+                  <CardContent orientation="horizontal">
+                    <CardContent>
+                    <Typography level="body-md">said nighty morning</Typography>
+
+                      <Typography level="h2">{trends.nightyMorning} time{trends.nightyMorning > 1 ? 's' : ''}</Typography>
+                    </CardContent>
+                    <CircularProgress size="lg" determinate value={20}>
+                      <NightsStayOutlinedIcon />
+                    </CircularProgress>
+                  </CardContent>
+                 
+                </Card>
+              : null }  
+              { trends.mathClass > 0 ?
+                <Card
+                  sx={{ height: "160px", width: "300px", margin: "8px" }}
+                  variant="soft"
+                  color="primary"
+                  invertedColors
+                >
+                  <CardContent orientation="horizontal">
+                    <CardContent>
+                    <Typography level="body-md">reposted dertermenter{"'"}s math class story 💀</Typography>
+
+                      <Typography level="h2">{trends.mathClass} time{trends.mathClass > 1 ? 's' : ''}</Typography>
+                    </CardContent>
+                    <CalculateOutlinedIcon />
+                  </CardContent>
+                 
+                </Card>
+              : null }  
+                            { trends.elonMusk > 0 ?
+                <Card
+                  sx={{ height: "160px", width: "300px", margin: "8px" }}
+                  variant="soft"
+                  color="primary"
+                  invertedColors
+                >
+                  <CardContent orientation="horizontal">
+                    <CardContent>
+                    <Typography level="body-md">mentioned Elon Musk</Typography>
+
+                      <Typography level="h2">{trends.elonMusk} time{trends.elonMusk > 1 ? 's' : ''}</Typography>
+                    </CardContent>
+                    <RocketLaunchOutlinedIcon />
+                  </CardContent>
+                 
+                </Card>
+              : null } 
+                                          { trends.immark_v2 > 0 ?
+                <Card
+                  sx={{ height: "160px", width: "300px", margin: "8px" }}
+                  variant="soft"
+                  color="primary"
+                  invertedColors
+                >
+                  <CardContent orientation="horizontal">
+                    <CardContent>
+                    <Typography level="body-md">reposted immark_v2</Typography>
+
+                      <Typography level="h2">{trends.immark_v2} time{trends.immark_v2 > 1 ? 's' : ''}</Typography>
+                    </CardContent>
+                    <RocketLaunchOutlinedIcon />
+                  </CardContent>
+                 
+                </Card>
+              : null } 
+
+              { trends.kidsAreMore ?
+                <Card
+                  sx={{ height: "160px", width: "300px", margin: "8px" }}
+                  variant="outlined"
+                  color="primary"
+                  invertedColors
+                >
+                  <CardContent orientation="horizontal">
+                    <CardContent>
+                    <Typography level="h3" fontWeight="bold">discussed how kids are more accepting than adults</Typography>
+
+                    </CardContent>
+                    <ChildCareOutlinedIcon />
+                  </CardContent>
+                 
                 </Card>
               : null } 
               </Stack>
