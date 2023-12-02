@@ -15,7 +15,7 @@ import LoopIcon from "@mui/icons-material/Loop";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
 import QueryBuilderOutlinedIcon from "@mui/icons-material/QueryBuilderOutlined";
-import styles from "./Post.module.css";
+import styles from "./post.module.css";
 import formatTime from "../utils/formatTime";
 
 
