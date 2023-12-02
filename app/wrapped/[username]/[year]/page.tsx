@@ -5,7 +5,12 @@ import { CssVarsProvider } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
 // import 'react-calendar-heatmap/dist/styles.css';
 // import CalendarHeatmap from 'react-calendar-heatmap';
+import AspectRatio from "@mui/joy/AspectRatio";
 import WhatshotOutlinedIcon from "@mui/icons-material/WhatshotOutlined";
+
+import List from "@mui/joy/List";
+import ListItem from "@mui/joy/ListItem";
+import ListItemDecorator from "@mui/joy/ListItemDecorator";
 
 import Box from "@mui/joy/Box";
 // import Tooltip from "@uiw/react-tooltip";
@@ -77,6 +82,13 @@ export default function Page({
   const [topPosts, setTopPosts] = React.useState<any>([]);
   const [daysPercent, setDaysPercent] = React.useState<any>("");
   const [daysPercentIncrease, setDaysPercentIncrease] = React.useState<any>("");
+  const [topReposted, setTopReposted] = React.useState<any>([]);
+  const [topCommented, setTopCommented] = React.useState<any>([]);
+  const [topWords, setTopWords] = React.useState<any>([]);
+  const [topImages, setTopImages] = React.useState<any>([]);
+  const [worstPosts, setWorstPosts] = React.useState<any>([]);
+  var parse = require("html-react-parser");
+
   function fetchData() {
     console.log("fetch data");
     seteverLoaded(true);
@@ -298,6 +310,7 @@ export default function Page({
               : "decrease")
         );
         setTopPosts(data.top.topPosts);
+        setWorstPosts(data.top.worstPosts)
         setDaysPercent(
           Math.round(
             (data.datesPosted.length / 365) * 100
@@ -321,6 +334,10 @@ export default function Page({
               ? "increase"
               : "decrease")
         );
+        setTopReposted(data.top.topReposted);
+        setTopCommented(data.top.topCommented);
+        setTopWords(data.postContentAnalysis.topWords);
+        setTopImages(data.top.topImages);
       });
   }
   React.useEffect(() => {
@@ -334,8 +351,23 @@ export default function Page({
         <Box sx={{ display: "flex", minHeight: "100dvh" }}>
           <Sidebar page="wrapped" user={params.username} />
           <Header />
-          <Stack sx={{ width: "100%" }}>
-            <Sheet
+
+            <Box
+              component="main"
+              className="MainContent"
+              sx={{
+
+                flex: 1,
+                display: "flex",
+                flexDirection: "column",
+                minWidth: 0,
+                height: "100dvh",
+                gap: 1,
+                overflow: "auto",
+              }}
+            >
+                        <Stack sx={{ width: "100%" }}>
+                        <Sheet
               color="primary"
               variant="soft"
               sx={{
@@ -405,34 +437,23 @@ export default function Page({
                 </Stack>
               </Stack>
             </Sheet>
-
-            <Box
-              component="main"
-              className="MainContent"
-              sx={{
-                px: {
-                  xs: 2,
-                  sm: 2,
-                  md: 3,
-                },
-                pt: {
-                  xs: "calc(12px + var(--Header-height))",
-                  md: 3,
-                },
-                pb: {
-                  xs: 2,
-                  sm: 2,
-                  md: 3,
-                },
-                flex: 1,
-                display: "flex",
-                flexDirection: "column",
-                minWidth: 0,
-                height: "100dvh",
-                gap: 1,
-                overflow: "auto",
-              }}
-            >
+            <Box 
+            sx={{
+              px: {
+                xs: 2,
+                sm: 2,
+                md: 3,
+              },
+              pt: {
+                xs: "calc(12px + var(--Header-height))",
+                md: 3,
+              },
+              pb: {
+                xs: 2,
+                sm: 2,
+                md: 3,
+              },
+            }}>
               <Typography level="h2" sx={{ mb: "24px", centerSelf: "center" }}>
                 In {params.year}, you...
               </Typography>
@@ -1138,22 +1159,24 @@ export default function Page({
               <Typography level="h2" sx={{ mb: "24px", centerSelf: "center" }}>
                 Some of your posts got some love...
               </Typography>
-              {/* Split View */}
               <Stack
                 direction="row"
-                alignItems="center"
+                justifyContent="center"
+                spacing={3}
+                sx={{width: '100%'}}
                 flexWrap={{
                   xs: "wrap",
                   sm: "wrap",
+                  md: "wrap",
                 }}
               >
 
-                <Stack spacing={1} sx={{ width: "50%", minWidth: "200px" }} flexWrap={{
+                <Stack spacing={1} sx={{ width: "45%", minWidth: "360px" }} flexWrap={{
                   xs: "wrap",
                   sm: "wrap",
                 }}>
                                   <Typography level="h3" fontWeight="bold" sx={{marginBottom: '12px !important'}}>
-                Top-Loved Posts:
+                Most-Loved Posts:
               </Typography>
   
                   {
@@ -1162,12 +1185,119 @@ export default function Page({
                     })
                   }
                   </Stack>
+                  <Stack spacing={1} sx={{ width: "45%", minWidth: "360px" }} flexWrap={{
+                  xs: "wrap",
+                  sm: "wrap",
+                }}>
+                                  <Typography level="h3" fontWeight="bold" sx={{marginBottom: '12px !important'}}>
+                Most-Reposted Posts:
+              </Typography>
+  
+                  {
+                    topReposted.map((data: any) => {
+                      return <Post key={data["_id"]} data={data} />;
+                    })
+                  }
+                  </Stack>
 
                 </Stack>
-              <Typography level="h2" sx={{ mb: "24px", centerSelf: "center" }}>
-                ...and some of them got less.
+                <Typography level="h2" sx={{ mb: "24px", centerSelf: "center" }}>
+                ...and some of them got less
               </Typography>
+              {/* Split View */}
+              <Stack
+                direction="row"
+                justifyContent="center"
+                spacing={3}
+                sx={{width: '100%'}}
+                flexWrap={{
+                  xs: "wrap",
+                  sm: "wrap",
+                  md: "wrap",
+                }}
+              >
+
+                <Stack spacing={1} flexWrap={{
+                  xs: "wrap",
+                  sm: "wrap",
+                }}>
+                                  <Typography level="h3" fontWeight="bold" sx={{marginBottom: '12px !important'}}>
+                Least-Loved Posts:
+              </Typography>
+              <Stack spacing={2} flexWrap="wrap" direction="row">
+                  {
+                    worstPosts.map((data: any) => {
+                      return <div key={data["_id"]} style={{maxWidth: '550px'}}><Post  data={data} /></div>;
+                    })
+                  }
+                  </Stack>
+                  </Stack>
+
+                </Stack>
+              
+              
               <Typography level="h2" sx={{ mb: "24px", centerSelf: "center" }}>
+                Your posts were very interesting...
+              </Typography>
+              <Stack direction="row" spacing={4}>
+                  <Stack spacing={1} sx={{ width: "45%", minWidth: "360px" }}  flexWrap={{
+                  xs: "wrap",
+                  sm: "wrap",
+                }}>
+              <Typography level="h3" fontWeight="bold" sx={{marginBottom: '12px !important'}}>
+                Most-Used Words:
+              </Typography>
+              <Stack
+                direction="column"
+                alignItems="left"
+                flexWrap="wrap"
+                sx={{maxHeight: "360px", width: '100%' }}
+                useFlexGap>
+                  {/* <Stack spacing={1} sx={{ width: "45%", minWidth: "360px", maxHeight: "200px" }} flexWrap={{
+                  xs: "wrap",
+                  sm: "wrap",
+                  md: "wrap",
+                  lg: "wrap",
+                  xl: "wrap"
+                }}> */}
+                  {/* <List aria-labelledby="decorated-list-demo"> */}
+                    {
+                      topWords.map((data: any, index: any) => {
+                        return <ListItem sx={{py: '8px'}} key={data["_id"]}>
+                          <ListItemDecorator sx={{fontWeight: "bold",mr: '8px'}}>{(index == 0 ? '🥇' : index == 1 ? '🥈' : index == 2 ? '🥉' : '🏆') + ' #' + (index + 1).toString() + ' - '}</ListItemDecorator> {data["_id"]} ({data["count"]})
+                        </ListItem>;
+                      })
+                    }        
+      {/* </List> */}
+                  {/* </Stack> */}
+                </Stack>
+                </Stack>
+                <Stack spacing={1} sx={{ width: "50%", minWidth: "360px" }} flexWrap={{
+                  xs: "wrap",
+                  sm: "wrap",
+                }}>
+              <Typography level="h3" fontWeight="bold" sx={{marginBottom: '12px !important'}}>
+                Most-Loved Images
+              </Typography>
+              <Stack
+                direction="row"
+                flexWrap="wrap"
+                sx={{width: '100%' }}
+                spacing={2}
+                useFlexGap>
+                  {topImages.map((data: any, index: any) => {
+                    return (<div style={{}} key={data["_id"]}>
+                                        <AspectRatio sx={{ width: "200px" }}>
+
+                      {parse(data.imgTag)}
+                      </AspectRatio>
+                      <Stack sx={{mt: '8px'}} direction="row" spacing={2}>
+                    <Typography fontWeight="bold">{(index == 0 ? '🥇' : index == 1 ? '🥈' : index == 2 ? '🥉' : '🏆')} #{index} - {data.loves} loves</Typography><Button>Open on wasteof</Button></Stack></div>)
+                  })}
+                  </Stack>
+              </Stack>
+                </Stack>
+              <Typography level="h2" sx={{ mb: "24px", mt: '12px', centerSelf: "center" }}>
                 Your posts throughout the year:
               </Typography>
               <Stack direction={{ xs: "column", sm: "row" }} spacing={4}>
@@ -1290,7 +1420,9 @@ export default function Page({
               user={params.username}
             /> */}
             </Box>
-          </Stack>
+                      </Stack>
+
+            </Box>
         </Box>
       </CssVarsProvider>
     </>
