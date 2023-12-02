@@ -75,6 +75,8 @@ export default function Page({
   const [commentsIncrease, setCommentsIncrease] = React.useState<any>("");
   const [repostsIncrease, setRepostsIncrease] = React.useState<any>("");
   const [topPosts, setTopPosts] = React.useState<any>([]);
+  const [daysPercent, setDaysPercent] = React.useState<any>("");
+  const [daysPercentIncrease, setDaysPercentIncrease] = React.useState<any>("");
   function fetchData() {
     console.log("fetch data");
     seteverLoaded(true);
@@ -296,6 +298,29 @@ export default function Page({
               : "decrease")
         );
         setTopPosts(data.top.topPosts);
+        setDaysPercent(
+          Math.round(
+            (data.datesPosted.length / 365) * 100
+          ).toString() + "%"
+        );
+        // compare days posted to last year
+        setDaysPercentIncrease(
+          (
+            Math.round(
+              (data.datesPosted.length / data.datesPostedLastYear.length) *
+                100
+            ) - 100
+          ).toString() +
+            "% " +
+            (Math.round(
+              (data.datesPosted.length / data.datesPostedLastYear.length) *
+                100
+            ) -
+              100 >
+            0
+              ? "increase"
+              : "decrease")
+        );
       });
   }
   React.useEffect(() => {
@@ -1145,6 +1170,8 @@ export default function Page({
               <Typography level="h2" sx={{ mb: "24px", centerSelf: "center" }}>
                 Your posts throughout the year:
               </Typography>
+              <Stack direction={{ xs: "column", sm: "row" }} spacing={4}>
+              
               {/* <Cal /> */}
               <HeatMap
                 value={datesPosted}
@@ -1198,6 +1225,39 @@ export default function Page({
                   );
                 }}
               />
+              {daysPercent ? (
+                  <Card
+                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    variant="soft"
+                    color="primary"
+                    invertedColors
+                  >
+                    <CardContent orientation="horizontal">
+                      <CardContent>
+                        <Typography level="h2">{daysPercent}</Typography>
+                        <Typography level="body-md">
+                          days posted
+                        </Typography>
+                      </CardContent>
+                      <CircularProgress
+                        size="lg"
+                        determinate
+                        value={parseInt(
+                          daysPercent.replace("%", "").replace("Infinity", "0")
+                        )}
+                      >
+                        <ForumOutlinedIcon />
+                      </CircularProgress>
+                    </CardContent>
+                    <CardActions>
+                    <Button variant="soft" size="sm">
+                        {daysPercentIncrease.replace("Infinity", "∞")} from{" "}
+                        {(parseInt(params.year) - 1).toString()}
+                      </Button>
+                    </CardActions>
+                  </Card>
+                ) : null}
+              </Stack>
               {/* <Demo /> */}
               {/* <CalendarHeatmap
   startDate={new Date('2023-01-01')}
