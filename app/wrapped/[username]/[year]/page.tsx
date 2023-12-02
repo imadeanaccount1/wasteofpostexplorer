@@ -1152,7 +1152,7 @@ export default function Page({
                   xs: "wrap",
                   sm: "wrap",
                 }}>
-                                  <Typography level="h4" fontWeight="bold" sx={{marginBottom: '8px !important'}}>
+                                  <Typography level="h3" fontWeight="bold" sx={{marginBottom: '12px !important'}}>
                 Top-Loved Posts:
               </Typography>
   
