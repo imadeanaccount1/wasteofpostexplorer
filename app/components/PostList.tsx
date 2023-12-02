@@ -54,6 +54,7 @@ import Image from "next/image";
 import type { ChangeEvent } from "react";
 
 import styles from "./post.module.css";
+import Post from "./Post";
 
 function FilterBy(props: any) {
   return (
@@ -254,138 +255,7 @@ function SortBy(props: any) {
   );
 }
 
-function Post(props: { data: any }) {
-  var parse = require("html-react-parser");
 
-  return (
-    <Card>
-      <Box sx={{ mb: 1 }}>
-        <Stack
-          direction="row"
-          spacing={2}
-          sx={{ my: 1 }}
-        >
-          <Stack direction="column" spacing={1}>
-            <AspectRatio
-              ratio="1"
-              maxHeight={48}
-              sx={{ flex: 1, minWidth: 48, borderRadius: "100%" }}
-            >
-              <Link color="primary" href={"./users/" + props.data.poster.name}>
-                <Image
-                  src={`https://api.wasteof.money/users/${props.data.poster.name}/picture`}
-                  loading="lazy"
-                  alt=""
-                  width="48"
-                  height="48"
-                />
-              </Link>
-            </AspectRatio>
-          </Stack>
-          <Stack direction="column" spacing={0}>
-            <Link color="primary" href={"./users/" + props.data.poster.name}>
-              <Typography level="title-md">
-                @{props.data.poster.name}
-              </Typography>
-            </Link>
-            <Typography level="body-sm">{props.data.poster.id}</Typography>
-          </Stack>
-        </Stack>
-      </Box>
-      <Divider />
-      <div style={{width: "100%"}} className={styles.postContent}>
-{
-      parse(props.data.content)
-      }              
-      </div>
-      {props.data.repost ? <Post data={props.data.repost} /> : null}
-      {/* {JSON.stringify(props.data)} */}
-      <CardOverflow sx={{ borderTop: "1px solid", borderColor: "divider" }}>
-        <CardActions sx={{ alignSelf: "flex-end", pt: 2 }}>
-          <Stack sx={{flexWrap: "wrap", rowGap: "12px"}} spacing={3} direction="row">
-            <Typography
-              startDecorator={<FavoriteBorderIcon />}
-              sx={{
-                textDecoration: "none",
-              }}
-              component="a"
-              href={"https://wasteof.money/posts/" + props.data["_id"]}
-            >
-              {props.data.loves}
-            </Typography>
-            {/* <Link underline="hover" fontSize="lg" color="neutral" href={"https://beta.wasteof.money/posts/" + props.data["_id"] + "/reposts"}> */}
-
-            <Typography
-              startDecorator={<LoopIcon />}
-              // display={{
-              //   xs: "none",
-              //   md: "flex",
-              // }}
-              sx={{
-                textDecoration: "none",
-              }}
-              component="a"
-              href={
-                "https://beta.wasteof.money/posts/" +
-                props.data["_id"] +
-                "/reposts"
-              }
-            >
-              {props.data.reposts}
-            </Typography>
-            {/* </Link> */}
-            <Typography
-              startDecorator={<ChatBubbleOutlineOutlinedIcon />}
-              // display={{
-              //   xs: "none",
-              //   md: "flex",
-              // }}
-              sx={{
-                textDecoration: "none",
-              }}
-              component="a"
-              href={"https://wasteof.money/posts/" + props.data["_id"]}
-            >
-              {props.data.comments}
-            </Typography>
-            <Typography
-              startDecorator={<EditNoteOutlinedIcon />}
-              // display={{
-              //   xs: "none",
-              //   md: "flex",
-              // }}
-              sx={{
-                textDecoration: "none",
-              }}
-              component="a"
-              href={"https://wasteof.money/posts/" + props.data["_id"]}
-            >
-              {props.data.revisions.length}
-            </Typography>
-            <Typography
-              startDecorator={<QueryBuilderOutlinedIcon />}
-              // display={{
-              //   xs: "none",
-              //   md: "flex",
-              // }}
-              sx={{
-                textDecoration: "none",
-              }}
-              component="a"
-              href={"https://wasteof.money/posts/" + props.data["_id"]}
-            >
-              {/* {props.data.time} */}
-              {formatTime(props.data.time)}
-            </Typography>
-            <Link href={"https://wasteof.money/posts/" + props.data["_id"]}>
-              <Button>Open Post on wasteof</Button>
-            </Link>
-          </Stack>
-        </CardActions>
-      </CardOverflow>
-    </Card>
-  );
-}
 
 export default function PostList(props: {
   sort: any;

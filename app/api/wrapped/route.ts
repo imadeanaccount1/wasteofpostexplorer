@@ -98,6 +98,27 @@ export async function GET(request: NextRequest) {
       $count: "number_of_days",
     },
   ]);
+  const topPosts = posts.aggregate([
+    {
+      $match: {
+        time: {
+          $gte: new Date(year + "-01-01").getTime(),
+          $lte: new Date(year + "-12-31").getTime(),
+        },
+      },
+    },
+    {
+      $match: {
+        "poster.id": { $eq: userrecord.id },
+      },
+    },
+    {
+      $sort: { loves: -1 },
+    },
+    {
+      $limit: 3,
+    },
+  ]);
   const averageLoves = posts.aggregate([
     {
       $match: {
@@ -639,6 +660,10 @@ export async function GET(request: NextRequest) {
   for await (const doc of averageReposts2) {
     pictures11.push(doc);
   }
+  const pictures12 = [];
+  for await (const doc of topPosts) {
+    pictures12.push(doc);
+  }
 
   // var val = pictures.reduce(function(previousValue, currentValue) {
   //   return {
@@ -668,6 +693,9 @@ export async function GET(request: NextRequest) {
     statChanges: {
       followerChange: followerChange,
       followingChange: followingChange,
+    },
+    top: {
+      topPosts: pictures12,
     },
     stats: userrecord.stats,
     trends: { hottake: hotTakeList.length > 0 ? hotTakeList.length : 0, rawBees: rawBeesList.length > 0, ratioList: ratioList.length > 0 ? ratioList.map((post: any) => post.loves > post.repost.loves) : [], ratiodList: ratiodList.length > 0 ? ratiodList.map((post: any) => post.loves > post.repost.loves) : [], kidsAreMore: kidsAreMoreList.length > 0, elonMusk: elonList.length > 0 ? elonList.length : 0, mathClass: mathClassList.length > 0 ? mathClassList.length : 0, nightyMorning: nightyMorningList.length > 0 ? nightyMorningList.length : 0,"8443": list8443.length > 0, twoyear: userrecord.history.joined < 1676091600000, immark_v2: immark_v2List.length > 0 ? immark_v2List.length : 0 },
