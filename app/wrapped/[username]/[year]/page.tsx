@@ -56,6 +56,7 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import Post from "../../../components/Post";
 import Link from '@mui/joy/Link';
+
 export default function Page({
   params,
 }: {
@@ -495,7 +496,7 @@ export default function Page({
                           <Typography level="body-md">
                             joined wasteof.money
                           </Typography>
-                          <Typography level="h2">Feb 22, 2023</Typography>
+                          <Typography level="h2">{new Date(joinedDate).toString().split(' ')[1] + " " + new Date(joinedDate).toString().split(' ')[2] + ", " + new Date(joinedDate).toString().split(' ')[3]}</Typography>
                         </CardContent>
                         <CakeOutlinedIcon />
                       </CardContent>
