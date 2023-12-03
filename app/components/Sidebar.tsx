@@ -300,7 +300,7 @@ export default function Sidebar(props: { user: string; page: string }) {
           </Stack>
           <Typography level="body-xs">
             Post Explorer Data may be outdated or inaccurate. Deleted or
-            admin-removed posts may be shown, contact us to report them. 
+            admin-removed posts may be shown, contact us to report them/request deletions. 
           </Typography>
         </Card>
       </Box>
