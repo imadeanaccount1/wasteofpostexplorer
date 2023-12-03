@@ -540,7 +540,76 @@ export async function GET(request: NextRequest) {
     // { $limit: 15 },
     // { $count: "number_of_days" }
   ]);
+  const youReposted = posts.aggregate([
+    {
+      $match: {
+        time: {
+          $gte: new Date(year + "-01-01").getTime(),
+          $lte: new Date(year + "-12-31").getTime(),
+        },
+      },
+    },
+    {
+      $match: {
+        "poster.id": { $eq: userrecord.id },
+      },
+    },
+    {
+      $match: {
+        "repost._id": { $exists: true },
+      }
+    },
+    {
+      $group: {
+        _id: "$repost.poster.id",
+        count: { $sum: 1 },
+      },
+    },
+    { $sort: { count: -1 } },
+    { $limit: 3 },
+  ]);
+  const repostedYou = posts.aggregate([
+    {
+      $match: {
+        time: {
+          $gte: new Date(year + "-01-01").getTime(),
+          $lte: new Date(year + "-12-31").getTime(),
+        },
+      },
+    },
+    {
+      $match: {
+        "repost._id": { $exists: true },
+      }
+    },
+    {
+      $match: {
+        "repost.poster.id": { $eq: userrecord.id },
+      }
+    },
+    {
+      $group: {
+        _id: "$poster.id",
+        count: { $sum: 1 },
+      },
+    },
+    { $sort: { count: -1 } },
+    { $limit: 3 },
+  ]);
   const topWords = posts.aggregate([
+    {
+      $match: {
+        time: {
+          $gte: new Date(year + "-01-01").getTime(),
+          $lte: new Date(year + "-12-31").getTime(),
+        },
+      },
+    },
+    {
+      $match: {
+        "poster.id": { $eq: userrecord.id },
+      },
+    },
     {
       $project: {
         words: { $split: ["$content", " "] },
@@ -803,6 +872,17 @@ export async function GET(request: NextRequest) {
   for await (const doc of worstPosts) {
     pictures17.push(doc);
   }
+  const pictures18 = [];
+  for await (const doc of youReposted) {
+    const uname = await fetch(`https://api.wasteof.money/username-from-id/` + doc._id + `/`).then((res) => res.json())
+    pictures18.push(Object.assign(doc, {username: uname.username}));
+  }
+  const pictures19 = [];
+  for await (const doc of repostedYou) {
+    const uname = await fetch(`https://api.wasteof.money/username-from-id/` + doc._id + `/`).then((res) => res.json())
+    pictures19.push(Object.assign(doc, {username: uname.username}));
+  }
+
 
   // var val = pictures.reduce(function(previousValue, currentValue) {
   //   return {
@@ -839,6 +919,8 @@ export async function GET(request: NextRequest) {
       topCommented: pictures14,
       topImages: pictures16,
       worstPosts: pictures17,
+      youReposted: pictures18,
+      repostedYou: pictures19
     },
     postContentAnalysis: {
       topWords: pictures15,

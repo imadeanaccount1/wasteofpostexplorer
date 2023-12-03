@@ -3,7 +3,11 @@
 import * as React from "react";
 import { CssVarsProvider } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
+import LinearProgress from '@mui/joy/LinearProgress';
+
 // import 'react-calendar-heatmap/dist/styles.css';
+import Launch from '@mui/icons-material/Launch';
+import LinkIcon from '@mui/icons-material/Link';
 // import CalendarHeatmap from 'react-calendar-heatmap';
 import AspectRatio from "@mui/joy/AspectRatio";
 import WhatshotOutlinedIcon from "@mui/icons-material/WhatshotOutlined";
@@ -51,6 +55,7 @@ import NightsStayOutlinedIcon from "@mui/icons-material/NightsStayOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import Post from "../../../components/Post";
+import Link from '@mui/joy/Link';
 export default function Page({
   params,
 }: {
@@ -87,11 +92,12 @@ export default function Page({
   const [topWords, setTopWords] = React.useState<any>([]);
   const [topImages, setTopImages] = React.useState<any>([]);
   const [worstPosts, setWorstPosts] = React.useState<any>([]);
+  const [youReposted, setYouReposted] = React.useState<any>([]);
+  const [repostedYou, setRepostedYou] = React.useState<any>([]);
   var parse = require("html-react-parser");
 
   function fetchData() {
     console.log("fetch data");
-    seteverLoaded(true);
     fetch(
       "../../../api/wrapped?user=" + params.username + "&year=" + params.year
     )
@@ -334,6 +340,10 @@ export default function Page({
         setTopCommented(data.top.topCommented);
         setTopWords(data.postContentAnalysis.topWords);
         setTopImages(data.top.topImages);
+        setYouReposted(data.top.youReposted);
+        setRepostedYou(data.top.repostedYou);
+        seteverLoaded(true);
+
       });
   }
   React.useEffect(() => {
@@ -437,6 +447,8 @@ export default function Page({
                   </Stack>
                 </Stack>
               </Sheet>
+              { everloaded ? (
+
               <Box
                 sx={{
                   px: {
@@ -1251,7 +1263,7 @@ export default function Page({
                   level="h2"
                   sx={{ mb: "24px", centerSelf: "center", mt: "18px" }}
                 >
-                  ...and some got less
+                  ...and some got less love
                 </Typography>
                 {/* Split View */}
                 <Stack
@@ -1426,6 +1438,72 @@ export default function Page({
                   level="h2"
                   sx={{ mb: "24px", mt: "12px", centerSelf: "center" }}
                 >
+                  You reposted these users the most...
+                </Typography>
+                <Stack justifyContent="center" alignContent="center" direction={{ xs: "column", sm: "row" }} spacing={4}>
+                  {
+                    youReposted.map((data: any, index: any) => {
+                      return (
+                <Stack alignItems="center" justifyContent="end" key={data["_id"]} direction="column" spacing={1}>
+                <Image
+                      src={`https://api.wasteof.money/users/${data.username}/picture`}
+                      loading="lazy"
+                      alt=""
+                      width={index == 0 ? "184" : index == 1 ? "140" : "100"}
+                      height={index == 0 ? "184" : index == 1 ? "140" : "100"}
+                      style={{
+                        borderRadius: "50%",
+                      }}
+                    />
+                    <Typography fontSize={index == 0 ? "large" : index == 1 ? "medium" : "small"} alignContent='center' alignSelf="center" fontWeight="bold">
+                    {index == 0
+                                  ? "🥇"
+                                  : index == 1
+                                  ? "🥈"
+                                  : index == 2
+                                  ? "🥉"
+                                  : "🏆"}{" "} #{index+1} - @{data.username}
+                    </Typography>
+                    </Stack>
+                      )})}
+                      </Stack>
+                      <Typography
+                  level="h2"
+                  sx={{ mb: "24px", mt: "12px", centerSelf: "center" }}
+                >
+                 ...and these users reposted you the most
+                </Typography>
+                <Stack justifyContent="center" alignContent="center" direction={{ xs: "column", sm: "row" }} spacing={4}>
+                  {
+                    repostedYou.map((data: any, index: any) => {
+                      return (
+                <Stack alignItems="center" justifyContent="end" key={data["_id"]} direction="column" spacing={1}>
+                <Image
+                      src={`https://api.wasteof.money/users/${data.username}/picture`}
+                      loading="lazy"
+                      alt=""
+                      width={index == 0 ? "184" : index == 1 ? "140" : "100"}
+                      height={index == 0 ? "184" : index == 1 ? "140" : "100"}
+                      style={{
+                        borderRadius: "50%",
+                      }}
+                    />
+                    <Typography fontSize={index == 0 ? "large" : index == 1 ? "medium" : "small"} alignContent='center' alignSelf="center" fontWeight="bold">
+                    {index == 0
+                                  ? "🥇"
+                                  : index == 1
+                                  ? "🥈"
+                                  : index == 2
+                                  ? "🥉"
+                                  : "🏆"}{" "} #{index+1} - @{data.username}
+                    </Typography>
+                    </Stack>
+                      )})}
+                      </Stack>
+                <Typography
+                  level="h2"
+                  sx={{ mb: "24px", mt: "36px", centerSelf: "center" }}
+                >
                   Your posts throughout the year:
                 </Typography>
                 <Stack direction={{ xs: "column", sm: "row" }} spacing={4}>
@@ -1548,7 +1626,14 @@ export default function Page({
               loaded={loaded}
               user={params.username}
             /> */}
+            <Typography fontWeight="bold">Suggestions for wasteof Wrapped? <Link fontWeight="normal" href="https://github.com/imadeanaccount1/wasteofpostexplorer" endDecorator={<Launch />}>
+          Create a GitHub Issue!
+        </Link></Typography>
               </Box>
+              ) : (
+                <LinearProgress sx={{marginX: '32px', marginTop: '64px'}} />
+
+              )}
             </Stack>
           </Box>
         </Box>
