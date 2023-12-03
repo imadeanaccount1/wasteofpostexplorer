@@ -363,7 +363,8 @@ export default function Page({
                 minWidth: 0,
                 height: "100dvh",
                 gap: 1,
-                overflow: "auto",
+                overflowX: "hidden",
+                overflowY: "auto"
               }}
             >
                         <Stack sx={{ width: "100%" }}>
@@ -453,6 +454,7 @@ export default function Page({
                 sm: 2,
                 md: 3,
               },
+              paddingRight: '0px !important'
             }}>
               <Typography level="h2" sx={{ mb: "24px", centerSelf: "center" }}>
                 In {params.year}, you...
@@ -467,7 +469,7 @@ export default function Page({
               >
                 {joinedDate > new Date(params.year + "-01-01").getTime() ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="outlined"
                     color="primary"
                     invertedColors
@@ -485,7 +487,7 @@ export default function Page({
                 ) : null}
                 {postCount > 0 ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="solid"
                     color="primary"
                     invertedColors
@@ -510,7 +512,7 @@ export default function Page({
                 ) : null}
                 {followerIncrease > 0 ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="solid"
                     color="primary"
                     invertedColors
@@ -537,7 +539,7 @@ export default function Page({
                 ) : null}
                 {followingIncrease > 0 ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="solid"
                     color="primary"
                     invertedColors
@@ -567,7 +569,7 @@ export default function Page({
                 datesPosted != undefined &&
                 datesPosted.length > 0 ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="solid"
                     color="primary"
                     invertedColors
@@ -598,7 +600,7 @@ export default function Page({
                     : false
                 ) ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="soft"
                     color="primary"
                     invertedColors
@@ -635,7 +637,7 @@ export default function Page({
                     : false
                 ) ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="soft"
                     color="primary"
                     invertedColors
@@ -672,7 +674,7 @@ export default function Page({
                     : false
                 ) ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="soft"
                     color="primary"
                     invertedColors
@@ -709,7 +711,7 @@ export default function Page({
                     : false
                 ) ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="soft"
                     color="primary"
                     invertedColors
@@ -740,7 +742,7 @@ export default function Page({
                 ) : null}
                 {trends.rawBees ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="outlined"
                     color="primary"
                     invertedColors
@@ -762,7 +764,7 @@ export default function Page({
                 ) : null}
                 {trends.kidsAreMore ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="outlined"
                     color="primary"
                     invertedColors
@@ -779,7 +781,7 @@ export default function Page({
                 ) : null}
                 {trends["8443"] ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="outlined"
                     color="primary"
                     invertedColors
@@ -801,7 +803,7 @@ export default function Page({
                 ) : null}
                 {trends.twoyear ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="outlined"
                     color="primary"
                     invertedColors
@@ -823,7 +825,7 @@ export default function Page({
                 ) : null}
                 {trends.nightyMorning > 0 ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="soft"
                     color="primary"
                     invertedColors
@@ -845,7 +847,7 @@ export default function Page({
                 ) : null}
                 {trends.mathClass > 0 ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="soft"
                     color="primary"
                     invertedColors
@@ -867,7 +869,7 @@ export default function Page({
                 ) : null}
                 {trends.elonMusk > 0 ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="soft"
                     color="primary"
                     invertedColors
@@ -888,7 +890,7 @@ export default function Page({
                 ) : null}
                 {trends.hottake > 0 ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="soft"
                     color="primary"
                     invertedColors
@@ -909,7 +911,7 @@ export default function Page({
                 ) : null}
                 {trends.immark_v2 > 0 ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="soft"
                     color="primary"
                     invertedColors
@@ -931,7 +933,7 @@ export default function Page({
                 ) : null}
                 {blankRepostCount > 0 ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="soft"
                     color="primary"
                     invertedColors
@@ -953,7 +955,7 @@ export default function Page({
                 ) : null}
                 {mediaCount > 0 ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="soft"
                     color="primary"
                     invertedColors
@@ -984,7 +986,7 @@ export default function Page({
               >
                 {repostPercent ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="soft"
                     color="primary"
                     invertedColors
@@ -1020,7 +1022,7 @@ export default function Page({
 
                 {postAverages.averageLoves ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="solid"
                     color="primary"
                     invertedColors
@@ -1047,7 +1049,7 @@ export default function Page({
                 ) : null}
                 {postAverages.averageComments ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="solid"
                     color="primary"
                     invertedColors
@@ -1076,7 +1078,7 @@ export default function Page({
                 ) : null}
                 {postAverages.averageReposts ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="solid"
                     color="primary"
                     invertedColors
@@ -1103,7 +1105,7 @@ export default function Page({
                 ) : null}
                 {blankRepostPercent ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="soft"
                     color="primary"
                     invertedColors
@@ -1131,7 +1133,7 @@ export default function Page({
                 ) : null}
                 {mediaPercent ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="soft"
                     color="primary"
                     invertedColors
@@ -1181,7 +1183,7 @@ export default function Page({
   
                   {
                     topPosts.map((data: any) => {
-                      return <Post key={data["_id"]} data={data} />;
+                      return <Post key={data["_id"]} data={data} wrapped={true} />;
                     })
                   }
                   </Stack>
@@ -1227,7 +1229,7 @@ export default function Page({
               <Stack spacing={2} flexWrap="wrap" direction="row">
                   {
                     worstPosts.map((data: any) => {
-                      return <div key={data["_id"]} style={{maxWidth: '550px'}}><Post  data={data} /></div>;
+                      return <div key={data["_id"]} style={{ maxWidth: '550px'}}><Post  data={data} /></div>;
                     })
                   }
                   </Stack>
@@ -1236,7 +1238,7 @@ export default function Page({
                 </Stack>
               
               
-              <Typography level="h2" sx={{ mb: "24px", centerSelf: "center" }}>
+              <Typography level="h2" sx={{ mb: "24px", mt: '48px', centerSelf: "center" }}>
                 Your posts were very interesting...
               </Typography>
               <Stack direction="row" spacing={4}>
@@ -1251,7 +1253,7 @@ export default function Page({
                 direction="column"
                 alignItems="left"
                 flexWrap="wrap"
-                sx={{maxHeight: "360px", width: '100%' }}
+                sx={{maxHeight: "560px", width: '100%' }}
                 useFlexGap>
                   {/* <Stack spacing={1} sx={{ width: "45%", minWidth: "360px", maxHeight: "200px" }} flexWrap={{
                   xs: "wrap",
@@ -1263,7 +1265,7 @@ export default function Page({
                   {/* <List aria-labelledby="decorated-list-demo"> */}
                     {
                       topWords.map((data: any, index: any) => {
-                        return <ListItem sx={{py: '8px'}} key={data["_id"]}>
+                        return <ListItem sx={{py: '8px', my: '8px'}} key={data["_id"]}>
                           <ListItemDecorator sx={{fontWeight: "bold",mr: '8px'}}>{(index == 0 ? '🥇' : index == 1 ? '🥈' : index == 2 ? '🥉' : '🏆') + ' #' + (index + 1).toString() + ' - '}</ListItemDecorator> {data["_id"]} ({data["count"]})
                         </ListItem>;
                       })
@@ -1277,7 +1279,7 @@ export default function Page({
                   sm: "wrap",
                 }}>
               <Typography level="h3" fontWeight="bold" sx={{marginBottom: '12px !important'}}>
-                Most-Loved Images
+                Most-Loved Images:
               </Typography>
               <Stack
                 direction="row"
@@ -1287,12 +1289,12 @@ export default function Page({
                 useFlexGap>
                   {topImages.map((data: any, index: any) => {
                     return (<div style={{}} key={data["_id"]}>
-                                        <AspectRatio sx={{ width: "200px" }}>
+                                        <AspectRatio sx={{ width: "275px" }}>
 
                       {parse(data.imgTag)}
                       </AspectRatio>
                       <Stack sx={{mt: '8px'}} direction="row" spacing={2}>
-                    <Typography fontWeight="bold">{(index == 0 ? '🥇' : index == 1 ? '🥈' : index == 2 ? '🥉' : '🏆')} #{index} - {data.loves} loves</Typography><Button>Open on wasteof</Button></Stack></div>)
+                    <Typography fontWeight="bold">{(index == 0 ? '🥇' : index == 1 ? '🥈' : index == 2 ? '🥉' : '🏆')} #{index+1} - {data.loves} loves</Typography><Button>Open on wasteof</Button></Stack></div>)
                   })}
                   </Stack>
               </Stack>
@@ -1357,7 +1359,7 @@ export default function Page({
               />
               {daysPercent ? (
                   <Card
-                    sx={{ height: "160px", width: "300px", margin: "8px" }}
+                    sx={{ height: "160px", width: "280px", margin: "6px" }}
                     variant="soft"
                     color="primary"
                     invertedColors

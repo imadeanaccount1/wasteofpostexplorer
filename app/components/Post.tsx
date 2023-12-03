@@ -19,11 +19,11 @@ import styles from "./post.module.css";
 import formatTime from "../utils/formatTime";
 
 
-export default function Post(props: { data: any }) {
+export default function Post(props: { data: any, level?: number, wrapped?: boolean }) {
     var parse = require("html-react-parser");
   
     return (
-      <Card>
+      <Card sx={{maxWidth: '100%'}}>
         <Box sx={{ mb: 1 }}>
           <Stack
             direction="row"
@@ -63,7 +63,7 @@ export default function Post(props: { data: any }) {
         parse(props.data.content)
         }              
         </div>
-        {props.data.repost ? <Post data={props.data.repost} /> : null}
+        {props.data.repost ? (props.level || 0) < 1 ? <Post data={props.data.repost} wrapped={props.wrapped || false} level={(props.level || 0)+1}/> : <Card>More nested reposts are hidden</Card> : null}
         {/* {JSON.stringify(props.data)} */}
         <CardOverflow sx={{ borderTop: "1px solid", borderColor: "divider" }}>
           <CardActions sx={{ alignSelf: "flex-end", pt: 2 }}>
