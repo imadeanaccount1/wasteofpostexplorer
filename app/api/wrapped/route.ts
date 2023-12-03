@@ -197,12 +197,11 @@ export async function GET(request: NextRequest) {
       },
     },
     {
-      $group:
-        {
-          _id: "poster.id",
-          avgQuantity: { $avg: "$loves" }
-        }
-    }
+      $group: {
+        _id: "poster.id",
+        avgQuantity: { $avg: "$loves" },
+      },
+    },
   ]);
   const averageLoves2 = posts.aggregate([
     {
@@ -219,12 +218,11 @@ export async function GET(request: NextRequest) {
       },
     },
     {
-      $group:
-        {
-          _id: "poster.id",
-          avgQuantity: { $avg: "$loves" }
-        }
-    }
+      $group: {
+        _id: "poster.id",
+        avgQuantity: { $avg: "$loves" },
+      },
+    },
   ]);
   const countpipeline = posts.aggregate([
     {
@@ -260,50 +258,50 @@ export async function GET(request: NextRequest) {
       },
     },
     { $project: { _id: 1, imgTag: "$imgTags.match" } },
-    { $count: "numberOfImages" }])
-    const topImages = posts.aggregate([
-      {
-        $match: {
-          time: {
-            $gte: new Date(year + "-01-01").getTime(),
-            $lte: new Date(year + "-12-31").getTime(),
+    { $count: "numberOfImages" },
+  ]);
+  const topImages = posts.aggregate([
+    {
+      $match: {
+        time: {
+          $gte: new Date(year + "-01-01").getTime(),
+          $lte: new Date(year + "-12-31").getTime(),
+        },
+      },
+    },
+    {
+      $match: {
+        "poster.id": { $eq: userrecord.id },
+      },
+    },
+    {
+      $sort: {
+        loves: -1,
+      },
+    },
+    {
+      $project: {
+        imgTags: {
+          $regexFindAll: {
+            input: "$content",
+            regex: "<img[^>]*>",
           },
         },
+        loves: 1,
       },
-      {
-        $match: {
-          "poster.id": { $eq: userrecord.id },
-        },
+    },
+    {
+      $unwind: "$imgTags",
+    },
+    {
+      $project: {
+        _id: 1,
+        imgTag: "$imgTags.match",
+        loves: 1,
       },
-      {
-        $sort: {
-          loves: -1,
-        }
-      },
-      {
-        $project: {
-          imgTags: {
-            $regexFindAll: {
-              input: "$content",
-              regex: "<img[^>]*>",
-            },
-          },
-          loves: 1
-        },
-      },
-      {
-        $unwind: "$imgTags",
-      },
-      {
-        $project: {
-          _id: 1,
-          imgTag: "$imgTags.match",
-          loves: 1
-        },
-      },
-      { $limit: 10 },
-
-    ]);
+    },
+    { $limit: 10 },
+  ]);
   const averageComments = posts.aggregate([
     {
       $match: {
@@ -319,12 +317,11 @@ export async function GET(request: NextRequest) {
       },
     },
     {
-      $group:
-        {
-          _id: "poster.id",
-          avgQuantity: { $avg: "$comments" }
-        }
-    }
+      $group: {
+        _id: "poster.id",
+        avgQuantity: { $avg: "$comments" },
+      },
+    },
   ]);
   const averageComments2 = posts.aggregate([
     {
@@ -341,12 +338,11 @@ export async function GET(request: NextRequest) {
       },
     },
     {
-      $group:
-        {
-          _id: "poster.id",
-          avgQuantity: { $avg: "$comments" }
-        }
-    }
+      $group: {
+        _id: "poster.id",
+        avgQuantity: { $avg: "$comments" },
+      },
+    },
   ]);
   const averageReposts = posts.aggregate([
     {
@@ -363,12 +359,11 @@ export async function GET(request: NextRequest) {
       },
     },
     {
-      $group:
-        {
-          _id: "poster.id",
-          avgQuantity: { $avg: "$reposts" }
-        }
-    }
+      $group: {
+        _id: "poster.id",
+        avgQuantity: { $avg: "$reposts" },
+      },
+    },
   ]);
   const averageReposts2 = posts.aggregate([
     {
@@ -385,12 +380,11 @@ export async function GET(request: NextRequest) {
       },
     },
     {
-      $group:
-        {
-          _id: "poster.id",
-          avgQuantity: { $avg: "$reposts" }
-        }
-    }
+      $group: {
+        _id: "poster.id",
+        avgQuantity: { $avg: "$reposts" },
+      },
+    },
   ]);
   const query3 = posts.aggregate([
     {
@@ -548,24 +542,24 @@ export async function GET(request: NextRequest) {
   ]);
   const topWords = posts.aggregate([
     {
-        $project: {
-            words: { $split: ["$content", " "] }
-        }
+      $project: {
+        words: { $split: ["$content", " "] },
+      },
     },
     {
-        $unwind: {
-            path: "$words"
-        }
+      $unwind: {
+        path: "$words",
+      },
     },
     {
-        $group: {
-            _id: "$words",
-            count: { $sum: 1 }
-        }
+      $group: {
+        _id: "$words",
+        count: { $sum: 1 },
+      },
     },
-    {$sort: {count: -1}},
-    {$limit: 25}
-])
+    { $sort: { count: -1 } },
+    { $limit: 25 },
+  ]);
   const rawBeesList = await posts
     .find({
       $text: { $search: "raw bees" },
@@ -580,9 +574,9 @@ export async function GET(request: NextRequest) {
       if (err) throw err;
       client.close();
     });
-    const nightyMorningList = await posts
+  const nightyMorningList = await posts
     .find({
-      $text: { $search: "\"nighty morning\"" },
+      $text: { $search: '"nighty morning"' },
       "poster.id": { $eq: userrecord.id },
       time: {
         $gte: new Date(year + "-01-01").getTime(),
@@ -607,9 +601,9 @@ export async function GET(request: NextRequest) {
       if (err) throw err;
       client.close();
     });
-    const kidsAreMoreList = await posts
+  const kidsAreMoreList = await posts
     .find({
-      $text: { $search: "\"kids\" \more accepting\" \"adults\"" },
+      $text: { $search: '"kids" more accepting" "adults"' },
       "poster.id": { $eq: userrecord.id },
       time: {
         $gte: new Date(year + "-01-01").getTime(),
@@ -621,9 +615,9 @@ export async function GET(request: NextRequest) {
       if (err) throw err;
       client.close();
     });
-    const ratioList = await posts
+  const ratioList = await posts
     .find({
-      $text: { $search: "\"ratio\"" },
+      $text: { $search: '"ratio"' },
       "poster.id": { $eq: userrecord.id },
       "repost._id": { $exists: true },
       time: {
@@ -635,7 +629,7 @@ export async function GET(request: NextRequest) {
       if (err) throw err;
       client.close();
     });
-    const repostList = await posts
+  const repostList = await posts
     .find({
       "poster.id": { $eq: userrecord.id },
       "repost._id": { $exists: true },
@@ -643,11 +637,10 @@ export async function GET(request: NextRequest) {
         $gte: new Date(year + "-01-01").getTime(),
         $lte: new Date(year + "-12-31").getTime(),
       },
-
     })
     .count();
 
-    const repostList2 = await posts
+  const repostList2 = await posts
     .find({
       "poster.id": { $eq: userrecord.id },
       "repost._id": { $exists: true },
@@ -657,11 +650,11 @@ export async function GET(request: NextRequest) {
       },
     })
     .count();
-    const blankRepostCount = await posts
+  const blankRepostCount = await posts
     .find({
       "poster.id": { $eq: userrecord.id },
-      "content": "",
-      "repost._id": { $exists: true},
+      content: "",
+      "repost._id": { $exists: true },
 
       time: {
         $gte: new Date((parseInt(year) - 1).toString() + "-01-01").getTime(),
@@ -669,9 +662,9 @@ export async function GET(request: NextRequest) {
       },
     })
     .count();
-    const ratiodList = await posts
+  const ratiodList = await posts
     .find({
-      $text: { $search: "\"ratio\"" },
+      $text: { $search: '"ratio"' },
       "repost.poster.id": { $eq: userrecord.id },
       time: {
         $gte: new Date(year + "-01-01").getTime(),
@@ -682,9 +675,9 @@ export async function GET(request: NextRequest) {
       if (err) throw err;
       client.close();
     });
-    const hotTakeList = await posts
+  const hotTakeList = await posts
     .find({
-      $text: { $search: "\"hot take\"" },
+      $text: { $search: '"hot take"' },
       "poster.id": { $eq: userrecord.id },
       time: {
         $gte: new Date(year + "-01-01").getTime(),
@@ -695,7 +688,7 @@ export async function GET(request: NextRequest) {
       if (err) throw err;
       client.close();
     });
-    const mathClassList = await posts
+  const mathClassList = await posts
     .find({
       "poster.id": { $eq: userrecord.id },
       "repost._id": "648cb32739982005336a7a6d",
@@ -709,10 +702,10 @@ export async function GET(request: NextRequest) {
       if (err) throw err;
       client.close();
     });
-    const elonList = await posts
+  const elonList = await posts
     .find({
       "poster.id": { $eq: userrecord.id },
-      $text: { $search: "\"elon\"" },
+      $text: { $search: '"elon"' },
 
       time: {
         $gte: new Date(year + "-01-01").getTime(),
@@ -723,7 +716,7 @@ export async function GET(request: NextRequest) {
       if (err) throw err;
       client.close();
     });
-    const immark_v2List = await posts
+  const immark_v2List = await posts
     .find({
       "poster.id": { $eq: userrecord.id },
       "repost.poster.name": "immark_v2",
@@ -753,7 +746,7 @@ export async function GET(request: NextRequest) {
   for await (const doc of averageReposts) {
     pictures7.push(doc);
   }
-  console.log(pictures5)
+  console.log(pictures5);
   const pictures2 = [];
 
   for await (const doc of query2) {
@@ -823,7 +816,7 @@ export async function GET(request: NextRequest) {
     postCount: {
       count: pictures2[0] ? pictures2[0].number_of_days : 0,
       count2: pictures3[0] ? pictures3[0].number_of_days : 0,
-      repostCount: repostList > 0? repostList : 0,
+      repostCount: repostList > 0 ? repostList : 0,
       repostCount2: repostList2 > 0 ? repostList2 : 0,
       blankRepostCount: blankRepostCount > 0 ? blankRepostCount : 0,
       mediaCount: pictures8[0] ? pictures8[0].numberOfImages : 0,
@@ -831,7 +824,7 @@ export async function GET(request: NextRequest) {
     postAverages: {
       averageLoves: pictures5[0] ? pictures5[0].avgQuantity : 0,
       averageComments: pictures6[0] ? pictures6[0].avgQuantity : 0,
-      averageReposts: pictures7[0] ? pictures7[0].avgQuantity : 0, 
+      averageReposts: pictures7[0] ? pictures7[0].avgQuantity : 0,
       averageLoves2: pictures9[0] ? pictures9[0].avgQuantity : 0,
       averageComments2: pictures10[0] ? pictures10[0].avgQuantity : 0,
       averageReposts2: pictures11[0] ? pictures11[0].avgQuantity : 0,
@@ -851,6 +844,25 @@ export async function GET(request: NextRequest) {
       topWords: pictures15,
     },
     stats: userrecord.stats,
-    trends: { hottake: hotTakeList.length > 0 ? hotTakeList.length : 0, rawBees: rawBeesList.length > 0, ratioList: ratioList.length > 0 ? ratioList.map((post: any) => post.loves > post.repost.loves) : [], ratiodList: ratiodList.length > 0 ? ratiodList.map((post: any) => post.loves > post.repost.loves) : [], kidsAreMore: kidsAreMoreList.length > 0, elonMusk: elonList.length > 0 ? elonList.length : 0, mathClass: mathClassList.length > 0 ? mathClassList.length : 0, nightyMorning: nightyMorningList.length > 0 ? nightyMorningList.length : 0,"8443": list8443.length > 0, twoyear: userrecord.history.joined < 1676091600000, immark_v2: immark_v2List.length > 0 ? immark_v2List.length : 0 },
+    trends: {
+      hottake: hotTakeList.length > 0 ? hotTakeList.length : 0,
+      rawBees: rawBeesList.length > 0,
+      ratioList:
+        ratioList.length > 0
+          ? ratioList.map((post: any) => post.loves > post.repost.loves)
+          : [],
+      ratiodList:
+        ratiodList.length > 0
+          ? ratiodList.map((post: any) => post.loves > post.repost.loves)
+          : [],
+      kidsAreMore: kidsAreMoreList.length > 0,
+      elonMusk: elonList.length > 0 ? elonList.length : 0,
+      mathClass: mathClassList.length > 0 ? mathClassList.length : 0,
+      nightyMorning:
+        nightyMorningList.length > 0 ? nightyMorningList.length : 0,
+      "8443": list8443.length > 0,
+      twoyear: userrecord.history.joined < 1676091600000,
+      immark_v2: immark_v2List.length > 0 ? immark_v2List.length : 0,
+    },
   });
 }
