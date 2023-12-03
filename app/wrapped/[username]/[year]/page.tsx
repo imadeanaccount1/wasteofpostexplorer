@@ -101,6 +101,7 @@ export default function Page({
   const [worstPosts, setWorstPosts] = React.useState<any>([]);
   const [youReposted, setYouReposted] = React.useState<any>([]);
   const [repostedYou, setRepostedYou] = React.useState<any>([]);
+  const [topMentions, setTopMentions] = React.useState<any>([]);
   var parse = require("html-react-parser");
 
   function fetchData() {
@@ -349,6 +350,7 @@ export default function Page({
         setTopImages(data.top.topImages);
         setYouReposted(data.top.youReposted);
         setRepostedYou(data.top.repostedYou);
+        setTopMentions(data.top.topMentions)
         seteverLoaded(true);
 
       });
@@ -1287,7 +1289,7 @@ export default function Page({
                   level="h2"
                   sx={{ mb: "24px", centerSelf: "center", mt: "18px" }}
                 >
-                  ...and some got less love
+                  ...and some got less
                 </Typography>
                 {/* Split View */}
                 <Stack
@@ -1334,6 +1336,55 @@ export default function Page({
                   </Stack>
                 </Stack>
 
+                <Typography
+                  level="h2"
+                  sx={{ mb: "24px", mt: "48px", centerSelf: "center" }}
+                >
+                  Some of your posts sparked conversation.
+                </Typography>
+                <Stack
+                  direction="row"
+                  justifyContent="center"
+                  spacing={3}
+                  sx={{ width: "100%" }}
+                  flexWrap={{
+                    xs: "wrap",
+                    sm: "wrap",
+                    md: "wrap",
+                  }}
+                >
+                  <Stack
+                    spacing={1}
+                    flexWrap={{
+                      xs: "wrap",
+                      sm: "wrap",
+                    }}
+                  >
+                    <Typography
+                      level="h3"
+                      fontWeight="bold"
+                      sx={{ marginBottom: "12px !important" }}
+                    >
+                      Most-Commented Posts
+                    </Typography>
+                    <Stack
+                      spacing={{ xs: 0, sm: 3 }}
+                      flexWrap="wrap"
+                      direction="row"
+                    >
+                      {topCommented.map((data: any) => {
+                        return (
+                          <div
+                            key={data["_id"]}
+                            style={{ maxWidth: "420px", flexShrink: "5" }}
+                          >
+                            <Post data={data} />
+                          </div>
+                        );
+                      })}
+                    </Stack>
+                  </Stack>
+                </Stack>
                 <Typography
                   level="h2"
                   sx={{ mb: "24px", mt: "48px", centerSelf: "center" }}
@@ -1510,6 +1561,39 @@ export default function Page({
                       alt=""
                       width={index == 0 ? "184" : index == 1 ? "140" : "100"}
                       height={index == 0 ? "184" : index == 1 ? "140" : "100"}
+                      style={{
+                        borderRadius: "50%",
+                      }}
+                    />
+                    <Typography fontSize={index == 0 ? "large" : index == 1 ? "medium" : "small"} alignContent='center' alignSelf="center" fontWeight="bold">
+                    {index == 0
+                                  ? "🥇"
+                                  : index == 1
+                                  ? "🥈"
+                                  : index == 2
+                                  ? "🥉"
+                                  : "🏆"}{" "} #{index+1} - @{data.username} ({data.count})
+                    </Typography>
+                    </Stack>
+                      )})}
+                      </Stack>
+                      <Typography
+                  level="h2"
+                  sx={{ mb: "24px", mt: "12px", centerSelf: "center" }}
+                >
+                  You mentioned these users the most...
+                </Typography>
+                <Stack justifyContent="center" alignContent="center" direction={{ xs: "column", sm: "row" }} spacing={4}>
+                  {
+                    topMentions.map((data: any, index: any) => {
+                      return (
+                <Stack alignItems="center" justifyContent="end" key={data["_id"]} direction="column" spacing={1}>
+                <Image
+                      src={`https://api.wasteof.money/users/${data.username}/picture`}
+                      loading="lazy"
+                      alt=""
+                      width={index < 1 ? "184" : index < 3 ? "140" : "100"}
+                      height={index == 0 ? "184" : index < 3 ? "140" : "100"}
                       style={{
                         borderRadius: "50%",
                       }}

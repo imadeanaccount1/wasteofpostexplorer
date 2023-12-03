@@ -596,6 +596,57 @@ export async function GET(request: NextRequest) {
     { $sort: { count: -1 } },
     { $limit: 3 },
   ]);
+  const topMentions = posts.aggregate([
+    {
+      $match: {
+        time: {
+          $gte: new Date(year + "-01-01").getTime(),
+          $lte: new Date(year + "-12-31").getTime(),
+        },
+      },
+    },
+    {
+      $match: {
+        "poster.id": { $eq: userrecord.id },
+      },
+    },
+    // Match messages containing mentions
+    {
+      $match: {
+        content: { $regex: /@(\w+)/ }
+      }
+    },
+    // Extract mentioned usernames using $regex and $project
+    {
+      $project: {
+        mentionedUsers: {
+          $regexFindAll: {
+            input: "$content",
+            regex: /@(\w+)/
+          }
+        }
+      }
+    },
+    // Unwind the array of mentioned users
+    {
+      $unwind: "$mentionedUsers"
+    },
+    // Group and count the mentions for each user
+    {
+      $group: {
+        _id: "$mentionedUsers.match",
+        count: { $sum: 1 }
+      }
+    },
+    // Sort users by mention count in descending order
+    {
+      $sort: { count: -1 }
+    },
+    // Limit the result to the top N mentioned users
+    {
+      $limit: 5 // Change this number based on your requirement
+    }
+  ])
   const topWords = posts.aggregate([
     {
       $match: {
@@ -882,6 +933,10 @@ export async function GET(request: NextRequest) {
     const uname = await fetch(`https://api.wasteof.money/username-from-id/` + doc._id + `/`).then((res) => res.json())
     pictures19.push(Object.assign(doc, {username: uname.username}));
   }
+  const pictures20 = [];
+  for await (const doc of topMentions) {
+    pictures20.push(Object.assign(doc, {username: doc._id.split('@')[1]}));
+  }
 
   const has4000 = await (fetch("https://api.wasteof.money/users/4000/followers/" + userrecord.name + "/").then((res) => res.json()))
 
@@ -922,7 +977,8 @@ export async function GET(request: NextRequest) {
       topImages: pictures16,
       worstPosts: pictures17,
       youReposted: pictures18,
-      repostedYou: pictures19
+      repostedYou: pictures19,
+      topMentions: pictures20
     },
     postContentAnalysis: {
       topWords: pictures15,
