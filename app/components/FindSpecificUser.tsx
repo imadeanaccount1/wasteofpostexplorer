@@ -69,7 +69,7 @@ return (
             mb: 2,
           }}
         >
-         { !props.wrapped ? 'Find Specific User' : 'Select User' }
+         { !props.wrapped ? 'Find Specific User' : 'Select Wrapped User' }
         </Typography>
       </Box>
       <Box sx={{ px: {
@@ -77,7 +77,8 @@ return (
             md: 6,
           },}}>
         <Typography fontSize='md' sx={{marginTop:'16px', marginBottom: '16px'}}>
-        Autocomplete Search for a user by their username.
+        { !props.wrapped ? 'Autocomplete Search for a user by their username.' : 'Select a username and year to view the wasteof Wrapped for.' }
+        
         </Typography>
                
           <SearchComponent wrapped={props.wrapped} advanced={false} />
