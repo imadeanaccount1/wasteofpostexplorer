@@ -443,7 +443,7 @@ export default function Page({
               px: {
                 xs: 2,
                 sm: 2,
-                md: 3,
+                md: 2,
               },
               pt: {
                 xs: "calc(12px + var(--Header-height))",
@@ -462,6 +462,7 @@ export default function Page({
               <Stack
                 direction="row"
                 alignItems="center"
+                justifyContent="center"
                 flexWrap={{
                   xs: "wrap",
                   sm: "wrap",
@@ -979,6 +980,8 @@ export default function Page({
               <Stack
                 direction="row"
                 alignItems="center"
+                justifyContent="center"
+
                 flexWrap={{
                   xs: "wrap",
                   sm: "wrap",
@@ -1163,9 +1166,9 @@ export default function Page({
               </Typography>
               <Stack
                 direction="row"
-                justifyContent="center"
+                justifyContent="left"
                 spacing={3}
-                sx={{width: '100%'}}
+                sx={{width: '100%', pl: '12px'}}
                 flexWrap={{
                   xs: "wrap",
                   sm: "wrap",
@@ -1173,7 +1176,7 @@ export default function Page({
                 }}
               >
 
-                <Stack spacing={1} sx={{ width: "45%", minWidth: "360px" }} flexWrap={{
+                <Stack spacing={1} sx={{  width: "45%", minWidth: "360px" }} flexWrap={{
                   xs: "wrap",
                   sm: "wrap",
                 }}>
@@ -1226,10 +1229,10 @@ export default function Page({
                                   <Typography level="h3" fontWeight="bold" sx={{marginBottom: '12px !important'}}>
                 Least-Loved Posts:
               </Typography>
-              <Stack spacing={2} flexWrap="wrap" direction="row">
+              <Stack spacing={3} flexWrap="wrap" direction="row">
                   {
                     worstPosts.map((data: any) => {
-                      return <div key={data["_id"]} style={{ maxWidth: '550px'}}><Post  data={data} /></div>;
+                      return <div key={data["_id"]} style={{ maxWidth: '420px', flexShrink: '5'}}><Post  data={data} /></div>;
                     })
                   }
                   </Stack>
@@ -1253,7 +1256,7 @@ export default function Page({
                 direction="column"
                 alignItems="left"
                 flexWrap="wrap"
-                sx={{maxHeight: "560px", width: '100%' }}
+                sx={{maxHeight: {xl: '540px', lg: '760px', md: '760px', sm: '660px'}, width: '100%' }}
                 useFlexGap>
                   {/* <Stack spacing={1} sx={{ width: "45%", minWidth: "360px", maxHeight: "200px" }} flexWrap={{
                   xs: "wrap",
@@ -1266,7 +1269,7 @@ export default function Page({
                     {
                       topWords.map((data: any, index: any) => {
                         return <ListItem sx={{py: '8px', my: '8px'}} key={data["_id"]}>
-                          <ListItemDecorator sx={{fontWeight: "bold",mr: '8px'}}>{(index == 0 ? '🥇' : index == 1 ? '🥈' : index == 2 ? '🥉' : '🏆') + ' #' + (index + 1).toString() + ' - '}</ListItemDecorator> {data["_id"]} ({data["count"]})
+                          <ListItemDecorator sx={{fontWeight: "bold",mr: '4px'}}>{(index == 0 ? '🥇' : index == 1 ? '🥈' : index == 2 ? '🥉' : '🏆') + ' #' + (index + 1).toString() + ' - '}</ListItemDecorator> {data["_id"]} ({data["count"]})
                         </ListItem>;
                       })
                     }        
