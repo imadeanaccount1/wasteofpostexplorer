@@ -1535,8 +1535,8 @@ export default function Page({
                       "Nov",
                       "Dec",
                     ]}
-                    startDate={new Date("2023/01/02")}
-                    endDate={new Date("2023/12/31")}
+                    startDate={new Date(params.year + "/01/02")}
+                    endDate={new Date(params.year +  "/12/31")}
                     rectRender={(props, data) => {
                       // if (!data.count) return <rect {...props} />;
                       if (selected !== "") {
