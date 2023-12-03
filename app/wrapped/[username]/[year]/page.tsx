@@ -60,7 +60,7 @@ import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import Post from "../../../components/Post";
 import Link from '@mui/joy/Link';
 // import { useColorScheme } from "@mui/joy/styles";
-const darkColor = { 0: 'rgb(255 255 255 / 25%)', 8: '#7BC96F', 4: '#C6E48B', 12: '#239A3B', 32: '#ff7b00' };
+const darkColor = { 0: 'rgb(255 255 255 / 25%)', 2: '#7BC96F', 4: '#C6E48B', 8: '#239A3B', 32: '#ff7b00' };
 export default function Page({
   params,
 }: {
