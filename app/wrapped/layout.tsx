@@ -1,8 +1,8 @@
 import React from "react";
 
 export const metadata = {
-    title: "wasteof Wrapped - Find Users | wasteof Post Explorer",
-    description: "wasteof year in review",
+    title: "wasteof Wrapped | wasteof Post Explorer",
+    description: "wasteof year in review" ,
   };
 
   
