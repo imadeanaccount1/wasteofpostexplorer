@@ -62,10 +62,11 @@ import Link from "@mui/joy/Link";
 // import { useColorScheme } from "@mui/joy/styles";
 const darkColor = {
   0: "rgb(255 255 255 / 25%)",
-  2: "#7BC96F",
-  4: "#C6E48B",
-  8: "#239A3B",
-  32: "#ff7b00",
+  // 1: "#8ac1e3",
+  2: "#8ac1e3",
+  3: '#5770ad',
+  4: "#234699",
+  10: "#00ffd0",
 };
 export default function Page({
   params,
@@ -1714,7 +1715,7 @@ export default function Page({
                   >
                     Your posts throughout the year:
                   </Typography>
-                  <Stack direction={{ xs: "column", sm: "row" }} spacing={4}>
+                  <Stack direction={{ xs: "column", sm: "row" }} flexWrap="wrap" spacing={2}>
                     {/* <Cal /> */}
                     <Stack>
                       <HeatMap
@@ -1729,11 +1730,11 @@ export default function Page({
                             ? darkColor
                             : {
                                 // 0: '#f4decd',
-                                2: "#93abe4",
-                                4: "#6184d4",
-                                10: "#3a63c2",
-                                20: "#0034ad",
-                                30: "#000",
+                                1: "#93abe4",
+                                2: "#6184d4",
+                                3: "#3a63c2",
+                                4: "#0034ad",
+                                10: "#000",
                               }
                         }
                         weekLabels={["", "Mon", "", "Wed", "", "Fri", ""]}
@@ -1781,6 +1782,7 @@ export default function Page({
                       />
                       <Button
                         startDecorator={<Brightness4Icon />}
+                        sx={{my: '8px', width: '260px', mb: '16px'}}
                         onClick={() => {
                           setMode(mode == "dark" ? "light" : "dark");
                           console.log(mode);
