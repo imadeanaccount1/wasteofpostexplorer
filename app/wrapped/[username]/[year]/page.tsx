@@ -525,7 +525,7 @@ export default function Page({
                         </CardContent>
                       </Card>
                     ) : null}
-                    {postCount > 0 ? (
+                    {postCount > -1 ? (
                       <Card
                         sx={{ height: "160px", width: "280px", margin: "6px" }}
                         variant="solid"
@@ -616,7 +616,7 @@ export default function Page({
                     ) : null}
                     {datesPosted != null &&
                     datesPosted != undefined &&
-                    datesPosted.length > 0 ? (
+                    datesPosted.length > -1 ? (
                       <Card
                         sx={{ height: "160px", width: "280px", margin: "6px" }}
                         variant="solid"
@@ -644,11 +644,8 @@ export default function Page({
                       </Card>
                     ) : null}
                     {(
-                      trends.ratioList
-                        ? trends.ratioList.filter((l: any) => {
-                            return l;
-                          }).length > 0
-                        : false
+                      trends.ratioList || trends.ratiodList
+                        
                     ) ? (
                       <Card
                         sx={{ height: "160px", width: "280px", margin: "6px" }}
@@ -681,11 +678,8 @@ export default function Page({
                       </Card>
                     ) : null}
                     {(
-                      trends.ratioList
-                        ? trends.ratioList.filter((l: any) => {
-                            return !l;
-                          }).length > 0
-                        : false
+                                            trends.ratioList || trends.ratiodList
+
                     ) ? (
                       <Card
                         sx={{ height: "160px", width: "280px", margin: "6px" }}
@@ -718,11 +712,8 @@ export default function Page({
                       </Card>
                     ) : null}
                     {(
-                      trends.ratiodList
-                        ? trends.ratiodList.filter((l: any) => {
-                            return l;
-                          }).length > 0
-                        : false
+                                            trends.ratioList || trends.ratiodList
+
                     ) ? (
                       <Card
                         sx={{ height: "160px", width: "280px", margin: "6px" }}
@@ -755,11 +746,8 @@ export default function Page({
                       </Card>
                     ) : null}
                     {(
-                      trends.ratiodList
-                        ? trends.ratiodList.filter((l: any) => {
-                            return !l;
-                          }).length > 0
-                        : false
+                                           trends.ratioList || trends.ratiodList
+
                     ) ? (
                       <Card
                         sx={{ height: "160px", width: "280px", margin: "6px" }}
@@ -1060,7 +1048,7 @@ export default function Page({
                       sm: "wrap",
                     }}
                   >
-                    {repostPercent ? (
+                    {repostPercent && !repostPercent.includes('NaN') ? (
                       <Card
                         sx={{ height: "160px", width: "280px", margin: "6px" }}
                         variant="soft"
@@ -1188,7 +1176,7 @@ export default function Page({
                         </CardActions>
                       </Card>
                     ) : null}
-                    {blankRepostPercent ? (
+                    {blankRepostPercent && !blankRepostPercent.includes('NaN') ? (
                       <Card
                         sx={{ height: "160px", width: "280px", margin: "6px" }}
                         variant="soft"
@@ -1218,7 +1206,7 @@ export default function Page({
                         </CardContent>
                       </Card>
                     ) : null}
-                    {mediaPercent ? (
+                    {mediaPercent && !mediaPercent.includes('NaN') ? (
                       <Card
                         sx={{ height: "160px", width: "280px", margin: "6px" }}
                         variant="soft"
