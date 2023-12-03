@@ -372,6 +372,7 @@ export default function Page({
               color="primary"
               variant="soft"
               sx={{
+                
                 width: "100%",
                 display: "flex",
                 height: "240px",
@@ -379,6 +380,10 @@ export default function Page({
                 alignItems: "center",
                 justifyContent: "center",
                 justifyItems: "center",
+                marginTop: {
+                  xs: '65px',
+                  md: '0px',
+                }
               }}
             >
               <Stack
@@ -974,7 +979,7 @@ export default function Page({
                   </Card>
                 ) : null}
               </Stack>
-              <Typography level="h2" sx={{ mb: "24px", centerSelf: "center" }}>
+              <Typography level="h2" sx={{ mb: "24px", mt: '12px', centerSelf: "center" }}>
                 Of your posts,
               </Typography>
               <Stack
@@ -1161,8 +1166,8 @@ export default function Page({
                   </Card>
                 ) : null}
               </Stack>
-              <Typography level="h2" sx={{ mb: "24px", centerSelf: "center" }}>
-                Some of your posts got some love...
+              <Typography level="h2" sx={{ mb: "24px", mt: '18px', centerSelf: "center" }}>
+                Some of your posts got a lot of love...
               </Typography>
               <Stack
                 direction="row"
@@ -1176,7 +1181,7 @@ export default function Page({
                 }}
               >
 
-                <Stack spacing={1} sx={{  width: "45%", minWidth: "360px" }} flexWrap={{
+                <Stack  spacing={1} sx={{  width: "45%", minWidth: "360px" }} flexWrap={{
                   xs: "wrap",
                   sm: "wrap",
                 }}>
@@ -1190,7 +1195,7 @@ export default function Page({
                     })
                   }
                   </Stack>
-                  <Stack spacing={1} sx={{ width: "45%", minWidth: "360px" }} flexWrap={{
+                  <Stack spacing={1} sx={{ width: "45%", minWidth: "360px", mt: { xs: '12px !important', sm: '0px !important'}, marginLeft: {xs: '0px !important', sm: '24px !important'}, }} flexWrap={{
                   xs: "wrap",
                   sm: "wrap",
                 }}>
@@ -1206,8 +1211,8 @@ export default function Page({
                   </Stack>
 
                 </Stack>
-                <Typography level="h2" sx={{ mb: "24px", centerSelf: "center" }}>
-                ...and some of them got less
+                <Typography level="h2" sx={{ mb: "24px", centerSelf: "center", mt: '18px' }}>
+                ...and some got less
               </Typography>
               {/* Split View */}
               <Stack
@@ -1229,7 +1234,7 @@ export default function Page({
                                   <Typography level="h3" fontWeight="bold" sx={{marginBottom: '12px !important'}}>
                 Least-Loved Posts:
               </Typography>
-              <Stack spacing={3} flexWrap="wrap" direction="row">
+              <Stack spacing={{xs: 0, sm: 3}} flexWrap="wrap" direction="row">
                   {
                     worstPosts.map((data: any) => {
                       return <div key={data["_id"]} style={{ maxWidth: '420px', flexShrink: '5'}}><Post  data={data} /></div>;
@@ -1244,7 +1249,7 @@ export default function Page({
               <Typography level="h2" sx={{ mb: "24px", mt: '48px', centerSelf: "center" }}>
                 Your posts were very interesting...
               </Typography>
-              <Stack direction="row" spacing={4}>
+              <Stack direction="row" flexWrap="wrap" spacing={4}>
                   <Stack spacing={1} sx={{ width: "45%", minWidth: "360px" }}  flexWrap={{
                   xs: "wrap",
                   sm: "wrap",
