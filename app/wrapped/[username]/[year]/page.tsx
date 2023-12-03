@@ -4,6 +4,7 @@ import * as React from "react";
 import { CssVarsProvider } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
 import LinearProgress from '@mui/joy/LinearProgress';
+import FourKOutlinedIcon from '@mui/icons-material/FourKOutlined';
 
 // import 'react-calendar-heatmap/dist/styles.css';
 import Launch from '@mui/icons-material/Launch';
@@ -28,6 +29,8 @@ import ChildCareOutlinedIcon from "@mui/icons-material/ChildCareOutlined";
 import Header from "../../../components/Header";
 // import Cal from '../../../components/CalHeatmap';
 import Card from "@mui/joy/Card";
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+
 import CardContent from "@mui/joy/CardContent";
 import CardActions from "@mui/joy/CardActions";
 import Button from "@mui/joy/Button";
@@ -56,12 +59,15 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import Post from "../../../components/Post";
 import Link from '@mui/joy/Link';
-
+// import { useColorScheme } from "@mui/joy/styles";
+const darkColor = { 0: 'rgb(255 255 255 / 25%)', 8: '#7BC96F', 4: '#C6E48B', 12: '#239A3B', 32: '#ff7b00' };
 export default function Page({
   params,
 }: {
   params: { username: string; year: string };
 }) {
+  const [mode, setMode] = React.useState("light")
+
   const [selected, setSelected] = React.useState("");
   const [datesPosted, setDatesPosted] = React.useState<any>([]);
   const [postCount, setPostCount] = React.useState<any>(0);
@@ -122,13 +128,13 @@ export default function Page({
               : "increase")
         );
         setFollowerIncrease(
-          data.joindate > new Date(params.year + "-01-01").getTime()
+          ((data.joindate > new Date(params.year + "-01-01").getTime() && new Date().getFullYear() === parseInt(params.year)))
             ? data.stats.followers
             : data.statChanges.followerChange
         );
         setFollowingIncrease(
-          data.joindate > new Date(params.year + "-01-01").getTime()
-            ? data.stats.following
+          ((data.joindate > new Date(params.year + "-01-01").getTime() && new Date().getFullYear() === parseInt(params.year)))
+          ? data.stats.following
             : data.statChanges.followingChange
         );
 
@@ -190,8 +196,8 @@ export default function Page({
               (1 -
                 data.stats.following /
                   (data.stats.following -
-                    (data.joindate > new Date(params.year + "-01-01").getTime()
-                      ? data.stats.following
+                    ((data.joindate > new Date(params.year + "-01-01").getTime() && new Date().getFullYear() === parseInt(params.year))
+                    ? data.stats.following
                       : data.statChanges.followingChange))) *
                 100
             )
@@ -200,7 +206,7 @@ export default function Page({
             (1 -
               data.stats.following /
                 (data.stats.following -
-                  (data.joindate > new Date(params.year + "-01-01").getTime()
+                  ((data.joindate > new Date(params.year + "-01-01").getTime() && new Date().getFullYear() === parseInt(params.year))
                     ? data.stats.following
                     : data.statChanges.followingChange)) >
             0
@@ -641,7 +647,7 @@ export default function Page({
                             time
                             {trends.ratioList.filter((l: any) => {
                               return l;
-                            }).length > 1
+                            }).length != 1
                               ? "s"
                               : ""}
                           </Typography>
@@ -678,7 +684,7 @@ export default function Page({
                             time
                             {trends.ratioList.filter((l: any) => {
                               return !l;
-                            }).length > 1
+                            }).length != 1
                               ? "s"
                               : ""}
                           </Typography>
@@ -715,7 +721,7 @@ export default function Page({
                             time
                             {trends.ratiodList.filter((l: any) => {
                               return l;
-                            }).length > 1
+                            }).length != 1
                               ? "s"
                               : ""}
                           </Typography>
@@ -752,7 +758,7 @@ export default function Page({
                             time
                             {trends.ratiodList.filter((l: any) => {
                               return !l;
-                            }).length > 1
+                            }).length != 1
                               ? "s"
                               : ""}
                           </Typography>
@@ -797,6 +803,23 @@ export default function Page({
                           </Typography>
                         </CardContent>
                         <ChildCareOutlinedIcon />
+                      </CardContent>
+                    </Card>
+                  ) : null}
+                  {trends["4000"] ? (
+                    <Card
+                      sx={{ height: "160px", width: "280px", margin: "6px" }}
+                      variant="outlined"
+                      color="primary"
+                      invertedColors
+                    >
+                      <CardContent orientation="horizontal">
+                        <CardContent>
+                          <Typography level="h3" fontWeight="bold">
+                            followed the 4000th wasteof account
+                          </Typography>
+                        </CardContent>
+                        <FourKOutlinedIcon />
                       </CardContent>
                     </Card>
                   ) : null}
@@ -859,7 +882,7 @@ export default function Page({
 
                           <Typography level="h2">
                             {trends.nightyMorning} time
-                            {trends.nightyMorning > 1 ? "s" : ""}
+                            {trends.nightyMorning != 1 ? "s" : ""}
                           </Typography>
                         </CardContent>
                         <NightsStayOutlinedIcon />
@@ -881,7 +904,7 @@ export default function Page({
 
                           <Typography level="h2">
                             {trends.mathClass} time
-                            {trends.mathClass > 1 ? "s" : ""}
+                            {trends.mathClass != 1 ? "s" : ""}
                           </Typography>
                         </CardContent>
                         <CalculateOutlinedIcon />
@@ -903,7 +926,7 @@ export default function Page({
 
                           <Typography level="h2">
                             {trends.elonMusk} time
-                            {trends.elonMusk > 1 ? "s" : ""}
+                            {trends.elonMusk != 1 ? "s" : ""}
                           </Typography>
                         </CardContent>
                         <RocketLaunchOutlinedIcon />
@@ -924,7 +947,7 @@ export default function Page({
                           </Typography>
 
                           <Typography level="h2">
-                            {trends.hottake} time{trends.hottake > 1 ? "s" : ""}
+                            {trends.hottake} time{trends.hottake != 1 ? "s" : ""}
                           </Typography>
                         </CardContent>
                         <WhatshotOutlinedIcon />
@@ -946,7 +969,7 @@ export default function Page({
 
                           <Typography level="h2">
                             {trends.immark_v2} time
-                            {trends.immark_v2 > 1 ? "s" : ""}
+                            {trends.immark_v2 != 1 ? "s" : ""}
                           </Typography>
                         </CardContent>
                         <InsertEmoticonIcon />
@@ -968,7 +991,7 @@ export default function Page({
 
                           <Typography level="h2">
                             {blankRepostCount} time
-                            {blankRepostCount > 1 ? "s" : ""}
+                            {blankRepostCount != 1 ? "s" : ""}
                           </Typography>
                         </CardContent>
                         <ForumOutlinedIcon />
@@ -987,7 +1010,7 @@ export default function Page({
                           <Typography level="body-md">posted images</Typography>
 
                           <Typography level="h2">
-                            {mediaCount} time{mediaCount > 1 ? "s" : ""}
+                            {mediaCount} time{mediaCount != 1 ? "s" : ""}
                           </Typography>
                         </CardContent>
                         <ForumOutlinedIcon />
@@ -1343,6 +1366,7 @@ export default function Page({
                           lg: "760px",
                           md: "760px",
                           sm: "660px",
+                          xs: '550px'
                         },
                         width: "100%",
                       }}
@@ -1463,7 +1487,7 @@ export default function Page({
                                   ? "🥈"
                                   : index == 2
                                   ? "🥉"
-                                  : "🏆"}{" "} #{index+1} - @{data.username}
+                                  : "🏆"}{" "} #{index+1} - @{data.username} ({data.count})
                     </Typography>
                     </Stack>
                       )})}
@@ -1479,6 +1503,7 @@ export default function Page({
                     repostedYou.map((data: any, index: any) => {
                       return (
                 <Stack alignItems="center" justifyContent="end" key={data["_id"]} direction="column" spacing={1}>
+        
                 <Image
                       src={`https://api.wasteof.money/users/${data.username}/picture`}
                       loading="lazy"
@@ -1496,7 +1521,7 @@ export default function Page({
                                   ? "🥈"
                                   : index == 2
                                   ? "🥉"
-                                  : "🏆"}{" "} #{index+1} - @{data.username}
+                                  : "🏆"}{" "} #{index+1} - @{data.username} ({data.count})
                     </Typography>
                     </Stack>
                       )})}
@@ -1509,10 +1534,16 @@ export default function Page({
                 </Typography>
                 <Stack direction={{ xs: "column", sm: "row" }} spacing={4}>
                   {/* <Cal /> */}
+                  <Stack>
                   <HeatMap
+                   style={{
+                    backgroundColor: mode == "dark" ? '#000' : '#fff',
+                    color: mode == "dark" ? '#888' : '#000',
+                  }}
+
                     value={datesPosted}
                     width={720}
-                    panelColors={{
+                    panelColors={ mode == "dark" ? darkColor : {
                       // 0: '#f4decd',
                       2: "#93abe4",
                       4: "#6184d4",
@@ -1547,7 +1578,7 @@ export default function Page({
                         <Tooltip
                           placement="top"
                           title={`${data.count || 0} post${
-                            (data.count || 0) > 1 ? "s" : ""
+                            (data.count || 0) != 1 ? "s" : ""
                           } on ${data.date || 0}`}
                           arrow={true}
                         >
@@ -1563,6 +1594,12 @@ export default function Page({
                       );
                     }}
                   />
+                  <Button startDecorator={<Brightness4Icon />} onClick={() => {
+                    setMode(mode == "dark" ? "light" : "dark")
+                    console.log(mode)
+                  }}>Toggle Heatmap Theme</Button>
+                  </Stack>
+
                   {daysPercent ? (
                     <Card
                       sx={{ height: "160px", width: "280px", margin: "6px" }}
@@ -1627,7 +1664,7 @@ export default function Page({
               loaded={loaded}
               user={params.username}
             /> */}
-            <Typography fontWeight="bold">Suggestions for wasteof Wrapped? <Link fontWeight="normal" href="https://github.com/imadeanaccount1/wasteofpostexplorer" endDecorator={<Launch />}>
+            <Typography sx={{mt: '18px'}} fontWeight="bold">Suggestions for wasteof Wrapped? <Link fontWeight="normal" href="https://github.com/imadeanaccount1/wasteofpostexplorer" endDecorator={<Launch />}>
           Create a GitHub Issue!
         </Link></Typography>
               </Box>

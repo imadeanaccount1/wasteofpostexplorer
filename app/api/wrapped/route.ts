@@ -883,6 +883,8 @@ export async function GET(request: NextRequest) {
     pictures19.push(Object.assign(doc, {username: uname.username}));
   }
 
+  const has4000 = await (fetch("https://api.wasteof.money/users/4000/followers/" + userrecord.name + "/").then((res) => res.json()))
+
 
   // var val = pictures.reduce(function(previousValue, currentValue) {
   //   return {
@@ -926,7 +928,7 @@ export async function GET(request: NextRequest) {
       topWords: pictures15,
     },
     stats: userrecord.stats,
-    trends: {
+    trends: (year == "2023" ? {
       hottake: hotTakeList.length > 0 ? hotTakeList.length : 0,
       rawBees: rawBeesList.length > 0,
       ratioList:
@@ -945,6 +947,7 @@ export async function GET(request: NextRequest) {
       "8443": list8443.length > 0,
       twoyear: userrecord.history.joined < 1676091600000,
       immark_v2: immark_v2List.length > 0 ? immark_v2List.length : 0,
-    },
+      "4000": has4000
+    } : {}),
   });
 }

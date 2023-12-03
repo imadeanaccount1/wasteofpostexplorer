@@ -22,8 +22,10 @@ export default function Post(props: {
   data: any;
   level?: number;
   wrapped?: boolean;
+  showChildren?: boolean;
 }) {
   var parse = require("html-react-parser");
+  const [showChildren, setShowChildren] = React.useState(props.showChildren || false);
 
   return (
     <Card sx={{ maxWidth: "100%" }}>
@@ -61,14 +63,24 @@ export default function Post(props: {
         {parse(props.data.content)}
       </div>
       {props.data.repost ? (
-        (props.level || 0) < 1 ? (
+        ((props.level || 0) < 1 || showChildren) ? (
+          <>
+          
+          { (showChildren && props.level || 0) > 0 ? <Button onClick={() => {
+            setShowChildren(false)
+          }}>Hide nested reposts</Button> : null  }
           <Post
+            showChildren={showChildren}
             data={props.data.repost}
             wrapped={props.wrapped || false}
             level={(props.level || 0) + 1}
           />
+          </>
         ) : (
-          <Card>More nested reposts are hidden</Card>
+          <Card>More nested reposts are hidden          <Button onClick={() => {
+            setShowChildren(true)
+          }}>Show all nested reposts</Button>
+</Card>
         )
       ) : null}
       {/* {JSON.stringify(props.data)} */}
