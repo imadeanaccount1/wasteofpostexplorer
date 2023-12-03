@@ -557,7 +557,7 @@ export async function GET(request: NextRequest) {
     {
       $match: {
         "repost._id": { $exists: true },
-      }
+      },
     },
     {
       $group: {
@@ -580,12 +580,12 @@ export async function GET(request: NextRequest) {
     {
       $match: {
         "repost._id": { $exists: true },
-      }
+      },
     },
     {
       $match: {
         "repost.poster.id": { $eq: userrecord.id },
-      }
+      },
     },
     {
       $group: {
@@ -613,8 +613,8 @@ export async function GET(request: NextRequest) {
     // Match messages containing mentions
     {
       $match: {
-        content: { $regex: /@(\w+)/ }
-      }
+        content: { $regex: /@(\w+)/ },
+      },
     },
     // Extract mentioned usernames using $regex and $project
     {
@@ -622,31 +622,31 @@ export async function GET(request: NextRequest) {
         mentionedUsers: {
           $regexFindAll: {
             input: "$content",
-            regex: /@(\w+)/
-          }
-        }
-      }
+            regex: /@(\w+)/,
+          },
+        },
+      },
     },
     // Unwind the array of mentioned users
     {
-      $unwind: "$mentionedUsers"
+      $unwind: "$mentionedUsers",
     },
     // Group and count the mentions for each user
     {
       $group: {
         _id: "$mentionedUsers.match",
-        count: { $sum: 1 }
-      }
+        count: { $sum: 1 },
+      },
     },
     // Sort users by mention count in descending order
     {
-      $sort: { count: -1 }
+      $sort: { count: -1 },
     },
     // Limit the result to the top N mentioned users
     {
-      $limit: 5 // Change this number based on your requirement
-    }
-  ])
+      $limit: 5, // Change this number based on your requirement
+    },
+  ]);
   const topWords = posts.aggregate([
     {
       $match: {
@@ -925,21 +925,26 @@ export async function GET(request: NextRequest) {
   }
   const pictures18 = [];
   for await (const doc of youReposted) {
-    const uname = await fetch(`https://api.wasteof.money/username-from-id/` + doc._id + `/`).then((res) => res.json())
-    pictures18.push(Object.assign(doc, {username: uname.username}));
+    const uname = await fetch(
+      `https://api.wasteof.money/username-from-id/` + doc._id + `/`
+    ).then((res) => res.json());
+    pictures18.push(Object.assign(doc, { username: uname.username }));
   }
   const pictures19 = [];
   for await (const doc of repostedYou) {
-    const uname = await fetch(`https://api.wasteof.money/username-from-id/` + doc._id + `/`).then((res) => res.json())
-    pictures19.push(Object.assign(doc, {username: uname.username}));
+    const uname = await fetch(
+      `https://api.wasteof.money/username-from-id/` + doc._id + `/`
+    ).then((res) => res.json());
+    pictures19.push(Object.assign(doc, { username: uname.username }));
   }
   const pictures20 = [];
   for await (const doc of topMentions) {
-    pictures20.push(Object.assign(doc, {username: doc._id.split('@')[1]}));
+    pictures20.push(Object.assign(doc, { username: doc._id.split("@")[1] }));
   }
 
-  const has4000 = await (fetch("https://api.wasteof.money/users/4000/followers/" + userrecord.name + "/").then((res) => res.json()))
-
+  const has4000 = await fetch(
+    "https://api.wasteof.money/users/4000/followers/" + userrecord.name + "/"
+  ).then((res) => res.json());
 
   // var val = pictures.reduce(function(previousValue, currentValue) {
   //   return {
@@ -978,32 +983,35 @@ export async function GET(request: NextRequest) {
       worstPosts: pictures17,
       youReposted: pictures18,
       repostedYou: pictures19,
-      topMentions: pictures20
+      topMentions: pictures20,
     },
     postContentAnalysis: {
       topWords: pictures15,
     },
     stats: userrecord.stats,
-    trends: (year == "2023" ? {
-      hottake: hotTakeList.length > 0 ? hotTakeList.length : 0,
-      rawBees: rawBeesList.length > 0,
-      ratioList:
-        ratioList.length > 0
-          ? ratioList.map((post: any) => post.loves > post.repost.loves)
-          : [],
-      ratiodList:
-        ratiodList.length > 0
-          ? ratiodList.map((post: any) => post.loves > post.repost.loves)
-          : [],
-      kidsAreMore: kidsAreMoreList.length > 0,
-      elonMusk: elonList.length > 0 ? elonList.length : 0,
-      mathClass: mathClassList.length > 0 ? mathClassList.length : 0,
-      nightyMorning:
-        nightyMorningList.length > 0 ? nightyMorningList.length : 0,
-      "8443": list8443.length > 0,
-      twoyear: userrecord.history.joined < 1676091600000,
-      immark_v2: immark_v2List.length > 0 ? immark_v2List.length : 0,
-      "4000": has4000
-    } : {}),
+    trends:
+      year == "2023"
+        ? {
+            hottake: hotTakeList.length > 0 ? hotTakeList.length : 0,
+            rawBees: rawBeesList.length > 0,
+            ratioList:
+              ratioList.length > 0
+                ? ratioList.map((post: any) => post.loves > post.repost.loves)
+                : [],
+            ratiodList:
+              ratiodList.length > 0
+                ? ratiodList.map((post: any) => post.loves > post.repost.loves)
+                : [],
+            kidsAreMore: kidsAreMoreList.length > 0,
+            elonMusk: elonList.length > 0 ? elonList.length : 0,
+            mathClass: mathClassList.length > 0 ? mathClassList.length : 0,
+            nightyMorning:
+              nightyMorningList.length > 0 ? nightyMorningList.length : 0,
+            "8443": list8443.length > 0,
+            twoyear: userrecord.history.joined < 1676091600000,
+            immark_v2: immark_v2List.length > 0 ? immark_v2List.length : 0,
+            "4000": has4000,
+          }
+        : {},
   });
 }

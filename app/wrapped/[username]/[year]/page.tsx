@@ -3,12 +3,12 @@
 import * as React from "react";
 import { CssVarsProvider } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
-import LinearProgress from '@mui/joy/LinearProgress';
-import FourKOutlinedIcon from '@mui/icons-material/FourKOutlined';
+import LinearProgress from "@mui/joy/LinearProgress";
+import FourKOutlinedIcon from "@mui/icons-material/FourKOutlined";
 
 // import 'react-calendar-heatmap/dist/styles.css';
-import Launch from '@mui/icons-material/Launch';
-import LinkIcon from '@mui/icons-material/Link';
+import Launch from "@mui/icons-material/Launch";
+import LinkIcon from "@mui/icons-material/Link";
 // import CalendarHeatmap from 'react-calendar-heatmap';
 import AspectRatio from "@mui/joy/AspectRatio";
 import WhatshotOutlinedIcon from "@mui/icons-material/WhatshotOutlined";
@@ -29,7 +29,7 @@ import ChildCareOutlinedIcon from "@mui/icons-material/ChildCareOutlined";
 import Header from "../../../components/Header";
 // import Cal from '../../../components/CalHeatmap';
 import Card from "@mui/joy/Card";
-import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness4Icon from "@mui/icons-material/Brightness4";
 
 import CardContent from "@mui/joy/CardContent";
 import CardActions from "@mui/joy/CardActions";
@@ -58,15 +58,21 @@ import NightsStayOutlinedIcon from "@mui/icons-material/NightsStayOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import Post from "../../../components/Post";
-import Link from '@mui/joy/Link';
+import Link from "@mui/joy/Link";
 // import { useColorScheme } from "@mui/joy/styles";
-const darkColor = { 0: 'rgb(255 255 255 / 25%)', 2: '#7BC96F', 4: '#C6E48B', 8: '#239A3B', 32: '#ff7b00' };
+const darkColor = {
+  0: "rgb(255 255 255 / 25%)",
+  2: "#7BC96F",
+  4: "#C6E48B",
+  8: "#239A3B",
+  32: "#ff7b00",
+};
 export default function Page({
   params,
 }: {
   params: { username: string; year: string };
 }) {
-  const [mode, setMode] = React.useState("light")
+  const [mode, setMode] = React.useState("light");
 
   const [selected, setSelected] = React.useState("");
   const [datesPosted, setDatesPosted] = React.useState<any>([]);
@@ -129,13 +135,15 @@ export default function Page({
               : "increase")
         );
         setFollowerIncrease(
-          ((data.joindate > new Date(params.year + "-01-01").getTime() && new Date().getFullYear() === parseInt(params.year)))
+          data.joindate > new Date(params.year + "-01-01").getTime() &&
+            new Date().getFullYear() === parseInt(params.year)
             ? data.stats.followers
             : data.statChanges.followerChange
         );
         setFollowingIncrease(
-          ((data.joindate > new Date(params.year + "-01-01").getTime() && new Date().getFullYear() === parseInt(params.year)))
-          ? data.stats.following
+          data.joindate > new Date(params.year + "-01-01").getTime() &&
+            new Date().getFullYear() === parseInt(params.year)
+            ? data.stats.following
             : data.statChanges.followingChange
         );
 
@@ -197,8 +205,10 @@ export default function Page({
               (1 -
                 data.stats.following /
                   (data.stats.following -
-                    ((data.joindate > new Date(params.year + "-01-01").getTime() && new Date().getFullYear() === parseInt(params.year))
-                    ? data.stats.following
+                    (data.joindate >
+                      new Date(params.year + "-01-01").getTime() &&
+                    new Date().getFullYear() === parseInt(params.year)
+                      ? data.stats.following
                       : data.statChanges.followingChange))) *
                 100
             )
@@ -207,7 +217,8 @@ export default function Page({
             (1 -
               data.stats.following /
                 (data.stats.following -
-                  ((data.joindate > new Date(params.year + "-01-01").getTime() && new Date().getFullYear() === parseInt(params.year))
+                  (data.joindate > new Date(params.year + "-01-01").getTime() &&
+                  new Date().getFullYear() === parseInt(params.year)
                     ? data.stats.following
                     : data.statChanges.followingChange)) >
             0
@@ -350,9 +361,8 @@ export default function Page({
         setTopImages(data.top.topImages);
         setYouReposted(data.top.youReposted);
         setRepostedYou(data.top.repostedYou);
-        setTopMentions(data.top.topMentions)
+        setTopMentions(data.top.topMentions);
         seteverLoaded(true);
-
       });
   }
   React.useEffect(() => {
@@ -456,1269 +466,1377 @@ export default function Page({
                   </Stack>
                 </Stack>
               </Sheet>
-              { everloaded ? (
-
-              <Box
-                sx={{
-                  px: {
-                    xs: 2,
-                    sm: 2,
-                    md: 2,
-                  },
-                  pt: {
-                    xs: "calc(12px + var(--Header-height))",
-                    md: 3,
-                  },
-                  pb: {
-                    xs: 2,
-                    sm: 2,
-                    md: 3,
-                  },
-                  paddingRight: "0px !important",
-                }}
-              >
-                <Typography
-                  level="h2"
-                  sx={{ mb: "24px", centerSelf: "center" }}
-                >
-                  In {params.year}, you...
-                </Typography>
-                <Stack
-                  direction="row"
-                  alignItems="center"
-                  justifyContent="center"
-                  flexWrap={{
-                    xs: "wrap",
-                    sm: "wrap",
+              {everloaded ? (
+                <Box
+                  sx={{
+                    px: {
+                      xs: 2,
+                      sm: 2,
+                      md: 2,
+                    },
+                    pt: {
+                      xs: "calc(12px + var(--Header-height))",
+                      md: 3,
+                    },
+                    pb: {
+                      xs: 2,
+                      sm: 2,
+                      md: 3,
+                    },
+                    paddingRight: "0px !important",
                   }}
                 >
-                  {joinedDate > new Date(params.year + "-01-01").getTime() ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="outlined"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="body-md">
-                            joined wasteof.money
-                          </Typography>
-                          <Typography level="h2">{new Date(joinedDate).toString().split(' ')[1] + " " + new Date(joinedDate).toString().split(' ')[2] + ", " + new Date(joinedDate).toString().split(' ')[3]}</Typography>
+                  <Typography
+                    level="h2"
+                    sx={{ mb: "24px", centerSelf: "center" }}
+                  >
+                    In {params.year}, you...
+                  </Typography>
+                  <Stack
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="center"
+                    flexWrap={{
+                      xs: "wrap",
+                      sm: "wrap",
+                    }}
+                  >
+                    {joinedDate > new Date(params.year + "-01-01").getTime() ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="outlined"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="body-md">
+                              joined wasteof.money
+                            </Typography>
+                            <Typography level="h2">
+                              {new Date(joinedDate).toString().split(" ")[1] +
+                                " " +
+                                new Date(joinedDate).toString().split(" ")[2] +
+                                ", " +
+                                new Date(joinedDate).toString().split(" ")[3]}
+                            </Typography>
+                          </CardContent>
+                          <CakeOutlinedIcon />
                         </CardContent>
-                        <CakeOutlinedIcon />
-                      </CardContent>
-                    </Card>
-                  ) : null}
-                  {postCount > 0 ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="solid"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="h2">{postCount}</Typography>
-                          <Typography level="body-md">created posts</Typography>
+                      </Card>
+                    ) : null}
+                    {postCount > 0 ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="solid"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="h2">{postCount}</Typography>
+                            <Typography level="body-md">
+                              created posts
+                            </Typography>
+                          </CardContent>
+                          <EditOutlinedIcon />
                         </CardContent>
-                        <EditOutlinedIcon />
-                      </CardContent>
-                      <CardActions>
-                        <Button variant="soft" size="sm">
-                          {postIncrease.replace("Infinity", "∞")} from{" "}
-                          {(parseInt(params.year) - 1).toString()}
-                        </Button>
-                        {/* <Button variant="solid" size="sm">
+                        <CardActions>
+                          <Button variant="soft" size="sm">
+                            {postIncrease.replace("Infinity", "∞")} from{" "}
+                            {(parseInt(params.year) - 1).toString()}
+                          </Button>
+                          {/* <Button variant="solid" size="sm">
           See breakdown
         </Button> */}
-                      </CardActions>
-                    </Card>
-                  ) : null}
-                  {followerIncrease > 0 ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="solid"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="h2">{followerIncrease}</Typography>
-                          <Typography level="body-md">
-                            {followerIncrease > 0 ? "gained" : "lost"} followers
-                          </Typography>
+                        </CardActions>
+                      </Card>
+                    ) : null}
+                    {followerIncrease > 0 ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="solid"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="h2">
+                              {followerIncrease}
+                            </Typography>
+                            <Typography level="body-md">
+                              {followerIncrease > 0 ? "gained" : "lost"}{" "}
+                              followers
+                            </Typography>
+                          </CardContent>
+                          <PersonAddAltOutlinedIcon />
                         </CardContent>
-                        <PersonAddAltOutlinedIcon />
-                      </CardContent>
-                      <CardActions>
-                        <Button variant="soft" size="sm">
-                          {followerPercent.replace("Infinity", "∞")} from{" "}
-                          {(parseInt(params.year) - 1).toString()}
-                        </Button>
-                        {/* <Button variant="solid" size="sm">
+                        <CardActions>
+                          <Button variant="soft" size="sm">
+                            {followerPercent.replace("Infinity", "∞")} from{" "}
+                            {(parseInt(params.year) - 1).toString()}
+                          </Button>
+                          {/* <Button variant="solid" size="sm">
           See breakdown
         </Button> */}
-                      </CardActions>
-                    </Card>
-                  ) : null}
-                  {followingIncrease > 0 ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="solid"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="h2">
-                            {followingIncrease}
-                          </Typography>
-                          <Typography level="body-md">
-                            {followingIncrease > 0 ? "followed" : "unfollowed"}{" "}
-                            users
-                          </Typography>
+                        </CardActions>
+                      </Card>
+                    ) : null}
+                    {followingIncrease > 0 ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="solid"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="h2">
+                              {followingIncrease}
+                            </Typography>
+                            <Typography level="body-md">
+                              {followingIncrease > 0
+                                ? "followed"
+                                : "unfollowed"}{" "}
+                              users
+                            </Typography>
+                          </CardContent>
+                          <GroupOutlinedIcon />
                         </CardContent>
-                        <GroupOutlinedIcon />
-                      </CardContent>
-                      <CardActions>
-                        <Button variant="soft" size="sm">
-                          {followingPercent.replace("Infinity", "∞")} from{" "}
-                          {(parseInt(params.year) - 1).toString()}
-                        </Button>
-                        {/* <Button variant="solid" size="sm">
+                        <CardActions>
+                          <Button variant="soft" size="sm">
+                            {followingPercent.replace("Infinity", "∞")} from{" "}
+                            {(parseInt(params.year) - 1).toString()}
+                          </Button>
+                          {/* <Button variant="solid" size="sm">
           See breakdown
         </Button> */}
-                      </CardActions>
-                    </Card>
-                  ) : null}
-                  {datesPosted != null &&
-                  datesPosted != undefined &&
-                  datesPosted.length > 0 ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="solid"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="h2">
-                            {datesPosted.length}
-                          </Typography>
-                          <Typography level="body-md">days posted</Typography>
+                        </CardActions>
+                      </Card>
+                    ) : null}
+                    {datesPosted != null &&
+                    datesPosted != undefined &&
+                    datesPosted.length > 0 ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="solid"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="h2">
+                              {datesPosted.length}
+                            </Typography>
+                            <Typography level="body-md">days posted</Typography>
+                          </CardContent>
+                          <TodayOutlinedIcon />
                         </CardContent>
-                        <TodayOutlinedIcon />
-                      </CardContent>
-                      <CardActions>
-                        <Button variant="soft" size="sm">
-                          {postCountChange.replace("Infinity", "∞")} from{" "}
-                          {(parseInt(params.year) - 1).toString()}
-                        </Button>
-                        {/* <Button variant="solid" size="sm">
+                        <CardActions>
+                          <Button variant="soft" size="sm">
+                            {postCountChange.replace("Infinity", "∞")} from{" "}
+                            {(parseInt(params.year) - 1).toString()}
+                          </Button>
+                          {/* <Button variant="solid" size="sm">
           See breakdown
         </Button> */}
-                      </CardActions>
-                    </Card>
-                  ) : null}
-                  {(
-                    trends.ratioList
-                      ? trends.ratioList.filter((l: any) => {
-                          return l;
-                        }).length > 0
-                      : false
-                  ) ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="soft"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="body-md">
-                            successfully ratio{"'"}d
-                          </Typography>
+                        </CardActions>
+                      </Card>
+                    ) : null}
+                    {(
+                      trends.ratioList
+                        ? trends.ratioList.filter((l: any) => {
+                            return l;
+                          }).length > 0
+                        : false
+                    ) ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="body-md">
+                              successfully ratio{"'"}d
+                            </Typography>
 
-                          <Typography level="h2">
-                            {
-                              trends.ratioList.filter((l: any) => {
+                            <Typography level="h2">
+                              {
+                                trends.ratioList.filter((l: any) => {
+                                  return l;
+                                }).length
+                              }{" "}
+                              time
+                              {trends.ratioList.filter((l: any) => {
                                 return l;
-                              }).length
-                            }{" "}
-                            time
-                            {trends.ratioList.filter((l: any) => {
-                              return l;
-                            }).length != 1
-                              ? "s"
-                              : ""}
-                          </Typography>
+                              }).length != 1
+                                ? "s"
+                                : ""}
+                            </Typography>
+                          </CardContent>
+                          <PercentIcon />
                         </CardContent>
-                        <PercentIcon />
-                      </CardContent>
-                    </Card>
-                  ) : null}
-                  {(
-                    trends.ratioList
-                      ? trends.ratioList.filter((l: any) => {
-                          return !l;
-                        }).length > 0
-                      : false
-                  ) ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="soft"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="body-md">
-                            unsuccessfully ratio{"'"}d
-                          </Typography>
+                      </Card>
+                    ) : null}
+                    {(
+                      trends.ratioList
+                        ? trends.ratioList.filter((l: any) => {
+                            return !l;
+                          }).length > 0
+                        : false
+                    ) ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="body-md">
+                              unsuccessfully ratio{"'"}d
+                            </Typography>
 
-                          <Typography level="h2">
-                            {
-                              trends.ratioList.filter((l: any) => {
+                            <Typography level="h2">
+                              {
+                                trends.ratioList.filter((l: any) => {
+                                  return !l;
+                                }).length
+                              }{" "}
+                              time
+                              {trends.ratioList.filter((l: any) => {
                                 return !l;
-                              }).length
-                            }{" "}
-                            time
-                            {trends.ratioList.filter((l: any) => {
-                              return !l;
-                            }).length != 1
-                              ? "s"
-                              : ""}
-                          </Typography>
+                              }).length != 1
+                                ? "s"
+                                : ""}
+                            </Typography>
+                          </CardContent>
+                          <PercentIcon />
                         </CardContent>
-                        <PercentIcon />
-                      </CardContent>
-                    </Card>
-                  ) : null}
-                  {(
-                    trends.ratiodList
-                      ? trends.ratiodList.filter((l: any) => {
-                          return l;
-                        }).length > 0
-                      : false
-                  ) ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="soft"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="body-md">
-                            been successfully ratio{"'"}d
-                          </Typography>
+                      </Card>
+                    ) : null}
+                    {(
+                      trends.ratiodList
+                        ? trends.ratiodList.filter((l: any) => {
+                            return l;
+                          }).length > 0
+                        : false
+                    ) ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="body-md">
+                              been successfully ratio{"'"}d
+                            </Typography>
 
-                          <Typography level="h2">
-                            {
-                              trends.ratiodList.filter((l: any) => {
+                            <Typography level="h2">
+                              {
+                                trends.ratiodList.filter((l: any) => {
+                                  return l;
+                                }).length
+                              }{" "}
+                              time
+                              {trends.ratiodList.filter((l: any) => {
                                 return l;
-                              }).length
-                            }{" "}
-                            time
-                            {trends.ratiodList.filter((l: any) => {
-                              return l;
-                            }).length != 1
-                              ? "s"
-                              : ""}
-                          </Typography>
+                              }).length != 1
+                                ? "s"
+                                : ""}
+                            </Typography>
+                          </CardContent>
+                          <PercentIcon />
                         </CardContent>
-                        <PercentIcon />
-                      </CardContent>
-                    </Card>
-                  ) : null}
-                  {(
-                    trends.ratiodList
-                      ? trends.ratiodList.filter((l: any) => {
-                          return !l;
-                        }).length > 0
-                      : false
-                  ) ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="soft"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="body-md">
-                            been unsuccessfully ratio{"'"}d
-                          </Typography>
+                      </Card>
+                    ) : null}
+                    {(
+                      trends.ratiodList
+                        ? trends.ratiodList.filter((l: any) => {
+                            return !l;
+                          }).length > 0
+                        : false
+                    ) ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="body-md">
+                              been unsuccessfully ratio{"'"}d
+                            </Typography>
 
-                          <Typography level="h2">
-                            {
-                              trends.ratiodList.filter((l: any) => {
+                            <Typography level="h2">
+                              {
+                                trends.ratiodList.filter((l: any) => {
+                                  return !l;
+                                }).length
+                              }{" "}
+                              time
+                              {trends.ratiodList.filter((l: any) => {
                                 return !l;
-                              }).length
-                            }{" "}
-                            time
-                            {trends.ratiodList.filter((l: any) => {
-                              return !l;
-                            }).length != 1
-                              ? "s"
-                              : ""}
-                          </Typography>
+                              }).length != 1
+                                ? "s"
+                                : ""}
+                            </Typography>
+                          </CardContent>
+                          <PercentIcon />
                         </CardContent>
-                        <PercentIcon />
-                      </CardContent>
-                    </Card>
-                  ) : null}
-                  {trends.rawBees ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="outlined"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="h3" fontWeight="bold">
-                            showed your love for raw bees
-                          </Typography>
+                      </Card>
+                    ) : null}
+                    {trends.rawBees ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="outlined"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="h3" fontWeight="bold">
+                              showed your love for raw bees
+                            </Typography>
+                          </CardContent>
+                          <EmojiNatureOutlinedIcon />
                         </CardContent>
-                        <EmojiNatureOutlinedIcon />
-                      </CardContent>
-                      <CardActions>
-                        {/* <Button variant="solid" size="sm">
+                        <CardActions>
+                          {/* <Button variant="solid" size="sm">
           See breakdown
         </Button> */}
-                      </CardActions>
-                    </Card>
-                  ) : null}
-                  {trends.kidsAreMore ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="outlined"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="h3" fontWeight="bold">
-                            discussed how kids are more accepting than adults
-                          </Typography>
+                        </CardActions>
+                      </Card>
+                    ) : null}
+                    {trends.kidsAreMore ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="outlined"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="h3" fontWeight="bold">
+                              discussed how kids are more accepting than adults
+                            </Typography>
+                          </CardContent>
+                          <ChildCareOutlinedIcon />
                         </CardContent>
-                        <ChildCareOutlinedIcon />
-                      </CardContent>
-                    </Card>
-                  ) : null}
-                  {trends["4000"] ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="outlined"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="h3" fontWeight="bold">
-                            followed the 4000th wasteof account
-                          </Typography>
+                      </Card>
+                    ) : null}
+                    {trends["4000"] ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="outlined"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="h3" fontWeight="bold">
+                              followed the 4000th wasteof account
+                            </Typography>
+                          </CardContent>
+                          <FourKOutlinedIcon />
                         </CardContent>
-                        <FourKOutlinedIcon />
-                      </CardContent>
-                    </Card>
-                  ) : null}
-                  {trends["8443"] ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="outlined"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="h3" fontWeight="bold">
-                            saw the rise and fall of :8443
-                          </Typography>
+                      </Card>
+                    ) : null}
+                    {trends["8443"] ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="outlined"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="h3" fontWeight="bold">
+                              saw the rise and fall of :8443
+                            </Typography>
+                          </CardContent>
+                          <ElectricalServicesOutlinedIcon />
                         </CardContent>
-                        <ElectricalServicesOutlinedIcon />
-                      </CardContent>
-                      <CardActions>
-                        {/* <Button variant="solid" size="sm">
+                        <CardActions>
+                          {/* <Button variant="solid" size="sm">
           See breakdown
         </Button> */}
-                      </CardActions>
-                    </Card>
-                  ) : null}
-                  {trends.twoyear ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="outlined"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="h3" fontWeight="bold">
-                            saw wasteof2{"'"}s second birthday
-                          </Typography>
+                        </CardActions>
+                      </Card>
+                    ) : null}
+                    {trends.twoyear ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="outlined"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="h3" fontWeight="bold">
+                              saw wasteof2{"'"}s second birthday
+                            </Typography>
+                          </CardContent>
+                          <CelebrationOutlinedIcon />
                         </CardContent>
-                        <CelebrationOutlinedIcon />
-                      </CardContent>
-                      <CardActions>
-                        {/* <Button variant="solid" size="sm">
+                        <CardActions>
+                          {/* <Button variant="solid" size="sm">
           See breakdown
         </Button> */}
-                      </CardActions>
-                    </Card>
-                  ) : null}
-                  {trends.nightyMorning > 0 ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="soft"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="body-md">
-                            said nighty morning
-                          </Typography>
+                        </CardActions>
+                      </Card>
+                    ) : null}
+                    {trends.nightyMorning > 0 ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="body-md">
+                              said nighty morning
+                            </Typography>
 
-                          <Typography level="h2">
-                            {trends.nightyMorning} time
-                            {trends.nightyMorning != 1 ? "s" : ""}
-                          </Typography>
+                            <Typography level="h2">
+                              {trends.nightyMorning} time
+                              {trends.nightyMorning != 1 ? "s" : ""}
+                            </Typography>
+                          </CardContent>
+                          <NightsStayOutlinedIcon />
                         </CardContent>
-                        <NightsStayOutlinedIcon />
-                      </CardContent>
-                    </Card>
-                  ) : null}
-                  {trends.mathClass > 0 ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="soft"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="body-md">
-                            reposted dertermenter{"'"}s math class story 💀
-                          </Typography>
+                      </Card>
+                    ) : null}
+                    {trends.mathClass > 0 ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="body-md">
+                              reposted dertermenter{"'"}s math class story 💀
+                            </Typography>
 
-                          <Typography level="h2">
-                            {trends.mathClass} time
-                            {trends.mathClass != 1 ? "s" : ""}
-                          </Typography>
+                            <Typography level="h2">
+                              {trends.mathClass} time
+                              {trends.mathClass != 1 ? "s" : ""}
+                            </Typography>
+                          </CardContent>
+                          <CalculateOutlinedIcon />
                         </CardContent>
-                        <CalculateOutlinedIcon />
-                      </CardContent>
-                    </Card>
-                  ) : null}
-                  {trends.elonMusk > 0 ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="soft"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="body-md">
-                            mentioned Elon Musk
-                          </Typography>
+                      </Card>
+                    ) : null}
+                    {trends.elonMusk > 0 ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="body-md">
+                              mentioned Elon Musk
+                            </Typography>
 
-                          <Typography level="h2">
-                            {trends.elonMusk} time
-                            {trends.elonMusk != 1 ? "s" : ""}
-                          </Typography>
+                            <Typography level="h2">
+                              {trends.elonMusk} time
+                              {trends.elonMusk != 1 ? "s" : ""}
+                            </Typography>
+                          </CardContent>
+                          <RocketLaunchOutlinedIcon />
                         </CardContent>
-                        <RocketLaunchOutlinedIcon />
-                      </CardContent>
-                    </Card>
-                  ) : null}
-                  {trends.hottake > 0 ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="soft"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="body-md">
-                            shared hot takes
-                          </Typography>
+                      </Card>
+                    ) : null}
+                    {trends.hottake > 0 ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="body-md">
+                              shared hot takes
+                            </Typography>
 
-                          <Typography level="h2">
-                            {trends.hottake} time{trends.hottake != 1 ? "s" : ""}
-                          </Typography>
+                            <Typography level="h2">
+                              {trends.hottake} time
+                              {trends.hottake != 1 ? "s" : ""}
+                            </Typography>
+                          </CardContent>
+                          <WhatshotOutlinedIcon />
                         </CardContent>
-                        <WhatshotOutlinedIcon />
-                      </CardContent>
-                    </Card>
-                  ) : null}
-                  {trends.immark_v2 > 0 ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="soft"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="body-md">
-                            reposted immark_v2
-                          </Typography>
+                      </Card>
+                    ) : null}
+                    {trends.immark_v2 > 0 ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="body-md">
+                              reposted immark_v2
+                            </Typography>
 
-                          <Typography level="h2">
-                            {trends.immark_v2} time
-                            {trends.immark_v2 != 1 ? "s" : ""}
-                          </Typography>
+                            <Typography level="h2">
+                              {trends.immark_v2} time
+                              {trends.immark_v2 != 1 ? "s" : ""}
+                            </Typography>
+                          </CardContent>
+                          <InsertEmoticonIcon />
                         </CardContent>
-                        <InsertEmoticonIcon />
-                      </CardContent>
-                    </Card>
-                  ) : null}
-                  {blankRepostCount > 0 ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="soft"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="body-md">
-                            posted blank reposts
-                          </Typography>
+                      </Card>
+                    ) : null}
+                    {blankRepostCount > 0 ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="body-md">
+                              posted blank reposts
+                            </Typography>
 
-                          <Typography level="h2">
-                            {blankRepostCount} time
-                            {blankRepostCount != 1 ? "s" : ""}
-                          </Typography>
+                            <Typography level="h2">
+                              {blankRepostCount} time
+                              {blankRepostCount != 1 ? "s" : ""}
+                            </Typography>
+                          </CardContent>
+                          <ForumOutlinedIcon />
                         </CardContent>
-                        <ForumOutlinedIcon />
-                      </CardContent>
-                    </Card>
-                  ) : null}
-                  {mediaCount > 0 ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="soft"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="body-md">posted images</Typography>
+                      </Card>
+                    ) : null}
+                    {mediaCount > 0 ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="body-md">
+                              posted images
+                            </Typography>
 
-                          <Typography level="h2">
-                            {mediaCount} time{mediaCount != 1 ? "s" : ""}
-                          </Typography>
+                            <Typography level="h2">
+                              {mediaCount} time{mediaCount != 1 ? "s" : ""}
+                            </Typography>
+                          </CardContent>
+                          <ForumOutlinedIcon />
                         </CardContent>
-                        <ForumOutlinedIcon />
-                      </CardContent>
-                    </Card>
-                  ) : null}
-                </Stack>
-                <Typography
-                  level="h2"
-                  sx={{ mb: "24px", mt: "12px", centerSelf: "center" }}
-                >
-                  Of your posts,
-                </Typography>
-                <Stack
-                  direction="row"
-                  alignItems="center"
-                  justifyContent="center"
-                  flexWrap={{
-                    xs: "wrap",
-                    sm: "wrap",
-                  }}
-                >
-                  {repostPercent ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="soft"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="h2">{repostPercent}</Typography>
-                          <Typography level="body-md">were reposts</Typography>
+                      </Card>
+                    ) : null}
+                  </Stack>
+                  <Typography
+                    level="h2"
+                    sx={{ mb: "24px", mt: "12px", centerSelf: "center" }}
+                  >
+                    Of your posts,
+                  </Typography>
+                  <Stack
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="center"
+                    flexWrap={{
+                      xs: "wrap",
+                      sm: "wrap",
+                    }}
+                  >
+                    {repostPercent ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="h2">{repostPercent}</Typography>
+                            <Typography level="body-md">
+                              were reposts
+                            </Typography>
+                          </CardContent>
+                          <CircularProgress
+                            size="lg"
+                            determinate
+                            value={parseInt(
+                              repostPercent
+                                .replace("%", "")
+                                .replace("Infinity", "0")
+                            )}
+                          >
+                            <RecyclingOutlinedIcon />
+                          </CircularProgress>
                         </CardContent>
-                        <CircularProgress
-                          size="lg"
-                          determinate
-                          value={parseInt(
-                            repostPercent
-                              .replace("%", "")
-                              .replace("Infinity", "0")
-                          )}
-                        >
+                        <CardActions>
+                          <Button variant="soft" size="sm">
+                            {repostIncrease.replace("Infinity", "∞")} from{" "}
+                            {(parseInt(params.year) - 1).toString()}
+                          </Button>
+                          {/* <Button variant="solid" size="sm">
+          See breakdown
+        </Button> */}
+                        </CardActions>
+                      </Card>
+                    ) : null}
+
+                    {postAverages.averageLoves ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="solid"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="h2">
+                              {Math.round(postAverages.averageLoves * 100) /
+                                100}
+                            </Typography>
+                            <Typography level="body-md">
+                              average loves
+                            </Typography>
+                          </CardContent>
+                          <FavoriteBorderOutlinedIcon />
+                        </CardContent>
+                        <CardActions>
+                          <Button variant="soft" size="sm">
+                            {lovesIncrease.replace("Infinity", "∞")} from{" "}
+                            {(parseInt(params.year) - 1).toString()}
+                          </Button>
+                          {/* <Button variant="solid" size="sm">
+          See breakdown
+        </Button> */}
+                        </CardActions>
+                      </Card>
+                    ) : null}
+                    {postAverages.averageComments ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="solid"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="h2">
+                              {Math.round(postAverages.averageComments * 100) /
+                                100}
+                            </Typography>
+                            <Typography level="body-md">
+                              average comments
+                            </Typography>
+                          </CardContent>
+                          <CommentOutlinedIcon />
+                        </CardContent>
+                        <CardActions>
+                          <Button variant="soft" size="sm">
+                            {commentsIncrease.replace("Infinity", "∞")} from{" "}
+                            {(parseInt(params.year) - 1).toString()}
+                          </Button>
+                          {/* <Button variant="solid" size="sm">
+          See breakdown
+        </Button> */}
+                        </CardActions>
+                      </Card>
+                    ) : null}
+                    {postAverages.averageReposts ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="solid"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="h2">
+                              {Math.round(postAverages.averageReposts * 100) /
+                                100}
+                            </Typography>
+                            <Typography level="body-md">
+                              average reposts
+                            </Typography>
+                          </CardContent>
                           <RecyclingOutlinedIcon />
-                        </CircularProgress>
-                      </CardContent>
-                      <CardActions>
-                        <Button variant="soft" size="sm">
-                          {repostIncrease.replace("Infinity", "∞")} from{" "}
-                          {(parseInt(params.year) - 1).toString()}
-                        </Button>
-                        {/* <Button variant="solid" size="sm">
+                        </CardContent>
+                        <CardActions>
+                          <Button variant="soft" size="sm">
+                            {repostsIncrease.replace("Infinity", "∞")} from{" "}
+                            {(parseInt(params.year) - 1).toString()}
+                          </Button>
+                          {/* <Button variant="solid" size="sm">
           See breakdown
         </Button> */}
-                      </CardActions>
-                    </Card>
-                  ) : null}
-
-                  {postAverages.averageLoves ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="solid"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="h2">
-                            {Math.round(postAverages.averageLoves * 100) / 100}
-                          </Typography>
-                          <Typography level="body-md">average loves</Typography>
-                        </CardContent>
-                        <FavoriteBorderOutlinedIcon />
-                      </CardContent>
-                      <CardActions>
-                        <Button variant="soft" size="sm">
-                          {lovesIncrease.replace("Infinity", "∞")} from{" "}
-                          {(parseInt(params.year) - 1).toString()}
-                        </Button>
-                        {/* <Button variant="solid" size="sm">
-          See breakdown
-        </Button> */}
-                      </CardActions>
-                    </Card>
-                  ) : null}
-                  {postAverages.averageComments ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="solid"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="h2">
-                            {Math.round(postAverages.averageComments * 100) /
-                              100}
-                          </Typography>
-                          <Typography level="body-md">
-                            average comments
-                          </Typography>
-                        </CardContent>
-                        <CommentOutlinedIcon />
-                      </CardContent>
-                      <CardActions>
-                        <Button variant="soft" size="sm">
-                          {commentsIncrease.replace("Infinity", "∞")} from{" "}
-                          {(parseInt(params.year) - 1).toString()}
-                        </Button>
-                        {/* <Button variant="solid" size="sm">
-          See breakdown
-        </Button> */}
-                      </CardActions>
-                    </Card>
-                  ) : null}
-                  {postAverages.averageReposts ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="solid"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="h2">
-                            {Math.round(postAverages.averageReposts * 100) /
-                              100}
-                          </Typography>
-                          <Typography level="body-md">
-                            average reposts
-                          </Typography>
-                        </CardContent>
-                        <RecyclingOutlinedIcon />
-                      </CardContent>
-                      <CardActions>
-                        <Button variant="soft" size="sm">
-                          {repostsIncrease.replace("Infinity", "∞")} from{" "}
-                          {(parseInt(params.year) - 1).toString()}
-                        </Button>
-                        {/* <Button variant="solid" size="sm">
-          See breakdown
-        </Button> */}
-                      </CardActions>
-                    </Card>
-                  ) : null}
-                  {blankRepostPercent ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="soft"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="h2">
-                            {blankRepostPercent}
-                          </Typography>
-                          <Typography level="body-md">
-                            of your reposts were blank
-                          </Typography>
-                        </CardContent>
-                        <CircularProgress
-                          size="lg"
-                          determinate
-                          value={parseInt(
-                            blankRepostPercent
-                              .replace("%", "")
-                              .replace("Infinity", "0")
-                          )}
-                        >
-                          <ForumOutlinedIcon />
-                        </CircularProgress>
-                      </CardContent>
-                    </Card>
-                  ) : null}
-                  {mediaPercent ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="soft"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="h2">{mediaPercent}</Typography>
-                          <Typography level="body-md">
-                            of your posts had images
-                          </Typography>
-                        </CardContent>
-                        <CircularProgress
-                          size="lg"
-                          determinate
-                          value={parseInt(
-                            mediaPercent
-                              .replace("%", "")
-                              .replace("Infinity", "0")
-                          )}
-                        >
-                          <ForumOutlinedIcon />
-                        </CircularProgress>
-                      </CardContent>
-                    </Card>
-                  ) : null}
-                </Stack>
-                <Typography
-                  level="h2"
-                  sx={{ mb: "24px", mt: "18px", centerSelf: "center" }}
-                >
-                  Some of your posts got a lot of love...
-                </Typography>
-                <Stack
-                  direction="row"
-                  justifyContent="left"
-                  spacing={3}
-                  sx={{ width: "100%", pl: "12px" }}
-                  flexWrap={{
-                    xs: "wrap",
-                    sm: "wrap",
-                    md: "wrap",
-                  }}
-                >
-                  <Stack
-                    spacing={1}
-                    sx={{ width: "45%", minWidth: "360px" }}
-                    flexWrap={{
-                      xs: "wrap",
-                      sm: "wrap",
-                    }}
-                  >
-                    <Typography
-                      level="h3"
-                      fontWeight="bold"
-                      sx={{ marginBottom: "12px !important" }}
-                    >
-                      Most-Loved Posts:
-                    </Typography>
-
-                    {topPosts.map((data: any) => {
-                      return (
-                        <Post key={data["_id"]} data={data} wrapped={true} />
-                      );
-                    })}
-                  </Stack>
-                  <Stack
-                    spacing={1}
-                    sx={{
-                      width: "45%",
-                      minWidth: "360px",
-                      mt: { xs: "12px !important", sm: "0px !important" },
-                      marginLeft: {
-                        xs: "0px !important",
-                        sm: "24px !important",
-                      },
-                    }}
-                    flexWrap={{
-                      xs: "wrap",
-                      sm: "wrap",
-                    }}
-                  >
-                    <Typography
-                      level="h3"
-                      fontWeight="bold"
-                      sx={{ marginBottom: "12px !important" }}
-                    >
-                      Most-Reposted Posts:
-                    </Typography>
-
-                    {topReposted.map((data: any) => {
-                      return <Post key={data["_id"]} data={data} />;
-                    })}
-                  </Stack>
-                </Stack>
-                <Typography
-                  level="h2"
-                  sx={{ mb: "24px", centerSelf: "center", mt: "18px" }}
-                >
-                  ...and some got less
-                </Typography>
-                {/* Split View */}
-                <Stack
-                  direction="row"
-                  justifyContent="center"
-                  spacing={3}
-                  sx={{ width: "100%" }}
-                  flexWrap={{
-                    xs: "wrap",
-                    sm: "wrap",
-                    md: "wrap",
-                  }}
-                >
-                  <Stack
-                    spacing={1}
-                    flexWrap={{
-                      xs: "wrap",
-                      sm: "wrap",
-                    }}
-                  >
-                    <Typography
-                      level="h3"
-                      fontWeight="bold"
-                      sx={{ marginBottom: "12px !important" }}
-                    >
-                      Least-Loved Posts:
-                    </Typography>
-                    <Stack
-                      spacing={{ xs: 0, sm: 3 }}
-                      flexWrap="wrap"
-                      direction="row"
-                    >
-                      {worstPosts.map((data: any) => {
-                        return (
-                          <div
-                            key={data["_id"]}
-                            style={{ maxWidth: "420px", flexShrink: "5" }}
+                        </CardActions>
+                      </Card>
+                    ) : null}
+                    {blankRepostPercent ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="h2">
+                              {blankRepostPercent}
+                            </Typography>
+                            <Typography level="body-md">
+                              of your reposts were blank
+                            </Typography>
+                          </CardContent>
+                          <CircularProgress
+                            size="lg"
+                            determinate
+                            value={parseInt(
+                              blankRepostPercent
+                                .replace("%", "")
+                                .replace("Infinity", "0")
+                            )}
                           >
-                            <Post data={data} />
-                          </div>
-                        );
-                      })}
-                    </Stack>
-                  </Stack>
-                </Stack>
-
-                <Typography
-                  level="h2"
-                  sx={{ mb: "24px", mt: "48px", centerSelf: "center" }}
-                >
-                  Some of your posts sparked conversation.
-                </Typography>
-                <Stack
-                  direction="row"
-                  justifyContent="center"
-                  spacing={3}
-                  sx={{ width: "100%" }}
-                  flexWrap={{
-                    xs: "wrap",
-                    sm: "wrap",
-                    md: "wrap",
-                  }}
-                >
-                  <Stack
-                    spacing={1}
-                    flexWrap={{
-                      xs: "wrap",
-                      sm: "wrap",
-                    }}
-                  >
-                    <Typography
-                      level="h3"
-                      fontWeight="bold"
-                      sx={{ marginBottom: "12px !important" }}
-                    >
-                      Most-Commented Posts
-                    </Typography>
-                    <Stack
-                      spacing={{ xs: 0, sm: 3 }}
-                      flexWrap="wrap"
-                      direction="row"
-                    >
-                      {topCommented.map((data: any) => {
-                        return (
-                          <div
-                            key={data["_id"]}
-                            style={{ maxWidth: "420px", flexShrink: "5" }}
+                            <ForumOutlinedIcon />
+                          </CircularProgress>
+                        </CardContent>
+                      </Card>
+                    ) : null}
+                    {mediaPercent ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="h2">{mediaPercent}</Typography>
+                            <Typography level="body-md">
+                              of your posts had images
+                            </Typography>
+                          </CardContent>
+                          <CircularProgress
+                            size="lg"
+                            determinate
+                            value={parseInt(
+                              mediaPercent
+                                .replace("%", "")
+                                .replace("Infinity", "0")
+                            )}
                           >
-                            <Post data={data} />
-                          </div>
-                        );
-                      })}
-                    </Stack>
+                            <ForumOutlinedIcon />
+                          </CircularProgress>
+                        </CardContent>
+                      </Card>
+                    ) : null}
                   </Stack>
-                </Stack>
-                <Typography
-                  level="h2"
-                  sx={{ mb: "24px", mt: "48px", centerSelf: "center" }}
-                >
-                  Your posts were very interesting...
-                </Typography>
-                <Stack direction="row" flexWrap="wrap" spacing={4}>
+                  <Typography
+                    level="h2"
+                    sx={{ mb: "24px", mt: "18px", centerSelf: "center" }}
+                  >
+                    Some of your posts got a lot of love...
+                  </Typography>
                   <Stack
-                    spacing={1}
-                    sx={{ width: "45%", minWidth: "360px" }}
+                    direction="row"
+                    justifyContent="left"
+                    spacing={3}
+                    sx={{ width: "100%", pl: "12px" }}
                     flexWrap={{
                       xs: "wrap",
                       sm: "wrap",
+                      md: "wrap",
                     }}
                   >
-                    <Typography
-                      level="h3"
-                      fontWeight="bold"
-                      sx={{ marginBottom: "12px !important" }}
-                    >
-                      Most-Used Words:
-                    </Typography>
                     <Stack
-                      direction="column"
-                      alignItems="left"
-                      flexWrap="wrap"
-                      sx={{
-                        maxHeight: {
-                          xl: "540px",
-                          lg: "760px",
-                          md: "760px",
-                          sm: "660px",
-                          xs: '550px'
-                        },
-                        width: "100%",
+                      spacing={1}
+                      sx={{ width: "45%", minWidth: "360px" }}
+                      flexWrap={{
+                        xs: "wrap",
+                        sm: "wrap",
                       }}
-                      useFlexGap
                     >
-                      {/* <Stack spacing={1} sx={{ width: "45%", minWidth: "360px", maxHeight: "200px" }} flexWrap={{
+                      <Typography
+                        level="h3"
+                        fontWeight="bold"
+                        sx={{ marginBottom: "12px !important" }}
+                      >
+                        Most-Loved Posts:
+                      </Typography>
+
+                      {topPosts.map((data: any) => {
+                        return (
+                          <Post key={data["_id"]} data={data} wrapped={true} />
+                        );
+                      })}
+                    </Stack>
+                    <Stack
+                      spacing={1}
+                      sx={{
+                        width: "45%",
+                        minWidth: "360px",
+                        mt: { xs: "12px !important", sm: "0px !important" },
+                        marginLeft: {
+                          xs: "0px !important",
+                          sm: "24px !important",
+                        },
+                      }}
+                      flexWrap={{
+                        xs: "wrap",
+                        sm: "wrap",
+                      }}
+                    >
+                      <Typography
+                        level="h3"
+                        fontWeight="bold"
+                        sx={{ marginBottom: "12px !important" }}
+                      >
+                        Most-Reposted Posts:
+                      </Typography>
+
+                      {topReposted.map((data: any) => {
+                        return <Post key={data["_id"]} data={data} />;
+                      })}
+                    </Stack>
+                  </Stack>
+                  <Typography
+                    level="h2"
+                    sx={{ mb: "24px", centerSelf: "center", mt: "18px" }}
+                  >
+                    ...and some got less
+                  </Typography>
+                  {/* Split View */}
+                  <Stack
+                    direction="row"
+                    justifyContent="center"
+                    spacing={3}
+                    sx={{ width: "100%" }}
+                    flexWrap={{
+                      xs: "wrap",
+                      sm: "wrap",
+                      md: "wrap",
+                    }}
+                  >
+                    <Stack
+                      spacing={1}
+                      flexWrap={{
+                        xs: "wrap",
+                        sm: "wrap",
+                      }}
+                    >
+                      <Typography
+                        level="h3"
+                        fontWeight="bold"
+                        sx={{ marginBottom: "12px !important" }}
+                      >
+                        Least-Loved Posts:
+                      </Typography>
+                      <Stack
+                        spacing={{ xs: 0, sm: 3 }}
+                        flexWrap="wrap"
+                        direction="row"
+                      >
+                        {worstPosts.map((data: any) => {
+                          return (
+                            <div
+                              key={data["_id"]}
+                              style={{ maxWidth: "420px", flexShrink: "5" }}
+                            >
+                              <Post data={data} />
+                            </div>
+                          );
+                        })}
+                      </Stack>
+                    </Stack>
+                  </Stack>
+
+                  <Typography
+                    level="h2"
+                    sx={{ mb: "24px", mt: "48px", centerSelf: "center" }}
+                  >
+                    Some of your posts sparked conversation.
+                  </Typography>
+                  <Stack
+                    direction="row"
+                    justifyContent="center"
+                    spacing={3}
+                    sx={{ width: "100%" }}
+                    flexWrap={{
+                      xs: "wrap",
+                      sm: "wrap",
+                      md: "wrap",
+                    }}
+                  >
+                    <Stack
+                      spacing={1}
+                      flexWrap={{
+                        xs: "wrap",
+                        sm: "wrap",
+                      }}
+                    >
+                      <Typography
+                        level="h3"
+                        fontWeight="bold"
+                        sx={{ marginBottom: "12px !important" }}
+                      >
+                        Most-Commented Posts
+                      </Typography>
+                      <Stack
+                        spacing={{ xs: 0, sm: 3 }}
+                        flexWrap="wrap"
+                        direction="row"
+                      >
+                        {topCommented.map((data: any) => {
+                          return (
+                            <div
+                              key={data["_id"]}
+                              style={{ maxWidth: "420px", flexShrink: "5" }}
+                            >
+                              <Post data={data} />
+                            </div>
+                          );
+                        })}
+                      </Stack>
+                    </Stack>
+                  </Stack>
+                  <Typography
+                    level="h2"
+                    sx={{ mb: "24px", mt: "48px", centerSelf: "center" }}
+                  >
+                    Your posts were very interesting...
+                  </Typography>
+                  <Stack direction="row" flexWrap="wrap" spacing={4}>
+                    <Stack
+                      spacing={1}
+                      sx={{ width: "45%", minWidth: "360px" }}
+                      flexWrap={{
+                        xs: "wrap",
+                        sm: "wrap",
+                      }}
+                    >
+                      <Typography
+                        level="h3"
+                        fontWeight="bold"
+                        sx={{ marginBottom: "12px !important" }}
+                      >
+                        Most-Used Words:
+                      </Typography>
+                      <Stack
+                        direction="column"
+                        alignItems="left"
+                        flexWrap="wrap"
+                        sx={{
+                          maxHeight: {
+                            xl: "540px",
+                            lg: "760px",
+                            md: "760px",
+                            sm: "660px",
+                            xs: "550px",
+                          },
+                          width: "100%",
+                        }}
+                        useFlexGap
+                      >
+                        {/* <Stack spacing={1} sx={{ width: "45%", minWidth: "360px", maxHeight: "200px" }} flexWrap={{
                   xs: "wrap",
                   sm: "wrap",
                   md: "wrap",
                   lg: "wrap",
                   xl: "wrap"
                 }}> */}
-                      {/* <List aria-labelledby="decorated-list-demo"> */}
-                      {topWords.map((data: any, index: any) => {
-                        return (
-                          <ListItem
-                            sx={{ py: "8px", my: "8px" }}
-                            key={data["_id"]}
-                          >
-                            <ListItemDecorator
-                              sx={{ fontWeight: "bold", mr: "4px" }}
+                        {/* <List aria-labelledby="decorated-list-demo"> */}
+                        {topWords.map((data: any, index: any) => {
+                          return (
+                            <ListItem
+                              sx={{ py: "8px", my: "8px" }}
+                              key={data["_id"]}
                             >
-                              {(index == 0
-                                ? "🥇"
-                                : index == 1
-                                ? "🥈"
-                                : index == 2
-                                ? "🥉"
-                                : "🏆") +
-                                " #" +
-                                (index + 1).toString() +
-                                " - "}
-                            </ListItemDecorator>{" "}
-                            {data["_id"]} ({data["count"]})
-                          </ListItem>
-                        );
-                      })}
-                      {/* </List> */}
-                      {/* </Stack> */}
+                              <ListItemDecorator
+                                sx={{ fontWeight: "bold", mr: "4px" }}
+                              >
+                                {(index == 0
+                                  ? "🥇"
+                                  : index == 1
+                                  ? "🥈"
+                                  : index == 2
+                                  ? "🥉"
+                                  : "🏆") +
+                                  " #" +
+                                  (index + 1).toString() +
+                                  " - "}
+                              </ListItemDecorator>{" "}
+                              {data["_id"]} ({data["count"]})
+                            </ListItem>
+                          );
+                        })}
+                        {/* </List> */}
+                        {/* </Stack> */}
+                      </Stack>
                     </Stack>
-                  </Stack>
-                  <Stack
-                    spacing={1}
-                    sx={{ width: "50%", minWidth: "360px" }}
-                    flexWrap={{
-                      xs: "wrap",
-                      sm: "wrap",
-                    }}
-                  >
-                    <Typography
-                      level="h3"
-                      fontWeight="bold"
-                      sx={{ marginBottom: "12px !important" }}
-                    >
-                      Most-Loved Images:
-                    </Typography>
                     <Stack
-                      direction="row"
-                      flexWrap="wrap"
-                      sx={{ width: "100%" }}
-                      spacing={2}
-                      useFlexGap
+                      spacing={1}
+                      sx={{ width: "50%", minWidth: "360px" }}
+                      flexWrap={{
+                        xs: "wrap",
+                        sm: "wrap",
+                      }}
                     >
-                      {topImages.map((data: any, index: any) => {
-                        return (
-                          <div style={{}} key={data["_id"]}>
-                            <AspectRatio sx={{ width: "275px" }}>
-                              {parse(data.imgTag)}
-                            </AspectRatio>
-                            <Stack
-                              sx={{ mt: "8px" }}
-                              direction="row"
-                              spacing={2}
-                            >
-                              <Typography fontWeight="bold">
-                                {index == 0
-                                  ? "🥇"
-                                  : index == 1
-                                  ? "🥈"
-                                  : index == 2
-                                  ? "🥉"
-                                  : "🏆"}{" "}
-                                #{index + 1} - {data.loves} loves
-                              </Typography>
-                              <Button>Open on wasteof</Button>
-                            </Stack>
-                          </div>
-                        );
-                      })}
+                      <Typography
+                        level="h3"
+                        fontWeight="bold"
+                        sx={{ marginBottom: "12px !important" }}
+                      >
+                        Most-Loved Images:
+                      </Typography>
+                      <Stack
+                        direction="row"
+                        flexWrap="wrap"
+                        sx={{ width: "100%" }}
+                        spacing={2}
+                        useFlexGap
+                      >
+                        {topImages.map((data: any, index: any) => {
+                          return (
+                            <div style={{}} key={data["_id"]}>
+                              <AspectRatio sx={{ width: "275px" }}>
+                                {parse(data.imgTag)}
+                              </AspectRatio>
+                              <Stack
+                                sx={{ mt: "8px" }}
+                                direction="row"
+                                spacing={2}
+                              >
+                                <Typography fontWeight="bold">
+                                  {index == 0
+                                    ? "🥇"
+                                    : index == 1
+                                    ? "🥈"
+                                    : index == 2
+                                    ? "🥉"
+                                    : "🏆"}{" "}
+                                  #{index + 1} - {data.loves} loves
+                                </Typography>
+                                <Button>Open on wasteof</Button>
+                              </Stack>
+                            </div>
+                          );
+                        })}
+                      </Stack>
                     </Stack>
                   </Stack>
-                </Stack>
-                <Typography
-                  level="h2"
-                  sx={{ mb: "24px", mt: "12px", centerSelf: "center" }}
-                >
-                  You reposted these users the most...
-                </Typography>
-                <Stack justifyContent="center" alignContent="center" direction={{ xs: "column", sm: "row" }} spacing={4}>
-                  {
-                    youReposted.map((data: any, index: any) => {
+                  <Typography
+                    level="h2"
+                    sx={{ mb: "24px", mt: "12px", centerSelf: "center" }}
+                  >
+                    You reposted these users the most...
+                  </Typography>
+                  <Stack
+                    justifyContent="center"
+                    alignContent="center"
+                    direction={{ xs: "column", sm: "row" }}
+                    spacing={4}
+                  >
+                    {youReposted.map((data: any, index: any) => {
                       return (
-                <Stack alignItems="center" justifyContent="end" key={data["_id"]} direction="column" spacing={1}>
-                <Image
-                      src={`https://api.wasteof.money/users/${data.username}/picture`}
-                      loading="lazy"
-                      alt=""
-                      width={index == 0 ? "184" : index == 1 ? "140" : "100"}
-                      height={index == 0 ? "184" : index == 1 ? "140" : "100"}
-                      style={{
-                        borderRadius: "50%",
-                      }}
-                    />
-                    <Typography fontSize={index == 0 ? "large" : index == 1 ? "medium" : "small"} alignContent='center' alignSelf="center" fontWeight="bold">
-                    {index == 0
-                                  ? "🥇"
-                                  : index == 1
-                                  ? "🥈"
-                                  : index == 2
-                                  ? "🥉"
-                                  : "🏆"}{" "} #{index+1} - @{data.username} ({data.count})
-                    </Typography>
-                    </Stack>
-                      )})}
-                      </Stack>
-                      <Typography
-                  level="h2"
-                  sx={{ mb: "24px", mt: "12px", centerSelf: "center" }}
-                >
-                 ...and these users reposted you the most
-                </Typography>
-                <Stack justifyContent="center" alignContent="center" direction={{ xs: "column", sm: "row" }} spacing={4}>
-                  {
-                    repostedYou.map((data: any, index: any) => {
-                      return (
-                <Stack alignItems="center" justifyContent="end" key={data["_id"]} direction="column" spacing={1}>
-        
-                <Image
-                      src={`https://api.wasteof.money/users/${data.username}/picture`}
-                      loading="lazy"
-                      alt=""
-                      width={index == 0 ? "184" : index == 1 ? "140" : "100"}
-                      height={index == 0 ? "184" : index == 1 ? "140" : "100"}
-                      style={{
-                        borderRadius: "50%",
-                      }}
-                    />
-                    <Typography fontSize={index == 0 ? "large" : index == 1 ? "medium" : "small"} alignContent='center' alignSelf="center" fontWeight="bold">
-                    {index == 0
-                                  ? "🥇"
-                                  : index == 1
-                                  ? "🥈"
-                                  : index == 2
-                                  ? "🥉"
-                                  : "🏆"}{" "} #{index+1} - @{data.username} ({data.count})
-                    </Typography>
-                    </Stack>
-                      )})}
-                      </Stack>
-                      <Typography
-                  level="h2"
-                  sx={{ mb: "24px", mt: "12px", centerSelf: "center" }}
-                >
-                  You mentioned these users the most...
-                </Typography>
-                <Stack justifyContent="center" alignContent="center" direction={{ xs: "column", sm: "row" }} spacing={4}>
-                  {
-                    topMentions.map((data: any, index: any) => {
-                      return (
-                <Stack alignItems="center" justifyContent="end" key={data["_id"]} direction="column" spacing={1}>
-                <Image
-                      src={`https://api.wasteof.money/users/${data.username}/picture`}
-                      loading="lazy"
-                      alt=""
-                      width={index < 1 ? "184" : index < 3 ? "140" : "100"}
-                      height={index == 0 ? "184" : index < 3 ? "140" : "100"}
-                      style={{
-                        borderRadius: "50%",
-                      }}
-                    />
-                    <Typography fontSize={index == 0 ? "large" : index == 1 ? "medium" : "small"} alignContent='center' alignSelf="center" fontWeight="bold">
-                    {index == 0
-                                  ? "🥇"
-                                  : index == 1
-                                  ? "🥈"
-                                  : index == 2
-                                  ? "🥉"
-                                  : "🏆"}{" "} #{index+1} - @{data.username} ({data.count})
-                    </Typography>
-                    </Stack>
-                      )})}
-                      </Stack>
-                <Typography
-                  level="h2"
-                  sx={{ mb: "24px", mt: "36px", centerSelf: "center" }}
-                >
-                  Your posts throughout the year:
-                </Typography>
-                <Stack direction={{ xs: "column", sm: "row" }} spacing={4}>
-                  {/* <Cal /> */}
-                  <Stack>
-                  <HeatMap
-                   style={{
-                    backgroundColor: mode == "dark" ? '#000' : '#fff',
-                    color: mode == "dark" ? '#888' : '#000',
-                  }}
-
-                    value={datesPosted}
-                    width={720}
-                    panelColors={ mode == "dark" ? darkColor : {
-                      // 0: '#f4decd',
-                      2: "#93abe4",
-                      4: "#6184d4",
-                      10: "#3a63c2",
-                      20: "#0034ad",
-                      30: "#000",
-                    }}
-                    weekLabels={["", "Mon", "", "Wed", "", "Fri", ""]}
-                    monthLabels={[
-                      "Jan",
-                      "Feb",
-                      "Mar",
-                      "Apr",
-                      "May",
-                      "Jun",
-                      "Jul",
-                      "Aug",
-                      "Sep",
-                      "Oct",
-                      "Nov",
-                      "Dec",
-                    ]}
-                    startDate={new Date(params.year + "/01/02")}
-                    endDate={new Date(params.year +  "/12/31")}
-                    rectRender={(props, data) => {
-                      // if (!data.count) return <rect {...props} />;
-                      if (selected !== "") {
-                        props.opacity = data.date === selected ? 1 : 0.45;
-                      }
-
-                      return (
-                        <Tooltip
-                          placement="top"
-                          title={`${data.count || 0} post${
-                            (data.count || 0) != 1 ? "s" : ""
-                          } on ${data.date || 0}`}
-                          arrow={true}
+                        <Stack
+                          alignItems="center"
+                          justifyContent="end"
+                          key={data["_id"]}
+                          direction="column"
+                          spacing={1}
                         >
-                          <rect
-                            {...props}
-                            onClick={() => {
-                              setSelected(
-                                data.date === selected ? "" : data.date
-                              );
+                          <Image
+                            src={`https://api.wasteof.money/users/${data.username}/picture`}
+                            loading="lazy"
+                            alt=""
+                            width={
+                              index == 0 ? "184" : index == 1 ? "140" : "100"
+                            }
+                            height={
+                              index == 0 ? "184" : index == 1 ? "140" : "100"
+                            }
+                            style={{
+                              borderRadius: "50%",
                             }}
                           />
-                        </Tooltip>
+                          <Typography
+                            fontSize={
+                              index == 0
+                                ? "large"
+                                : index == 1
+                                ? "medium"
+                                : "small"
+                            }
+                            alignContent="center"
+                            alignSelf="center"
+                            fontWeight="bold"
+                          >
+                            {index == 0
+                              ? "🥇"
+                              : index == 1
+                              ? "🥈"
+                              : index == 2
+                              ? "🥉"
+                              : "🏆"}{" "}
+                            #{index + 1} - @{data.username} ({data.count})
+                          </Typography>
+                        </Stack>
                       );
-                    }}
-                  />
-                  <Button startDecorator={<Brightness4Icon />} onClick={() => {
-                    setMode(mode == "dark" ? "light" : "dark")
-                    console.log(mode)
-                  }}>Toggle Heatmap Theme</Button>
+                    })}
                   </Stack>
-
-                  {daysPercent ? (
-                    <Card
-                      sx={{ height: "160px", width: "280px", margin: "6px" }}
-                      variant="soft"
-                      color="primary"
-                      invertedColors
-                    >
-                      <CardContent orientation="horizontal">
-                        <CardContent>
-                          <Typography level="h2">{daysPercent}</Typography>
-                          <Typography level="body-md">days posted</Typography>
-                        </CardContent>
-                        <CircularProgress
-                          size="lg"
-                          determinate
-                          value={parseInt(
-                            daysPercent
-                              .replace("%", "")
-                              .replace("Infinity", "0")
-                          )}
+                  <Typography
+                    level="h2"
+                    sx={{ mb: "24px", mt: "12px", centerSelf: "center" }}
+                  >
+                    ...and these users reposted you the most
+                  </Typography>
+                  <Stack
+                    justifyContent="center"
+                    alignContent="center"
+                    direction={{ xs: "column", sm: "row" }}
+                    spacing={4}
+                  >
+                    {repostedYou.map((data: any, index: any) => {
+                      return (
+                        <Stack
+                          alignItems="center"
+                          justifyContent="end"
+                          key={data["_id"]}
+                          direction="column"
+                          spacing={1}
                         >
-                          <ForumOutlinedIcon />
-                        </CircularProgress>
-                      </CardContent>
-                      <CardActions>
-                        <Button variant="soft" size="sm">
-                          {daysPercentIncrease.replace("Infinity", "∞")} from{" "}
-                          {(parseInt(params.year) - 1).toString()}
-                        </Button>
-                      </CardActions>
-                    </Card>
-                  ) : null}
-                </Stack>
-                {/* <Demo /> */}
-                {/* <CalendarHeatmap
+                          <Image
+                            src={`https://api.wasteof.money/users/${data.username}/picture`}
+                            loading="lazy"
+                            alt=""
+                            width={
+                              index == 0 ? "184" : index == 1 ? "140" : "100"
+                            }
+                            height={
+                              index == 0 ? "184" : index == 1 ? "140" : "100"
+                            }
+                            style={{
+                              borderRadius: "50%",
+                            }}
+                          />
+                          <Typography
+                            fontSize={
+                              index == 0
+                                ? "large"
+                                : index == 1
+                                ? "medium"
+                                : "small"
+                            }
+                            alignContent="center"
+                            alignSelf="center"
+                            fontWeight="bold"
+                          >
+                            {index == 0
+                              ? "🥇"
+                              : index == 1
+                              ? "🥈"
+                              : index == 2
+                              ? "🥉"
+                              : "🏆"}{" "}
+                            #{index + 1} - @{data.username} ({data.count})
+                          </Typography>
+                        </Stack>
+                      );
+                    })}
+                  </Stack>
+                  <Typography
+                    level="h2"
+                    sx={{ mb: "24px", mt: "12px", centerSelf: "center" }}
+                  >
+                    You mentioned these users the most...
+                  </Typography>
+                  <Stack
+                    justifyContent="center"
+                    alignContent="center"
+                    direction={{ xs: "column", sm: "row" }}
+                    spacing={4}
+                  >
+                    {topMentions.map((data: any, index: any) => {
+                      return (
+                        <Stack
+                          alignItems="center"
+                          justifyContent="end"
+                          key={data["_id"]}
+                          direction="column"
+                          spacing={1}
+                        >
+                          <Image
+                            src={`https://api.wasteof.money/users/${data.username}/picture`}
+                            loading="lazy"
+                            alt=""
+                            width={
+                              index < 1 ? "184" : index < 3 ? "140" : "100"
+                            }
+                            height={
+                              index == 0 ? "184" : index < 3 ? "140" : "100"
+                            }
+                            style={{
+                              borderRadius: "50%",
+                            }}
+                          />
+                          <Typography
+                            fontSize={
+                              index == 0
+                                ? "large"
+                                : index == 1
+                                ? "medium"
+                                : "small"
+                            }
+                            alignContent="center"
+                            alignSelf="center"
+                            fontWeight="bold"
+                          >
+                            {index == 0
+                              ? "🥇"
+                              : index == 1
+                              ? "🥈"
+                              : index == 2
+                              ? "🥉"
+                              : "🏆"}{" "}
+                            #{index + 1} - @{data.username} ({data.count})
+                          </Typography>
+                        </Stack>
+                      );
+                    })}
+                  </Stack>
+                  <Typography
+                    level="h2"
+                    sx={{ mb: "24px", mt: "36px", centerSelf: "center" }}
+                  >
+                    Your posts throughout the year:
+                  </Typography>
+                  <Stack direction={{ xs: "column", sm: "row" }} spacing={4}>
+                    {/* <Cal /> */}
+                    <Stack>
+                      <HeatMap
+                        style={{
+                          backgroundColor: mode == "dark" ? "#000" : "#fff",
+                          color: mode == "dark" ? "#888" : "#000",
+                        }}
+                        value={datesPosted}
+                        width={720}
+                        panelColors={
+                          mode == "dark"
+                            ? darkColor
+                            : {
+                                // 0: '#f4decd',
+                                2: "#93abe4",
+                                4: "#6184d4",
+                                10: "#3a63c2",
+                                20: "#0034ad",
+                                30: "#000",
+                              }
+                        }
+                        weekLabels={["", "Mon", "", "Wed", "", "Fri", ""]}
+                        monthLabels={[
+                          "Jan",
+                          "Feb",
+                          "Mar",
+                          "Apr",
+                          "May",
+                          "Jun",
+                          "Jul",
+                          "Aug",
+                          "Sep",
+                          "Oct",
+                          "Nov",
+                          "Dec",
+                        ]}
+                        startDate={new Date(params.year + "/01/02")}
+                        endDate={new Date(params.year + "/12/31")}
+                        rectRender={(props, data) => {
+                          // if (!data.count) return <rect {...props} />;
+                          if (selected !== "") {
+                            props.opacity = data.date === selected ? 1 : 0.45;
+                          }
+
+                          return (
+                            <Tooltip
+                              placement="top"
+                              title={`${data.count || 0} post${
+                                (data.count || 0) != 1 ? "s" : ""
+                              } on ${data.date || 0}`}
+                              arrow={true}
+                            >
+                              <rect
+                                {...props}
+                                onClick={() => {
+                                  setSelected(
+                                    data.date === selected ? "" : data.date
+                                  );
+                                }}
+                              />
+                            </Tooltip>
+                          );
+                        }}
+                      />
+                      <Button
+                        startDecorator={<Brightness4Icon />}
+                        onClick={() => {
+                          setMode(mode == "dark" ? "light" : "dark");
+                          console.log(mode);
+                        }}
+                      >
+                        Toggle Heatmap Theme
+                      </Button>
+                    </Stack>
+
+                    {daysPercent ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="h2">{daysPercent}</Typography>
+                            <Typography level="body-md">days posted</Typography>
+                          </CardContent>
+                          <CircularProgress
+                            size="lg"
+                            determinate
+                            value={parseInt(
+                              daysPercent
+                                .replace("%", "")
+                                .replace("Infinity", "0")
+                            )}
+                          >
+                            <ForumOutlinedIcon />
+                          </CircularProgress>
+                        </CardContent>
+                        <CardActions>
+                          <Button variant="soft" size="sm">
+                            {daysPercentIncrease.replace("Infinity", "∞")} from{" "}
+                            {(parseInt(params.year) - 1).toString()}
+                          </Button>
+                        </CardActions>
+                      </Card>
+                    ) : null}
+                  </Stack>
+                  {/* <Demo /> */}
+                  {/* <CalendarHeatmap
   startDate={new Date('2023-01-01')}
   endDate={new Date('2023-12-31')}
   tooltipDataAttrs={(value: any) => { return { 'data-tooltip': 'Tooltip: ' + value } }}
@@ -1730,7 +1848,7 @@ export default function Page({
     // ...and so on
   ]}
 /> */}
-                {/* <PostList
+                  {/* <PostList
               applyFilters={applyFilters}
               setFilters={setFilters}
               filters={filters}
@@ -1748,13 +1866,19 @@ export default function Page({
               loaded={loaded}
               user={params.username}
             /> */}
-            <Typography sx={{mt: '18px'}} fontWeight="bold">Suggestions for wasteof Wrapped? <Link fontWeight="normal" href="https://github.com/imadeanaccount1/wasteofpostexplorer" endDecorator={<Launch />}>
-          Create a GitHub Issue!
-        </Link></Typography>
-              </Box>
+                  <Typography sx={{ mt: "18px" }} fontWeight="bold">
+                    Suggestions for wasteof Wrapped?{" "}
+                    <Link
+                      fontWeight="normal"
+                      href="https://github.com/imadeanaccount1/wasteofpostexplorer"
+                      endDecorator={<Launch />}
+                    >
+                      Create a GitHub Issue!
+                    </Link>
+                  </Typography>
+                </Box>
               ) : (
-                <LinearProgress sx={{marginX: '32px', marginTop: '64px'}} />
-
+                <LinearProgress sx={{ marginX: "32px", marginTop: "64px" }} />
               )}
             </Stack>
           </Box>
