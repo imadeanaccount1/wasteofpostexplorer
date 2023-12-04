@@ -18,13 +18,13 @@ import Link from "@mui/joy/Link";
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import { closeSidebar } from "../utils";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
-
+import CakeOutlinedIcon from '@mui/icons-material/CakeOutlined';
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import Image from "next/image";
 import SearchIcon from "@mui/icons-material/Search";
 import SearchComponent from "./SearchComponent";
-
+import RedeemIcon from '@mui/icons-material/Redeem';
 function Toggler({
   defaultExpanded = false,
   renderToggle,
@@ -136,7 +136,7 @@ export default function Sidebar(props: { user: string; page: string }) {
           <ListItem>
             <ListItemButton
               component="a"
-              href={props.page == "user" ? "../" : "../"}
+              href={props.page == "user" ? "../" :props.page == "wrapped" ? "../../" : "../"}
               selected={props.page == "home"}
             >
               <HomeRoundedIcon sx={{ marginRight: "8px" }} />
@@ -151,7 +151,7 @@ export default function Sidebar(props: { user: string; page: string }) {
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton
                   onClick={() => setOpen(!open)}
-                  href={props.page == "user" ? "../posts" : "posts"}
+                  href={props.page == "user" ? "../posts" : props.page == "wrapped" ? "../../posts" : "posts"}
                   component="a"
                   selected={props.page == "posts"}
                 >
@@ -194,7 +194,7 @@ export default function Sidebar(props: { user: string; page: string }) {
               selected={props.page == "users"}
               role="menuitem"
               component="a"
-              href={props.page == "user" ? "../users" : "users"}
+              href={props.page == "user" ? "../users" : props.page == "wrapped" ? "../../users" : "users"}
             >
               <GroupOutlinedIcon sx={{ marginRight: "8px" }} />
               <ListItemContent>
@@ -248,19 +248,31 @@ export default function Sidebar(props: { user: string; page: string }) {
           <ListItem>
             <ListItemButton
               component="a"
-              href={props.page == "search" ? "../finduser" : "../finduser"}
+              href={props.page == "search" ? "../finduser" : props.page == "wrapped" ? "../../finduser" : "../finduser"}
               selected={props.page == "search"}
             >
               <SearchIcon sx={{ marginRight: "8px" }} />
               <ListItemContent>
-                <Typography level="title-sm">Specific User<Chip sx={{marginLeft: '8px'}} color="primary" variant="solid">New!</Chip></Typography>
+                <Typography level="title-sm">Specific User</Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>
           <ListItem>
             <ListItemButton
               component="a"
-              href={props.page == "user" ? "../contact" : "../contact"}
+              href={props.page == "wrapped" ? "../wrapped" : props.page == "wrapped" ? "../../wrapped" : "../wrapped"}
+              selected={props.page == "wrapped"}
+            >
+              <RedeemIcon sx={{ marginRight: "8px" }} />
+              <ListItemContent>
+                <Typography level="title-sm">wasteof Wrapped<Chip sx={{marginLeft: '8px'}} color="primary" variant="solid">New!</Chip></Typography>
+              </ListItemContent>
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton
+              component="a"
+              href={props.page == "user" ? "../contact" : props.page == "wrapped" ? "../../contact" : "../contact"}
               selected={props.page == "contact"}
             >
               <SupportIcon sx={{ marginRight: "8px" }} />
@@ -288,7 +300,7 @@ export default function Sidebar(props: { user: string; page: string }) {
           </Stack>
           <Typography level="body-xs">
             Post Explorer Data may be outdated or inaccurate. Deleted or
-            admin-removed posts may be shown, contact us to report them. 
+            admin-removed posts may be shown, contact us to report them/request deletions. 
           </Typography>
         </Card>
       </Box>

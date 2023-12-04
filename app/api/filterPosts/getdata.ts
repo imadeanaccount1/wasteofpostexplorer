@@ -12,6 +12,7 @@ export async function getData(
   try {
     const database = client.db("womposts");
     const posts = database.collection("posts");
+    console.log(fullquery)
 
     // Query for a movie that has the title 'Back to the Future'
     let query : any = {}
@@ -44,7 +45,7 @@ export async function getData(
     }
 
     console.log(15 * (parseInt(page) - 1))
-
+    console.log(query)
     const postlist = await posts
       .find(query)
       .sort(sort)

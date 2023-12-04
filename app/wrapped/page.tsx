@@ -18,7 +18,7 @@ export default function Page({
       <CssVarsProvider disableTransitionOnChange>
         <CssBaseline />
         <Box sx={{ display: "flex", minHeight: "100dvh" }}>
-          <Sidebar page="search" user={params.username} />
+          <Sidebar page="wrapped" user={params.username} />
           <Header />
           <Box
             component="main"
@@ -42,7 +42,7 @@ export default function Page({
               overflow: "auto",
             }}
           >
-           <FindSpecificUser wrapped={false} />
+           <FindSpecificUser wrapped={true} />
           </Box>
         </Box>
       </CssVarsProvider>
