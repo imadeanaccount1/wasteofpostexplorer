@@ -215,6 +215,7 @@ function SortBy(props: any) {
           <Option value="loves">Love Count</Option>
           <Option value="reposts">Repost Count</Option>
           <Option value="comments">Comment Count</Option>
+          <Option value="edits">Edit Count</Option>
         </Select>
         <Typography
           sx={{ alignSelf: "center" }}

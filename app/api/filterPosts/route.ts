@@ -22,6 +22,8 @@ async function getQuery(filters: any) {
       fieldValue = "poster.name";
     } else if (filters[step].field === "posted") {
       fieldValue = "time"
+    } else if (filters[step].field === "edits") {
+      fieldValue = "revisions.length"
     }
 
     let valueValue: any = null;
