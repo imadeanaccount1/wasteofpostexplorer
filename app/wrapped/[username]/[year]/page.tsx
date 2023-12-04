@@ -2,10 +2,12 @@
 
 import * as React from "react";
 import { CssVarsProvider } from "@mui/joy/styles";
+import PinOutlinedIcon from '@mui/icons-material/PinOutlined';
 import CssBaseline from "@mui/joy/CssBaseline";
 import LinearProgress from "@mui/joy/LinearProgress";
 import FourKOutlinedIcon from "@mui/icons-material/FourKOutlined";
-
+import AbcOutlinedIcon from '@mui/icons-material/AbcOutlined';
+import StraightenOutlinedIcon from '@mui/icons-material/StraightenOutlined';
 // import 'react-calendar-heatmap/dist/styles.css';
 import Launch from "@mui/icons-material/Launch";
 import LinkIcon from "@mui/icons-material/Link";
@@ -1242,7 +1244,7 @@ export default function Page({
                               average word count
                             </Typography>
                           </CardContent>
-                          <RecyclingOutlinedIcon />
+                          <PinOutlinedIcon />
                         </CardContent>
                         <CardActions>
                           <Button variant="soft" size="sm">
@@ -1271,7 +1273,7 @@ export default function Page({
                               average character count
                             </Typography>
                           </CardContent>
-                          <RecyclingOutlinedIcon />
+                          <AbcOutlinedIcon />
                         </CardContent>
                         <CardActions>
                           <Button variant="soft" size="sm">
@@ -1300,7 +1302,7 @@ export default function Page({
                               average word length
                             </Typography>
                           </CardContent>
-                          <RecyclingOutlinedIcon />
+                          <StraightenOutlinedIcon />
                         </CardContent>
                         <CardActions>
                           <Button variant="soft" size="sm">
