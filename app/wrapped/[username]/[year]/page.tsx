@@ -109,6 +109,12 @@ export default function Page({
   const [youReposted, setYouReposted] = React.useState<any>([]);
   const [repostedYou, setRepostedYou] = React.useState<any>([]);
   const [topMentions, setTopMentions] = React.useState<any>([]);
+  const [wordCount, setWordCount] = React.useState<any>(0);
+  const [wordLength, setWordLength] = React.useState<any>(0);
+  const [characterCount, setCharacterCount] = React.useState<any>(0);
+  const [wordCountIncrease, setWordCountIncrease] = React.useState<any>("");
+  const [wordLengthIncrease, setWordLengthIncrease] = React.useState<any>("");
+  const [characterCountIncrease, setCharacterCountIncrease] = React.useState<any>("");
   var parse = require("html-react-parser");
 
   function fetchData() {
@@ -240,9 +246,9 @@ export default function Page({
         );
         setTrends(data.trends);
         setRepostPercent(
-          Math.round(
-            (data.postCount.repostCount / data.postCount.count) * 100
-          ).toString() + "%"
+          (Math.round(
+            (data.postCount.repostCount / data.postCount.count) * 10000
+          )/100).toString() + "%"
         );
         setRepostIncrease(
           (
@@ -266,16 +272,16 @@ export default function Page({
         );
         setBlankRepostCount(data.postCount.blankRepostCount);
         setBlankRepostPercent(
-          Math.round(
-            (data.postCount.blankRepostCount / data.postCount.repostCount) * 100
-          ).toString() + "%"
+          (Math.round(
+            (data.postCount.blankRepostCount / data.postCount.repostCount) * 10000
+          )/100).toString() + "%"
         );
         setPostAverages(data.postAverages);
         setMediaCount(data.postCount.mediaCount);
         setMediaPercent(
-          Math.round(
-            (data.postCount.mediaCount / data.postCount.count) * 100
-          ).toString() + "%"
+          (Math.round(
+            (data.postCount.mediaCount / data.postCount.count) * 10000
+          )/100).toString() + "%"
         );
         // set loves count (data.postAverages.averageLoves) increase/decrease since last year (data.postAverages.averageLoves2)
         setLovesIncrease(
@@ -338,7 +344,7 @@ export default function Page({
         setTopPosts(data.top.topPosts);
         setWorstPosts(data.top.worstPosts);
         setDaysPercent(
-          Math.round((data.datesPosted.length / 365) * 100).toString() + "%"
+          (Math.round((data.datesPosted.length / 365) * 10000)/100).toString() + "%"
         );
         // compare days posted to last year
         setDaysPercentIncrease(
@@ -359,6 +365,49 @@ export default function Page({
         setTopReposted(data.top.topReposted);
         setTopCommented(data.top.topCommented);
         setTopWords(data.postContentAnalysis.topWords);
+        setWordCount(data.postContentAnalysis.wordCount)
+        setWordLength(data.postContentAnalysis.wordLength)
+        setCharacterCount(data.postContentAnalysis.characterCount)
+        setWordCountIncrease((
+          Math.round(
+            (data.postContentAnalysis.wordCount / data.postContentAnalysis.wordCount2) * 100
+          ) - 100
+        ).toString() +
+          "% " +
+          (Math.round(
+            (data.postContentAnalysis.wordCount / data.postContentAnalysis.wordCount2) * 100
+          ) -
+            100 >
+          0
+            ? "increase"
+            : "decrease"))
+        setWordLengthIncrease((
+          Math.round(
+            (data.postContentAnalysis.wordLength / data.postContentAnalysis.wordLength2) * 100
+          ) - 100
+        ).toString() +
+          "% " +
+          (Math.round(
+            (data.postContentAnalysis.wordLength / data.postContentAnalysis.wordLength2) * 100
+          ) -
+            100 >
+          0
+            ? "increase"
+            : "decrease"))
+        setCharacterCountIncrease((
+          Math.round(
+            (data.postContentAnalysis.characterCount / data.postContentAnalysis.characterCount2) * 100
+          ) - 100
+        ).toString() +
+          "% " +
+          (Math.round(
+            (data.postContentAnalysis.characterCount / data.postContentAnalysis.characterCount2) * 100
+          ) -
+            100 >
+          0
+            ? "increase"
+            : "decrease"))
+
         setTopImages(data.top.topImages);
         setYouReposted(data.top.youReposted);
         setRepostedYou(data.top.repostedYou);
@@ -1177,6 +1226,94 @@ export default function Page({
                         </CardActions>
                       </Card>
                     ) : null}
+                                        {wordCount ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="h2">
+                            {Math.round(wordCount*100)/100}
+                            </Typography>
+                            <Typography level="body-md">
+                              average word count
+                            </Typography>
+                          </CardContent>
+                          <RecyclingOutlinedIcon />
+                        </CardContent>
+                        <CardActions>
+                          <Button variant="soft" size="sm">
+                            {wordCountIncrease.replace("Infinity", "∞")} from{" "}
+                            {(parseInt(params.year) - 1).toString()}
+                          </Button>
+                          {/* <Button variant="solid" size="sm">
+          See breakdown
+        </Button> */}
+                        </CardActions>
+                      </Card>
+                    ) : null}
+                                                            {characterCount ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="h2">
+                            {Math.round(characterCount*100)/100}
+                            </Typography>
+                            <Typography level="body-md">
+                              average character count
+                            </Typography>
+                          </CardContent>
+                          <RecyclingOutlinedIcon />
+                        </CardContent>
+                        <CardActions>
+                          <Button variant="soft" size="sm">
+                            {characterCountIncrease.replace("Infinity", "∞")} from{" "}
+                            {(parseInt(params.year) - 1).toString()}
+                          </Button>
+                          {/* <Button variant="solid" size="sm">
+          See breakdown
+        </Button> */}
+                        </CardActions>
+                      </Card>
+                    ) : null}
+                                                                                {wordLength ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="h2">
+                            {Math.round(wordLength*100)/100}
+                            </Typography>
+                            <Typography level="body-md">
+                              average word length
+                            </Typography>
+                          </CardContent>
+                          <RecyclingOutlinedIcon />
+                        </CardContent>
+                        <CardActions>
+                          <Button variant="soft" size="sm">
+                            {wordLengthIncrease.replace("Infinity", "∞")} from{" "}
+                            {(parseInt(params.year) - 1).toString()}
+                          </Button>
+                          {/* <Button variant="solid" size="sm">
+          See breakdown
+        </Button> */}
+                        </CardActions>
+                      </Card>
+                    ) : null}
+                    
                     {blankRepostPercent && !blankRepostPercent.includes('NaN') ? (
                       <Card
                         sx={{ height: "160px", width: "280px", margin: "6px" }}

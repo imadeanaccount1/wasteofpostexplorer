@@ -647,6 +647,186 @@ export async function GET(request: NextRequest) {
       $limit: 5, // Change this number based on your requirement
     },
   ]);
+  const wordCount = posts.aggregate([
+    {
+      $match: {
+        time: {
+          $gte: new Date(year + "-01-01").getTime(),
+          $lte: new Date(year + "-12-31").getTime(),
+        },
+      },
+    },
+    {
+      $match: {
+        "poster.id": { $eq: userrecord.id },
+      },
+    },
+    // Match messages containing mentions
+    {
+      $project: {
+        wordCount: { $size: { $split: ["$content", " "] } }
+      }
+    },
+    {
+      $group: {
+        _id: null,
+        averageWordCount: { $avg: "$wordCount" }
+      }
+    }
+  ]);
+  const characterCount = posts.aggregate([
+    {
+      $match: {
+        time: {
+          $gte: new Date(year + "-01-01").getTime(),
+          $lte: new Date(year + "-12-31").getTime(),
+        },
+      },
+    },
+    {
+      $match: {
+        "poster.id": { $eq: userrecord.id },
+      },
+    },
+    // Match messages containing mentions
+    {
+      $project: {
+        characterCount: { $strLenCP: "$content" }
+      }
+    },
+    {
+      $group: {
+        _id: null,
+        averageCharacterCount: { $avg: "$characterCount" }
+      }
+    }
+  ]);
+  const wordLength = posts.aggregate([
+    {
+      $match: {
+        time: {
+          $gte: new Date(year + "-01-01").getTime(),
+          $lte: new Date(year + "-12-31").getTime(),
+        },
+      },
+    },
+    {
+      $match: {
+        "poster.id": { $eq: userrecord.id },
+      },
+    },
+    // Match messages containing mentions
+    {
+      $project: {
+        wordLengths: {
+          $map: {
+            input: { $split: ["$content", " "] },
+            as: "word",
+            in: { $strLenCP: "$$word" }
+          }
+        }
+      }
+    },
+    {
+      $unwind: "$wordLengths"
+    },
+    {
+      $group: {
+        _id: null,
+        averageWordLength: { $avg: "$wordLengths" }
+      }
+    }
+  ]);
+  const wordCount2 = posts.aggregate([
+    {
+      $match: {
+        time: {
+          $gte: new Date((parseInt(year) - 1).toString() + "-01-01").getTime(),
+          $lte: new Date((parseInt(year) - 1).toString() + "-12-31").getTime(),
+        },
+      },
+    },
+    {
+      $match: {
+        "poster.id": { $eq: userrecord.id },
+      },
+    },
+    // Match messages containing mentions
+    {
+      $project: {
+        wordCount: { $size: { $split: ["$content", " "] } }
+      }
+    },
+    {
+      $group: {
+        _id: null,
+        averageWordCount: { $avg: "$wordCount" }
+      }
+    }
+  ]);
+  const characterCount2 = posts.aggregate([
+    {
+      $match: {
+        time: {
+          $gte: new Date((parseInt(year) - 1).toString() + "-01-01").getTime(),
+          $lte: new Date((parseInt(year) - 1).toString() + "-12-31").getTime(),
+        },
+      },
+    },
+    {
+      $match: {
+        "poster.id": { $eq: userrecord.id },
+      },
+    },
+    // Match messages containing mentions
+    {
+      $project: {
+        characterCount: { $strLenCP: "$content" }
+      }
+    },
+    {
+      $group: {
+        _id: null,
+        averageCharacterCount: { $avg: "$characterCount" }
+      }
+    }
+  ]);
+  const wordLength2 = posts.aggregate([
+    {
+      $match: {
+        time: {
+          $gte: new Date((parseInt(year) - 1).toString() + "-01-01").getTime(),
+          $lte: new Date((parseInt(year) - 1).toString() + "-12-31").getTime(),
+        },
+      },
+    },
+    {
+      $match: {
+        "poster.id": { $eq: userrecord.id },
+      },
+    },
+    // Match messages containing mentions
+    {
+      $project: {
+        wordLengths: {
+          $map: {
+            input: { $split: ["$content", " "] },
+            as: "word",
+            in: { $strLenCP: "$$word" }
+          }
+        }
+      }
+    },
+    {
+      $unwind: "$wordLengths"
+    },
+    {
+      $group: {
+        _id: null,
+        averageWordLength: { $avg: "$wordLengths" }
+      }
+    }
+  ]);
   const topWords = posts.aggregate([
     {
       $match: {
@@ -941,6 +1121,30 @@ export async function GET(request: NextRequest) {
   for await (const doc of topMentions) {
     pictures20.push(Object.assign(doc, { username: doc._id.split("@")[1] }));
   }
+  const pictures21 = [];
+  for await (const doc of wordCount) {
+    pictures21.push(doc);
+  }
+  const pictures22 = [];
+  for await (const doc of characterCount) {
+    pictures22.push(doc);
+  }
+  const pictures23 = [];
+  for await (const doc of wordLength) {
+    pictures23.push(doc);
+  }
+  const pictures24 = [];
+  for await (const doc of wordCount2) {
+    pictures24.push(doc);
+  }
+  const pictures25 = [];
+  for await (const doc of characterCount2) {
+    pictures25.push(doc);
+  }
+  const pictures26 = [];
+  for await (const doc of wordLength2) {
+    pictures26.push(doc);
+  }
 
   const has4000 = await fetch(
     "https://api.wasteof.money/users/4000/followers/" + userrecord.name + "/"
@@ -987,6 +1191,13 @@ export async function GET(request: NextRequest) {
     },
     postContentAnalysis: {
       topWords: pictures15,
+      wordCount: pictures21[0] ? pictures21[0].averageWordCount : 0,
+      characterCount: pictures22[0] ? pictures22[0].averageCharacterCount : 0,
+      wordLength: pictures23[0] ? pictures23[0].averageWordLength : 0,
+      wordCount2: pictures24[0] ? pictures24[0].averageWordCount : 0,
+      characterCount2: pictures25[0] ? pictures25[0].averageCharacterCount : 0,
+      wordLength2: pictures26[0] ? pictures26[0].averageWordLength : 0,
+
     },
     stats: userrecord.stats,
     trends:
