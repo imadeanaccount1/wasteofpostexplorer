@@ -776,7 +776,7 @@ export default function Page({
                         <CardContent orientation="horizontal">
                           <CardContent>
                             <Typography level="body-md">
-                              been successfully ratio{"'"}d
+                              were successfully ratio{"'"}d
                             </Typography>
 
                             <Typography level="h2">
@@ -810,7 +810,7 @@ export default function Page({
                         <CardContent orientation="horizontal">
                           <CardContent>
                             <Typography level="body-md">
-                              been unsuccessfully ratio{"'"}d
+                              were unsuccessfully ratio{"'"}d
                             </Typography>
 
                             <Typography level="h2">
