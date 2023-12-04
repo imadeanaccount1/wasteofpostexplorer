@@ -1093,7 +1093,9 @@ export async function GET(request: NextRequest) {
   }
   const pictures15 = [];
   for await (const doc of topWords) {
-    pictures15.push(doc);
+    if (doc._id !== '') {
+      pictures15.push(doc);
+    }
   }
   const pictures16 = [];
   for await (const doc of topImages) {
