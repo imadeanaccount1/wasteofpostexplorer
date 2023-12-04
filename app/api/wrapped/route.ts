@@ -843,7 +843,18 @@ export async function GET(request: NextRequest) {
     },
     {
       $project: {
-        words: { $split: ["$content", " "] },
+        plainTextContent: {
+          $replaceAll: {
+            input: "$content",
+            find: '/<.*?>/g',  // Regex to match HTML tags
+            replacement: "",
+          },
+        },
+      },
+    },
+    {
+      $project: {
+        words: { $split: ["$plainTextContent", " "] },
       },
     },
     {
@@ -1093,7 +1104,7 @@ export async function GET(request: NextRequest) {
   }
   const pictures15 = [];
   for await (const doc of topWords) {
-    if (doc._id !== '') {
+    if (doc._id !== '' && doc._id !== ' ' && doc._id !== "</p>") {
       pictures15.push(doc);
     }
   }
