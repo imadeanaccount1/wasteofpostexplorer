@@ -1041,6 +1041,28 @@ export default function Page({
                         </CardContent>
                       </Card>
                     ) : null}
+                    {trends.owenathletic > 0 ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="body-md">
+                              reposted owenathletic
+                            </Typography>
+
+                            <Typography level="h2">
+                              {trends.owenathletic} time
+                              {trends.owenathletic != 1 ? "s" : ""}
+                            </Typography>
+                          </CardContent>
+                          <InsertEmoticonIcon />
+                        </CardContent>
+                      </Card>
+                    ) : null}
                     {blankRepostCount > 0 ? (
                       <Card
                         sx={{ height: "160px", width: "280px", margin: "6px" }}

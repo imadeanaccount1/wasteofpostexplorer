@@ -1168,10 +1168,11 @@ export async function GET(request: NextRequest) {
   //     count: previousValue.count + currentValue.count
   //   }
   // });
+  console.log(userrecord)
   return Response.json({
     datesPosted: pictures,
     datesPostedLastYear: pictures4,
-    joindate: userrecord.history.joined,
+    joindate: userrecord.history ? userrecord.history.joined : 0,
     postCount: {
       count: pictures2[0] ? pictures2[0].number_of_days : 0,
       count2: pictures3[0] ? pictures3[0].number_of_days : 0,
@@ -1232,7 +1233,7 @@ export async function GET(request: NextRequest) {
             nightyMorning:
               nightyMorningList.length > 0 ? nightyMorningList.length : 0,
             "8443": list8443.length > 0,
-            twoyear: userrecord.history.joined < 1676091600000,
+            twoyear: (userrecord.history ? userrecord.history.joined : 0) < 1676091600000,
             immark_v2: immark_v2List.length > 0 ? immark_v2List.length : 0,
             "4000": has4000,
           }
