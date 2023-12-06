@@ -126,6 +126,9 @@ export default function Page({
     )
       .then((res) => res.json())
       .then((data) => {
+        if (data.error) {
+          alert("Rate limted. :/ Please wait 1 minute and try again")
+        } else {
         console.log("data", data.postCount.count);
         setDatesPosted(
           data.datesPosted.map((rec: any) => {
@@ -415,6 +418,7 @@ export default function Page({
         setRepostedYou(data.top.repostedYou);
         setTopMentions(data.top.topMentions);
         seteverLoaded(true);
+          }
       });
   }
   React.useEffect(() => {
