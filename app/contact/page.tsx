@@ -2,6 +2,7 @@
 
 import { StyledEngineProvider } from "@mui/joy/styles";
 import Hero from "../components/Hero";
+import Link from '@mui/joy/Link';
 
 import * as React from "react";
 import { CssVarsProvider } from "@mui/joy/styles";
@@ -97,6 +98,9 @@ export default function Page({ params }: { params: { username: string } }) {
             </Typography>
             <Typography sx={{ margin: "0px auto", maxWidth: "900px", textAlign: 'left' }}>
               This tool is licensed under the MIT License.
+            </Typography>
+            <Typography sx={{ margin: "0px auto", maxWidth: "900px", textAlign: 'left' }}>
+              <Link href="https://imadeanaccount-analytics.vercel.app/share/fyV2T0twgX84ScY4/postexplorer">Analytics</Link>
             </Typography>
           </Box>
         </Box>
