@@ -2,7 +2,7 @@ const { MongoClient } = require("mongodb");
 import { type NextRequest } from "next/server";
 // @ts-ignore
 import { get, set } from "lodash";
-const rateLimit = 20; // Number of allowed requests per minute
+const rateLimit = 1; // Number of allowed requests per minute
 
 const rateLimiter = {};
 
