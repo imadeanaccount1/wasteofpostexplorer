@@ -1,5 +1,6 @@
 "use client";
 
+import AutoFixHighOutlinedIcon from '@mui/icons-material/AutoFixHighOutlined';
 import * as React from "react";
 import { CssVarsProvider } from "@mui/joy/styles";
 import PinOutlinedIcon from '@mui/icons-material/PinOutlined';
@@ -1024,7 +1025,7 @@ export default function Page({
                               {trends.dragons != 1 ? "s" : ""}
                             </Typography>
                           </CardContent>
-                          <RocketLaunchOutlinedIcon />
+                          <AutoFixHighOutlinedIcon />
                         </CardContent>
                       </Card>
                     ) : null}
