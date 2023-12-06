@@ -99,9 +99,7 @@ export default function Page({ params }: { params: { username: string } }) {
             <Typography sx={{ margin: "0px auto", maxWidth: "900px", textAlign: 'left' }}>
               This tool is licensed under the MIT License.
             </Typography>
-            <Typography sx={{ margin: "0px auto", maxWidth: "900px", textAlign: 'left' }}>
-              <Link href="https://imadeanaccount-analytics.vercel.app/share/fyV2T0twgX84ScY4/postexplorer">Analytics</Link>
-            </Typography>
+
           </Box>
         </Box>
       </CssVarsProvider>
