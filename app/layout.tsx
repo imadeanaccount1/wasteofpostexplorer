@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-      {/* <script async src="https://postexplorer-umami-imadeanaccount.vercel.app/script.js" data-website-id="21c969ed-14e3-450f-bb08-8ee748fe8590"></script> */}
+      <script async src="https://postexplorer-umami-imadeanaccount.vercel.app/script.js" data-website-id="21c969ed-14e3-450f-bb08-8ee748fe8590"></script>
       </head>
       <body>{children}</body>
     </html>
