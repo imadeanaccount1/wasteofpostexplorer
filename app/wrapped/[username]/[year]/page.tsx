@@ -1006,6 +1006,28 @@ export default function Page({
                         </CardContent>
                       </Card>
                     ) : null}
+                     {trends.dragons > 0 ? (
+                      <Card
+                        sx={{ height: "160px", width: "280px", margin: "6px" }}
+                        variant="soft"
+                        color="primary"
+                        invertedColors
+                      >
+                        <CardContent orientation="horizontal">
+                          <CardContent>
+                            <Typography level="body-md">
+                              mentioned dragons
+                            </Typography>
+
+                            <Typography level="h2">
+                              {trends.dragons} time
+                              {trends.dragons != 1 ? "s" : ""}
+                            </Typography>
+                          </CardContent>
+                          <RocketLaunchOutlinedIcon />
+                        </CardContent>
+                      </Card>
+                    ) : null}
                     {trends.hottake > 0 ? (
                       <Card
                         sx={{ height: "160px", width: "280px", margin: "6px" }}

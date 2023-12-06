@@ -1027,6 +1027,20 @@ export async function GET(request: NextRequest) {
       if (err) throw err;
       client.close();
     });
+    const dragonList = await posts
+    .find({
+      "poster.id": { $eq: userrecord.id },
+      $text: { $search: '"dragon"' },
+
+      time: {
+        $gte: new Date(year + "-01-01").getTime(),
+        $lte: new Date(year + "-12-31").getTime(),
+      },
+    })
+    .toArray(function (err: any, result: any) {
+      if (err) throw err;
+      client.close();
+    });
   const immark_v2List = await posts
     .find({
       "poster.id": { $eq: userrecord.id },
@@ -1229,6 +1243,7 @@ export async function GET(request: NextRequest) {
                 : [],
             kidsAreMore: kidsAreMoreList.length > 0,
             elonMusk: elonList.length > 0 ? elonList.length : 0,
+            dragons: dragonList.length > 0 ? dragonList.length : 0,
             mathClass: mathClassList.length > 0 ? mathClassList.length : 0,
             nightyMorning:
               nightyMorningList.length > 0 ? nightyMorningList.length : 0,
