@@ -180,7 +180,12 @@ export default function Post(props: {
               {formatTime(props.data.time)}
             </Typography>
             <Link href={"https://wasteof.money/posts/" + props.data["_id"]}>
-              <Button>Open Post on wasteof</Button>
+              <Button onClick={() => {
+                          if (window != undefined) {
+                            // @ts-ignore
+                            window!.umami.track('open_post', {id: props.data["_id"]})
+                          }
+              }}>Open Post on wasteof</Button>
             </Link>
           </Stack>
         </CardActions>

@@ -127,6 +127,10 @@ export default function Page({
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
+          if (window != undefined) {
+            // @ts-ignore
+            window!.umami.track('wrapped_error')
+          }
           alert("Rate limted. :/ Please wait 1 minute and try again")
         } else {
         console.log("data", data.postCount.count);
