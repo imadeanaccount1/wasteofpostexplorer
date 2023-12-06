@@ -193,6 +193,7 @@ export default function SearchComponent(props: any) {
               </Typography>
             ) : null}
             <Image
+              unoptimized
               style={{ marginRight: "8px", borderRadius: "100%" }}
               alt={option.name + "'s profile picture"}
               src={

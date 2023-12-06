@@ -41,6 +41,7 @@ export default function Post(props: {
             >
               <Link color="primary" href={"./users/" + props.data.poster.name}>
                 <Image
+                  unoptimized
                   src={`https://api.wasteof.money/users/${props.data.poster.name}/picture`}
                   loading="lazy"
                   alt=""

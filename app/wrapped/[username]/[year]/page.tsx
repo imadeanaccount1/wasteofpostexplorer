@@ -506,6 +506,7 @@ export default function Page({
                     direction="row"
                   >
                     <Image
+                      unoptimized
                       src={`https://api.wasteof.money/users/${params.username}/picture`}
                       loading="lazy"
                       alt=""
@@ -1716,6 +1717,7 @@ export default function Page({
                           spacing={1}
                         >
                           <Image
+                            unoptimized
                             src={`https://api.wasteof.money/users/${data.username}/picture`}
                             loading="lazy"
                             alt=""
@@ -1776,6 +1778,7 @@ export default function Page({
                           spacing={1}
                         >
                           <Image
+                            unoptimized
                             src={`https://api.wasteof.money/users/${data.username}/picture`}
                             loading="lazy"
                             alt=""
@@ -1836,6 +1839,7 @@ export default function Page({
                           spacing={1}
                         >
                           <Image
+                            unoptimized
                             src={`https://api.wasteof.money/users/${data.username}/picture`}
                             loading="lazy"
                             alt=""

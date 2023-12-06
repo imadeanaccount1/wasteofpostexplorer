@@ -210,6 +210,7 @@ export default function Sidebar(props: { user: string; page: string }) {
                 renderToggle={({ open, setOpen }) => (
                   <ListItemButton onClick={() => setOpen(!open)}>
                     <Image
+                      unoptimized
                       src={`https://api.wasteof.money/users/${props.user}/picture`}
                       loading="lazy"
                       alt=""

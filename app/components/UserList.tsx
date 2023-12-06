@@ -279,6 +279,7 @@ function User (props: {data: any}) {
             >
               <Link href={"./users/" + props.data.name}>
               <Image
+                unoptimized
                 src={`https://api.wasteof.money/users/${props.data.name}/picture`}
                 loading="lazy"
                 alt=""
