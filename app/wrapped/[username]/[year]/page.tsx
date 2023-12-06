@@ -1016,7 +1016,7 @@ export default function Page({
                         <CardContent orientation="horizontal">
                           <CardContent>
                             <Typography level="body-md">
-                              mentioned dragons
+                              mentioned dragons 🐉
                             </Typography>
 
                             <Typography level="h2">
